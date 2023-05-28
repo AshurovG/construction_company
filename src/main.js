@@ -1,5 +1,5 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-//по приколу тестирую гит
+//testing commits
 
 createApp(App).mount("#app");
