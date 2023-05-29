@@ -148,4 +148,9 @@
     color: #F5F5F5;
 }
 
+.btn_send_email:hover {
+    cursor: pointer;
+    background: rgba(135, 15, 15, 0.82);
+}
+
 </style>

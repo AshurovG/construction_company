@@ -4,11 +4,9 @@
 
 
 <script>
-import orderForm from './components/orderForm.vue';
 export default {
   name: 'App',
   components: {
-    orderForm
   }
 }
 </script>
