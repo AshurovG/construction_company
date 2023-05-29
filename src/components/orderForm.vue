@@ -62,6 +62,7 @@
     margin: 0 auto;
     margin-bottom: 52px;
     padding: 16px 26px;
+    text-align: left;
     width: 720px;
     height: 75px;
     left: 150px;
@@ -79,8 +80,11 @@
 }
 
 .form_order_text {
-    width: 720px;
-    height: 250px;
+    text-align: left;
+    max-width: 720px;
+    min-width: 720px;
+    min-height: 250px;
+    max-height: 400px;
     left: 150px;
     top: 419px;
     margin-bottom: 52px;
