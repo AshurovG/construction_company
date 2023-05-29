@@ -15,7 +15,7 @@
                     <a class="header-nav-link" href="#">Помощь</a>
                     <a class="header-nav-link" href="#">Контакты</a>
                 </nav>
-                <button class="btn-order">
+                <button class="btn-order" @click="openOrderForm">
                     Сделать заказ
                 </button>
             </div>
@@ -26,7 +26,12 @@
 
 <script>
 export default {
-    name:"HeaderPage"
+    name:"HeaderPage",
+    methods: {
+      openOrderForm() {
+        this.$emit('openOrderForm')
+      }
+    }
 }
 </script>
 
@@ -37,8 +42,6 @@ export default {
   width: 100%;
   padding: 2rem 0;
   margin-bottom: 50px;
-
-
 }
 
 .header-inner {

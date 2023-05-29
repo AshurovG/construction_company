@@ -1,6 +1,6 @@
 <template>
     <!-- Здесь помещается шаблон компонента -->
-    <div class="container">
+    <div class="form_container">
         <form class="order_form" @submit.prevent="sendEmail">
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
@@ -69,15 +69,28 @@
   
 <style>
 
-.container {
-    width: 700px;
-    height: 500px;
+.form_container {
+    /* margin: auto; */
+    width: 1020px;
+    height: 920px;
     background: #fff;
     border-radius: 40px;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    margin: 0 auto;
+}
+
+.order_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form_item {
-    margin: 0 auto;
+    /* margin: 0 auto; */
     margin-bottom: 52px;
     padding: 16px 26px;
     text-align: left;
@@ -101,8 +114,8 @@
     text-align: left;
     max-width: 720px;
     min-width: 720px;
-    min-height: 250px;
-    max-height: 400px;
+    min-height: 300px;
+    max-height: 300px;
     left: 150px;
     top: 419px;
     margin-bottom: 52px;
@@ -124,6 +137,7 @@
     height: 49px;
     margin: 0 auto;
     margin-bottom: 52px;
+    padding: 52px 0;
 
     font-style: normal;
     font-weight: 700;
