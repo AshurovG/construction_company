@@ -1,6 +1,7 @@
 <template>
     <div class="header">
         <div class="container">
+          <div class="content">
             <div class="header-inner">
                 <div class="header-brand">
                     ФРОЛФАСД
@@ -18,6 +19,7 @@
                     Сделать заказ
                 </button>
             </div>
+          </div>
         </div>
     </div>
 </template>
@@ -32,8 +34,8 @@ export default {
 <style>
 .header {
   background-color: #610a0a;
-
-  padding: 1rem 0;
+  width: 100%;
+  padding: 2rem 0;
   margin-bottom: 50px;
 }
 
@@ -44,7 +46,7 @@ export default {
 }
 
 .header-brand {
-  margin-left: 15px;
+  /* margin-left: 15px; */
   font-size: 2rem;
   color: #F5F5F5;
   text-transform: uppercase;
@@ -83,13 +85,17 @@ export default {
     border: 0;
 
     padding: 13px 56px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
 
     transition: background-color 0.2s linear;
 }
 
 .btn-order:hover {
     background-color:#e1dfdf;
+}
+
+.content {
+  margin: 0px 150px;
 }
 
 </style>
