@@ -49,8 +49,5 @@ export default {
 
 .content {
   margin: 0px 150px;
-}
-
-
-
+} 
 </style>
