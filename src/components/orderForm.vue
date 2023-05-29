@@ -1,7 +1,7 @@
 <template>
     <!-- Здесь помещается шаблон компонента -->
     <div class="container">
-        <form class="order_form" @submit.prevent="submitForm">
+        <form class="order_form" @submit.prevent="sendEmail">
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
             class="form_item"
@@ -30,13 +30,13 @@
             v-model="order"
             required
             ></textarea><br>
-            <button  class="btn_send_email">Сделать заказ</button>
+            <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
         </form>
     </div>
  </template>
   
 <script>
-    import axios from 'axios';
+    import emailjs from 'emailjs-com';
     export default {
         data() {
             return {
@@ -46,25 +46,25 @@
             };
         },
         methods: {
-            submitForm() {
-                axios.post('/send-email', {
+            sendEmail(e) {
+                try {
+                    emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+                    'Yr8QuQUIlXompjRBo', {
                     fio: this.fio,
                     emailOrPhoneNumber: this.emailOrPhoneNumber,
                     order: this.order
-                })
-                .then(response => {
-                    console.log(response.data);
-                    console.log("success")
-                    // здесь можно добавить обработку успешной отправки сообщения
-                })
-                .catch(error => {
-                    console.log(error);
-                    console.log('ERR')
-                    // здесь можно добавить обработку ошибки отправки сообщения
-                });
-            }
-    }
-    }
+                    })
+
+                } catch(error) {
+                    console.log({error})
+                }
+                // Reset form field
+                this.fio = ''
+                this.emailOrPhoneNumber = ''
+                this.order = ''
+            },
+        }
+  }
 </script>
   
 <style>
