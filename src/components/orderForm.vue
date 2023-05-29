@@ -1,7 +1,7 @@
 <template>
     <!-- Здесь помещается шаблон компонента -->
     <div class="container">
-        <form action="" class="order_form">
+        <form class="order_form" @submit.prevent="submitForm">
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
             class="form_item"
@@ -30,12 +30,13 @@
             v-model="order"
             required
             ></textarea><br>
-            <button class="btn_send_email">Сделать заказ</button>
+            <button  class="btn_send_email">Сделать заказ</button>
         </form>
     </div>
  </template>
   
 <script>
+    import axios from 'axios';
     export default {
         data() {
             return {
@@ -43,9 +44,26 @@
                 emailOrPhoneNumber: '',
                 order: ''
             };
-      },
+        },
         methods: {
-        }
+            submitForm() {
+                axios.post('/send-email', {
+                    fio: this.fio,
+                    emailOrPhoneNumber: this.emailOrPhoneNumber,
+                    order: this.order
+                })
+                .then(response => {
+                    console.log(response.data);
+                    console.log("success")
+                    // здесь можно добавить обработку успешной отправки сообщения
+                })
+                .catch(error => {
+                    console.log(error);
+                    console.log('ERR')
+                    // здесь можно добавить обработку ошибки отправки сообщения
+                });
+            }
+    }
     }
 </script>
   
