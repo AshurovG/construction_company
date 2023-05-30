@@ -73,6 +73,7 @@ export default {
 }
 
 .header-nav-link {
+  z-index: 20;
   margin-left: 1.5rem;
 
   color: #F5F5F5;

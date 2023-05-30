@@ -5,27 +5,27 @@
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
             class="form_item"
-            type="text" 
-            id="fio" 
-            name="fio" 
+            type="text"
+            id="fio"
+            name="fio"
             placeholder="ФИО*"
             v-model="fio"
             required
             ><br>
-            <input 
-            class="form_item" 
-            type="text" 
-            id="emailOrPhoneNumber" 
-            name="emailOrPhoneNumber" 
-            placeholder="Телефон или e-mail*" 
-            v-model="emailOrPhoneNumber" 
+            <input
+            class="form_item"
+            type="text"
+            id="emailOrPhoneNumber"
+            name="emailOrPhoneNumber"
+            placeholder="Телефон или e-mail*"
+            v-model="emailOrPhoneNumber"
             required
             ><br>
-            <textarea 
-            class="form_order_text" 
-            type="text" 
-            id="order" 
-            name="order" 
+            <textarea
+            class="form_order_text"
+            type="text"
+            id="order"
+            name="order"
             placeholder="Опишите заказ*"
             v-model="order"
             required
@@ -34,7 +34,7 @@
         </form>
     </div>
  </template>
-  
+
 <script>
     import emailjs from 'emailjs-com';
     export default {
@@ -66,7 +66,7 @@
         }
   }
 </script>
-  
+
 <style>
 
 .form_container {

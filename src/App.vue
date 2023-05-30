@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeForm"></div>
     </transition>
-      <header-page @openOrderForm="openOrderForm"/>
+    <header-page @openOrderForm="openOrderForm"/>
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -11,24 +11,27 @@
     <div class="form_for_order" ref="form_for_order">
         <order-form/>
     </div>
+    <question-list></question-list>
     <footer-page></footer-page>
   </div>
 </template>
 
 
 <script>
-//import Header from 'components/header.vue'
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
 import FooterPage from './components/footer.vue'
-import orderForm from './components/orderForm.vue';
+import orderForm from './components/orderForm.vue'
+import QuestionList from './components/QuestionList.vue'
+
 export default {
   name: 'App',
   components:{
     HeaderPage,
     AboutCompanyPage,
     FooterPage,
-    orderForm
+    orderForm,
+    QuestionList
   },
   data() {
     return {
@@ -81,6 +84,7 @@ export default {
 }
 
 .form_for_order {
+  z-index: -1;
   opacity: 0;
   transition: opacity .2s linear;
 }
