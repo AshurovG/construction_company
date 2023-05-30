@@ -25,7 +25,7 @@ export default {
   components:{
     HeaderPage,
     AboutCompanyPage,
-    orderForm
+    orderForm,
   },
   data() {
     return {
