@@ -7,10 +7,12 @@
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
+      <ventilated-facades-list/>
     </div>
     <transition name="showOrderForm">
       <div class="form_for_order" v-if="isFormOpened"><order-form/></div>
     </transition>
+    
   </div>
 </template>
 
@@ -19,6 +21,7 @@
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
 import orderForm from './components/orderForm.vue';
+import ventilatedFacadesList from './components/ventilatedFacadesList.vue';
 
 export default {
   name: 'App',
@@ -26,6 +29,7 @@ export default {
     HeaderPage,
     AboutCompanyPage,
     orderForm,
+    ventilatedFacadesList
   },
   data() {
     return {

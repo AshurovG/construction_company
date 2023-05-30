@@ -41,7 +41,7 @@ export default {
 
 .product-card_image {
   width: 485px;
-  height: 311px;
+  height: 310px;
   margin-bottom: 15px;
 }
 
