@@ -5,6 +5,7 @@
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
     </div>
+    <footer-page></footer-page>
   </div>
 </template>
 
@@ -13,12 +14,13 @@
 //import Header from 'components/header.vue'
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
-
+import FooterPage from './components/footer.vue'
 export default {
   name: 'App',
   components:{
     HeaderPage,
-    AboutCompanyPage
+    AboutCompanyPage,
+    FooterPage
   },
 }
 </script>
@@ -49,5 +51,5 @@ export default {
 
 .content {
   margin: 0px 150px;
-} 
+}
 </style>

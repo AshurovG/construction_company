@@ -1,24 +1,22 @@
 <template>
     <div class="header">
-        <div class="container">
-          <div class="content">
-            <div class="header-inner">
-                <div class="header-brand">
-                    ФРОЛФАСД
-                </div>
-                <!-- <div class="header-logo">
-                    <img src="img/code.svg" alt="">
-                </div> -->
-                <nav class="header-nav">
-                    <a class="header-nav-link" href="#">Услуги</a>
-                    <a class="header-nav-link" href="#">Портфолио</a>
-                    <a class="header-nav-link" href="#">Помощь</a>
-                    <a class="header-nav-link" href="#">Контакты</a>
-                </nav>
-                <button class="btn-order">
-                    Сделать заказ
-                </button>
-            </div>
+        <div class="content">
+          <div class="header-inner">
+              <div class="header-brand">
+                  ФРОЛФАСД
+              </div>
+              <!-- <div class="header-logo">
+                  <img src="img/code.svg" alt="">
+              </div> -->
+              <nav class="header-nav">
+                  <a class="header-nav-link" href="#">Услуги</a>
+                  <a class="header-nav-link" href="#">Портфолио</a>
+                  <a class="header-nav-link" href="#">Помощь</a>
+                  <a class="header-nav-link" href="#">Контакты</a>
+              </nav>
+              <button class="btn-order">
+                  Сделать заказ
+              </button>
           </div>
         </div>
     </div>
@@ -37,7 +35,6 @@ export default {
   width: 100%;
   padding: 2rem 0;
   margin-bottom: 50px;
-
 
 }
 
