@@ -70,17 +70,15 @@
 <style>
 
 .form_container {
-    /* margin: auto; */
-    width: 1020px;
-    height: 920px;
-    background: #fff;
-    border-radius: 40px;
-    position: fixed;
-    top: 50px;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    margin: 0 auto;
+  width: 1020px;
+  height: 920px;
+  background: #fff;
+  border-radius: 40px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .order_form {

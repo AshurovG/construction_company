@@ -1,22 +1,21 @@
 <template>
   <div class="page">
     <transition name="showLockinScreen">
-      <div class="locking_screen" v-if="isScreenLocked" @click="closeForm"></div>
+      <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
       <header-page @openOrderForm="openOrderForm"/>
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
     </div>
-    <div class="form_for_order" ref="form_for_order">
-        <order-form/>
-    </div>
+    <transition name="showOrderForm">
+      <div class="form_for_order" v-if="isFormOpened"><order-form/></div>
+    </transition>
   </div>
 </template>
 
 
 <script>
-//import Header from 'components/header.vue'
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
 import orderForm from './components/orderForm.vue';
@@ -30,17 +29,18 @@ export default {
   },
   data() {
     return {
-      isScreenLocked: false
+      isScreenLocked: false,
+      isFormOpened: false
     }
   },
   methods: {
     openOrderForm() {
-      this.$refs.form_for_order.style.opacity = 1;
+      this.isFormOpened = true
       this.isScreenLocked = true
-      console.log(111)
+      console.log(this.isFormOpened, this.isScreenLocked)
     },
-    closeForm() {
-      this.$refs.form_for_order.style.opacity = 0;
+    closeOrderForm() {
+      this.isFormOpened = false
       this.isScreenLocked = false
     }
   }
@@ -78,24 +78,20 @@ export default {
   position: relative;
 } 
 
-.form_for_order {
-  opacity: 0;
-  transition: opacity .2s linear;
-}
-
 .locking_screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background: rgba(61, 30, 30, 0.52);
+  backdrop-filter: blur(2px);
   z-index: 500;
 }
 
 .showLockinScreen-enter-active,
 .showLockinScreen-leave-active {
-  transition: opacity .2s linear;
+  transition: opacity .3s linear;
 }
 
 .showLockinScreen-enter-from,
@@ -103,4 +99,13 @@ export default {
   opacity: 0;
 }
 
+.showOrderForm-enter-active,
+.showOrderForm-leave-active {
+  transition: opacity .2s linear;
+}
+
+.showOrderForm-enter-from,
+.showOrderForm-leave-to {
+  opacity: 0;
+}
 </style>
