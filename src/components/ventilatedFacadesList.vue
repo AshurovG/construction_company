@@ -2,12 +2,11 @@
     <div class="ventilated-facades-list">
       <div class="ventilated-facades-list_container">
         <h1 
-        class="ventilated-facades-list_title"
-        :value="ventilatedFacadesListTitle"
-        >Вентилируемые фасады</h1>
+        class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
         <div class="ventilated_facades_list_description">
           {{ ventilatedFacadesListDescription }}
         </div>
+        <h1 class="ventilated-facades-list_examples">Примеры работ</h1>
         <ul class="ventilated-facades-list_items">
         <li
         class="ventilated-facades-list_item"
@@ -26,7 +25,6 @@
 
 <script>
 import productCard from './productCard.vue';
-
 export default {
     name: "ventilatedFacadesList",
     components: {
@@ -35,7 +33,7 @@ export default {
     data() {
       return {
         ventilatedFacadesListTitle: "Вентилируемы фасады",
-        ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
+        ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
           {
             title: 'Вент. фасад 1',
@@ -73,14 +71,33 @@ export default {
   list-style-type: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 
 .ventilated-facades-list_title {
   font-style: normal;
   font-weight: 700;
   font-size: 2em;
-  line-height: 54px;
   letter-spacing: -0.03em;
+
+  margin-top: 30px;
+}
+
+.ventilated_facades_list_description {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1em;
+  margin-top: 25px;
+}
+
+.ventilated-facades-list_examples {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2em;
+  letter-spacing: -0.03em;
+
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 
 </style>

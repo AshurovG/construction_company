@@ -52,6 +52,8 @@ export default {
 </script>
 
 <style>
+/* @import url(reset.css); */
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -69,10 +71,10 @@ export default {
 }
 .page {
   position: relative;
-
   width: 100%;
   height: 100vh;
   background-color: #F5F5F5;
+  overflow: auto;
 }
 
 .content {

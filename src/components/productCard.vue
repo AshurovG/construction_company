@@ -42,7 +42,7 @@ export default {
 .product-card_image {
   width: 485px;
   height: 310px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .product-card_title {
