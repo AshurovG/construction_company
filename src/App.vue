@@ -11,7 +11,7 @@
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list/>
     </div>
-    <div class="form_for_order" ref="form_for_order">
+    <div class="form_for_order" v-if="isFormOpened">
         <order-form/>
     </div>
     <question-list></question-list>
