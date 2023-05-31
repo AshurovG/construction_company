@@ -1,6 +1,5 @@
 <template>
     <div class="carousel">
-      <div class="carousel_container">
         <div class="slide" v-for="(product, index) in products" :key="index" :class="{ active: index === currentSlide }">
           <detailed-product-card
           :img-url="product.imgUrl"
@@ -14,9 +13,8 @@
         <div class="carousel_description">
           <h2 class="carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
           <div class="carousel_description_text">Описание, длинное, что за место, что сделано, где находится и так далее. В общем, вся-вся информация об этой работе</div>
-          Фото объекта 2 из 12
         </div>
-      </div>
+        <div class="counter">Фото объекта {{ currentImage }} из {{ products.length }}</div>
     </div>
 </template>
     
@@ -29,6 +27,7 @@ import detailedProductCard from './detailedProductCard.vue';
         },
         data(){
           return {
+          currentImage: 1,
           products: [
           {
             imgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
@@ -56,9 +55,19 @@ import detailedProductCard from './detailedProductCard.vue';
     methods: {
       prevSlide() {
         this.currentSlide = (this.currentSlide - 1 + this.products.length) % this.products.length;
+        if (this.currentImage === 1) {
+          this.currentImage = this.products.length
+        } else {
+          this.currentImage--
+        }
       },
       nextSlide() {
         this.currentSlide = (this.currentSlide + 1) % this.products.length;
+        if (this.currentImage === this.products.length) {
+          this.currentImage = 1;
+        } else {
+          this.currentImage++
+        }
       }
     }
     }
@@ -67,28 +76,57 @@ import detailedProductCard from './detailedProductCard.vue';
 <style>
 
 .carousel {
-  width: 1550px;
+  width: 1450px;
   height: 800px;
   position: relative;
   overflow: hidden;
   background-color: inherit;
-}
-
-.carousel_container {
   display: flex;
-  flex-direction: row;
 }
 
-.slide {
-  flex: 0 0 auto;
-}
+
 
 .carousel_description {
-  flex: 1 1 auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
 }
 
-.carousel_description {
-  width: 500px;
+.carousel_description_title {
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44px;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+}
+
+.carousel_description_text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+}
+.counter {
+  margin-bottom: 30px;
+  position: absolute;
+  bottom: 0;
+  left: 1050px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+
+  color: #000000
 }
 
 .slide {
@@ -126,17 +164,6 @@ import detailedProductCard from './detailedProductCard.vue';
   justify-content: space-between;
   align-items: center;
 }
-
-/* .carousel-controls button {
-  padding: 10px 20px;
-  background-color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-right: 10px;
-} */
 
 .btn_next{
   position: relative;
