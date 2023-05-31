@@ -22,18 +22,18 @@
                 <p style="font-weight:700;">Контакты:</p>
                 <p>
                     <a class="contacts-link" href="mailto:smth@gmail.com">
-                        <img class="mail-icon" src="./mail.png" alt="">smth@gmail.com
+                        <img class="mail-icon" src="./assets/mail.png" alt="">smth@gmail.com
                     </a>
                 </p>
                 <p>
                     <a class="contacts-link" href="tel:+79999999999">
-                        <img class="tel-icon" src="./tel.png" alt="">+79999999999
+                        <img class="tel-icon" src="./assets/tel.png" alt="">+79999999999
                     </a>
                 </p>
                 <div class="social-media">
-                    <a href="#" class="img__link"><img class="social-icon" src="./inst.png" alt=""></a>
-                    <a href="#" class="img__link"><img class="social-icon" src="./tg.png" alt=""></a>
-                    <a href="#" class="img__link"><img class="social-icon" src="./wa.png" alt=""></a>
+                    <a href="#" class="img__link"><img class="social-icon" src="./assets/inst.png" alt=""></a>
+                    <a href="#" class="img__link"><img class="social-icon" src="./assets/tg.png" alt=""></a>
+                    <a href="#" class="img__link"><img class="social-icon" src="./assets/wa.png" alt=""></a>
                 </div>
             </div>
           </div>
