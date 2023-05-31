@@ -6,9 +6,6 @@
                 <div class="header-brand">
                     ФРОЛФАСД
                 </div>
-                <!-- <div class="header-logo">
-                    <img src="img/code.svg" alt="">
-                </div> -->
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
                     <a class="header-nav-link" href="#">Портфолио</a>
@@ -43,7 +40,6 @@ export default {
   padding: 2rem 0;
   margin-bottom: 50px;
 
-
 }
 
 .header-inner {
@@ -63,6 +59,7 @@ export default {
 
 
 .header-nav {
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 0px;
@@ -73,7 +70,6 @@ export default {
 }
 
 .header-nav-link {
-  /* z-indnex: 20; */
   margin-left: 1.5rem;
 
   color: #F5F5F5;
@@ -93,7 +89,6 @@ export default {
 
 }
 
-
 .btn-order {
     font-size: 2.1rem;
     font-weight: 700;
@@ -108,7 +103,7 @@ export default {
     border-radius: 35px;
     border: 0;
 
-    padding: 13px 35px;
+    padding: 0.8rem 2rem;
     /* margin-right: 20px; */
 
     transition: background-color 0.2s linear;
@@ -122,5 +117,8 @@ export default {
 .content {
   margin: 0px 150px;
 }
+
+
+
 
 </style>

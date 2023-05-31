@@ -5,8 +5,8 @@
     </transition>
     <header-page @openOrderForm="openOrderForm"/>
     <div class="content" ref="content">
-      <about-company-page></about-company-page>
-      <div style="border-bottom: solid 1px #130D0D;"></div>
+    <about-company-page></about-company-page>
+    <div style="border-bottom: solid 1px #130D0D;"></div>
     </div>
     <div class="form_for_order" ref="form_for_order">
         <order-form/>
@@ -108,5 +108,6 @@ export default {
 .showLockinScreen-leave-to {
   opacity: 0;
 }
+
 
 </style>
