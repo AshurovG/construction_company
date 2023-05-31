@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
-      <header-page @openOrderForm="openOrderForm"/>
+    <header-page @openOrderForm="openOrderForm"/>
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -11,10 +11,11 @@
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list/>
     </div>
-    <transition name="showOrderForm">
-      <div class="form_for_order" v-if="isFormOpened"><order-form/></div>
-    </transition>
-    
+    <div class="form_for_order" ref="form_for_order">
+        <order-form/>
+    </div>
+    <question-list></question-list>
+    <footer-page></footer-page>
   </div>
 </template>
 
@@ -22,7 +23,9 @@
 <script>
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
-import orderForm from './components/orderForm.vue';
+import FooterPage from './components/footer.vue'
+import orderForm from './components/orderForm.vue'
+import QuestionList from './components/QuestionList.vue'
 import exteriorDesignList from './components/exteriorDesignList.vue';
 import ventilatedFacadesList from './components/ventilatedFacadesList.vue';
 
@@ -31,7 +34,9 @@ export default {
   components:{
     HeaderPage,
     AboutCompanyPage,
+    FooterPage,
     orderForm,
+    QuestionList,
     exteriorDesignList,
     ventilatedFacadesList
   },
@@ -86,7 +91,7 @@ export default {
   transition: opacity .2s linear;
   margin: 0px 150px;
   position: relative;
-} 
+}
 
 .locking_screen {
   position: fixed;

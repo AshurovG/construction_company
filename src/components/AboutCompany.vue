@@ -23,14 +23,17 @@ export default {
 
 <style>
 .about-company {
+
+
     margin-bottom: 30px;
 }
 
 .title {
+    font-size: 2rem;
     margin-bottom: 30px;
 }
 
 .company-description {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 </style>
