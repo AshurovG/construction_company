@@ -1,19 +1,18 @@
 <template>
-    <div class="content">
-        <ul class="ques-list">
-            <li
-            v-for="(faq,index) in faqs"
-            :key="index">
-                <question-card
-                :question="faq.q"
-                :answer="faq.a"
-                :open="faq.open"
-                :index="index"
-                @click="()=> ansOpen(index)"
-                />
-            </li>
-        </ul>
-    </div>
+    <h1 class="faq-title">Часто задаваемые вопросы</h1>
+    <ul class="ques-list">
+        <li
+        v-for="(faq,index) in faqs"
+        :key="index">
+            <question-card
+            :question="faq.q"
+            :answer="faq.a"
+            :open="faq.open"
+            :index="index"
+            @click="()=> ansOpen(index)"
+            />
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -28,17 +27,17 @@ export default {
             faqs: [
                 {
                     q:'Первый вопрос',
-                    a:'Первый ответ ldsfjklfjkds fd dsflkj kdlf lsdf lsd f f fkjjkdkkdkjf djfkdjfkdfjldjfl df ldkjflkjdfldkfjdf  dlfj;lsdjfldksjf dfsf kdlsfj;ldfsj',
+                    a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
                     open:false
                 },
                 {
                     q:'Второй вопрос',
-                    a:'Второй ответ',
+                    a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
                     open:false
                 },
                 {
                     q:'Третий вопрос',
-                    a:'Третий ответ',
+                    a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
                     open:false
                 },
             ]
@@ -63,19 +62,29 @@ export default {
 </script>
 
 <style>
+.faq-title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2em;
+    letter-spacing: -0.03em;
+
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
 .ques-list {
     list-style-type: none;
 }
 
 .arrow-icon {
-    width: 10px;
+    width: 17px;
     display: inline-block;
 }
 
 .faq {
     display: block;
     margin: 15px auto;
-        font-size: 1.8rem;
+    font-size: 1.8rem;
 }
 
 .faq .question {
@@ -98,7 +107,7 @@ export default {
 
 
 .faq .answer {
-    margin-left: 4.3px;
+    margin-left: 7.3px;
     color: #000;
     /* font-size: 1.2rem; */
     max-height: 0px;

@@ -10,11 +10,12 @@
       <exterior-design-list/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list/>
+      <div style="border-bottom: solid 1px #130D0D;"></div>
+      <question-list></question-list>
     </div>
     <div class="form_for_order" v-if="isFormOpened">
         <order-form/>
     </div>
-    <question-list></question-list>
     <footer-page></footer-page>
   </div>
 </template>
@@ -62,7 +63,7 @@ export default {
 </script>
 
 <style>
-/* @import url(reset.css); */
+@import url(reset.css);
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
