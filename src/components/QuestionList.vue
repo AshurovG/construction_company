@@ -28,7 +28,7 @@ export default {
             faqs: [
                 {
                     q:'Первый вопрос',
-                    a:'Первый ответ',
+                    a:'Первый ответ ldsfjklfjkds fd dsflkj kdlf lsdf lsd f f fkjjkdkkdkjf djfkdjfkdfjldjfl df ldkjflkjdfldkfjdf  dlfj;lsdjfldksjf dfsf kdlsfj;ldfsj',
                     open:false
                 },
                 {
@@ -75,18 +75,20 @@ export default {
 .faq {
     display: block;
     margin: 15px auto;
+        font-size: 1.8rem;
 }
 
 .faq .question {
     position: relative;
     color: #000;
-    font-size: 1.2rem;
+
     transition: all 0.4s linear;
 }
 
 
 .faq.open .question {
     margin-bottom: 15px;
+    color: #610a0a;
 }
 
 .faq.open .arrow-icon {
@@ -96,23 +98,26 @@ export default {
 
 
 .faq .answer {
-    margin-left: 15px;
+    margin-left: 4.3px;
     color: #000;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     max-height: 0px;
     overflow-y: hidden;
     transition: all 0.4s ease-in-out;
 
 }
 
-.faq.open .vertical-line {
+.faq .vertical-line {
     display: inline-block;
 
-    border-left: 3px solid #000;
+    border-left: 2px solid #000;
     height: 30px;
-    left: 50%;
+    padding-right: 25px;
+
+    border-color: #610a0a;
+    /* left: 50%;
     margin-left: 0px;
-    top: 60px;
+    top: 60px; */
     /* position: absolute; */
 }
 

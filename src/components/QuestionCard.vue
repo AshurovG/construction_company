@@ -6,7 +6,8 @@
             {{ question }}
         </div>
         <div class="answer">
-            {{ answer }}
+            <!-- <div class="vertical-line"></div> -->
+            <div class="answer-self">{{ answer }}</div>
         </div>
     </div>
 </div>
@@ -22,6 +23,19 @@ export default {
 <style>
 .question-card {
     position: relative;
+}
+
+.question:hover {
+    cursor: pointer;
+}
+
+.answer{
+    border-left: 2px solid #610a0a;
+
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    gap:5.5px
 }
 </style>
 

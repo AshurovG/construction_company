@@ -56,7 +56,8 @@ export default {
       this.isFormOpened = false
       this.isScreenLocked = false
     }
-  }
+  },
+
 }
 </script>
 
