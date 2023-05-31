@@ -7,6 +7,8 @@
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
+      <exterior-design-list/>
+      <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list/>
     </div>
     <transition name="showOrderForm">
@@ -21,6 +23,7 @@
 import HeaderPage from './components/header.vue'
 import AboutCompanyPage from './components/AboutCompany.vue'
 import orderForm from './components/orderForm.vue';
+import exteriorDesignList from './components/exteriorDesignList.vue';
 import ventilatedFacadesList from './components/ventilatedFacadesList.vue';
 
 export default {
@@ -29,6 +32,7 @@ export default {
     HeaderPage,
     AboutCompanyPage,
     orderForm,
+    exteriorDesignList,
     ventilatedFacadesList
   },
   data() {

@@ -8,17 +8,21 @@
         </div>
         <h1 class="ventilated-facades-list_examples">Примеры работ</h1>
         <ul class="ventilated-facades-list_items">
-        <li
-        class="ventilated-facades-list_item"
-        v-for="(product, index) in products"
-        :key="index"
-        >
-          <product-card
-          :title="product.title"
-          :img-url="product.imgUrl"
-          />
-        </li>
-      </ul>
+          <li
+          class="ventilated-facades-list_item"
+          v-for="(product, index) in products"
+          :key="index"
+          >
+            <product-card
+            :title="product.title"
+            :img-url="product.imgUrl"
+            />
+          </li>
+        </ul>
+        <button 
+        class="ventilated-facades-list_button"
+        
+        >Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -37,27 +41,27 @@ export default {
         products: [
           {
             title: 'Вент. фасад 1',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           },
           {
             title: 'Вент. фасад 2',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           },
           {
             title: 'Вент. фасад 3',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           },
           {
             title: 'Вент. фасад 4',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           },
           {
             title: 'Вент. фасад 5',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           },
           {
             title: 'Вент. фасад 6',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           }
         ]
       }
@@ -67,11 +71,17 @@ export default {
 
 
 <style>
+
+.ventilated-facades-list_container {
+  width: 100%;
+}
+
 .ventilated-facades-list_items {
   list-style-type: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
+  margin-bottom: 35px;
 }
 
 .ventilated-facades-list_title {
@@ -98,6 +108,25 @@ export default {
 
   margin-top: 25px;
   margin-bottom: 20px;
+}
+
+.ventilated-facades-list_button {
+  display: block;
+  width: 454px;
+  height: 72px;
+  margin: 0 auto;
+  margin-bottom: 35px;
+
+  background: rgba(97, 10, 10, 0.82);
+  border-radius: 35px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-align: center;
 }
 
 </style>
