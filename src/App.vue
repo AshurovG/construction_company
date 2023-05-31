@@ -15,6 +15,7 @@
         <order-form/>
     </div>
     <question-list></question-list>
+    <detailed-product-cards-slider class="product-card-slider"/>
     <footer-page></footer-page>
   </div>
 </template>
@@ -28,6 +29,7 @@ import orderForm from './components/orderForm.vue'
 import QuestionList from './components/QuestionList.vue'
 import exteriorDesignList from './components/exteriorDesignList.vue';
 import ventilatedFacadesList from './components/ventilatedFacadesList.vue';
+import detailedProductCardsSlider from './components/detailedProductCardsSlider.vue'
 
 export default {
   name: 'App',
@@ -38,7 +40,8 @@ export default {
     orderForm,
     QuestionList,
     exteriorDesignList,
-    ventilatedFacadesList
+    ventilatedFacadesList,
+    detailedProductCardsSlider
   },
   data() {
     return {
@@ -122,5 +125,9 @@ export default {
 .showOrderForm-enter-from,
 .showOrderForm-leave-to {
   opacity: 0;
+}
+
+.product-card-slider {
+  margin: 0 auto;
 }
 </style>
