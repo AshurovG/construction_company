@@ -1,7 +1,7 @@
 <template>
   <transition name="showLockinScreen">
-        <div class="locking_screen" v-if="isScreenLocked" @click="closeSlider"></div>
-      </transition>
+    <div class="locking_screen" v-if="isScreenLocked" @click="closeSlider"></div>
+  </transition>
     <div class="product-card" @click="onProductCardClick" :id="id">
       <div class="product-card_container">
         <div class="product-card_container_item">
@@ -15,12 +15,14 @@
           {{ title }}
         </div>
       </div>
-      <detailed-product-cards-slider
-      class="slider"
-      v-if="isSliderOpened"
-      :items="items"
-      @closeSlider="closeSlider"
-      />
+      <transition name="showSlider">
+        <detailed-product-cards-slider
+        class="slider"
+        v-if="isSliderOpened"
+        :items="items"
+        @closeSlider="closeSlider"
+        />
+      </transition>
     </div>
 </template>
 
@@ -73,9 +75,6 @@ export default {
 
 
 <style>
-.product-card {
-  cursor: pointer;
-}
 
 .product-card_container {
   height: 360px;
@@ -93,6 +92,7 @@ export default {
   width: 485px;
   height: 310px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .product-card_title {
@@ -110,5 +110,15 @@ export default {
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
+}
+
+.showSlider-enter-active,
+.showSlider-leave-active {
+  transition: opacity .2s linear;
+}
+
+.showSlider-enter-from,
+.showSlider-leave-to {
+  opacity: 0;
 }
 </style>
