@@ -9,7 +9,7 @@
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <exterior-design-list/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list/>
+      <ventilated-facades-list  :flag="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <question-list></question-list>
     </div>
@@ -44,7 +44,8 @@ export default {
   data() {
     return {
       isScreenLocked: false,
-      isFormOpened: false
+      isFormOpened: false,
+      flag: true
     }
   },
   methods: {
@@ -58,6 +59,8 @@ export default {
       this.isScreenLocked = false
     }
   },
+
+
 
 }
 </script>

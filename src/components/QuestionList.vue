@@ -91,7 +91,7 @@ export default {
     position: relative;
     color: #000;
 
-    /* transition: all 0.9s linear; */
+    transition: all 0.9s linear;
 }
 
 
@@ -112,23 +112,14 @@ export default {
     /* font-size: 1.2rem; */
     max-height: 0px;
     overflow-y: hidden;
-    transition: all 1.4s ease-out;
+    transition: all 0.5s ease-in-out;
 }
 
-.faq .vertical-line {
-    display: inline-block;
-
-    border-left: 2px solid #000;
-    height: 30px;
-    padding-right: 25px;
-
-    border-color: #610a0a;
-}
 
 .faq.open .answer {
     max-height: 1000px;
     position: relative;
-    transition: all 1.6s linear;
+    transition: all 2.6s linear;
 }
 
 </style>

@@ -7,7 +7,19 @@
           {{ ventilatedFacadesListDescription }}
         </div>
         <h1 class="ventilated-facades-list_examples">Примеры работ</h1>
-        <ul class="ventilated-facades-list_items">
+        <ul class="ventilated-facades-list_items" v-if="flag">
+          <li
+          class="ventilated-facades-list_item"
+          v-for="(product, index) in products.slice(0,6)"
+          :key="index"
+          >
+            <product-card
+            :title="product.title"
+            :img-url="product.imgUrl"
+            />
+          </li>
+        </ul>
+        <ul class="ventilated-facades-list_items" v-else>
           <li
           class="ventilated-facades-list_item"
           v-for="(product, index) in products.slice(0,9)"
@@ -19,6 +31,7 @@
             />
           </li>
         </ul>
+
         <button
         class="ventilated-facades-list_button"
 
@@ -33,6 +46,9 @@ export default {
     name: "ventilatedFacadesList",
     components: {
       productCard
+    },
+    props: {
+      flag: Boolean
     },
     data() {
       return {
