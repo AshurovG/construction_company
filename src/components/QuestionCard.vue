@@ -29,7 +29,7 @@ export default {
 }
 
 .answer{
-    border-left: 3.5px solid #610a0a;
+    border-left: 3px solid #610a0a;
 
     padding-left: 30px;
     display: flex;

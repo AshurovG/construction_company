@@ -1,7 +1,7 @@
 <template>
     <div class="ventilated-facades-list">
       <div class="ventilated-facades-list_container">
-        <h1 
+        <h1
         class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
         <div class="ventilated_facades_list_description">
           {{ ventilatedFacadesListDescription }}
@@ -10,7 +10,7 @@
         <ul class="ventilated-facades-list_items">
           <li
           class="ventilated-facades-list_item"
-          v-for="(product, index) in products"
+          v-for="(product, index) in products.slice(0,9)"
           :key="index"
           >
             <product-card
@@ -19,9 +19,9 @@
             />
           </li>
         </ul>
-        <button 
+        <button
         class="ventilated-facades-list_button"
-        
+
         >Посмотреть все работы</button>
       </div>
     </div>
@@ -62,7 +62,20 @@ export default {
           {
             title: 'Вент. фасад 6',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
+          },
+          {
+            title: 'Вент. фасад 4',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
+          },
+          {
+            title: 'Вент. фасад 5',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
+          },
+          {
+            title: 'Вент. фасад 6',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
           }
+
         ]
       }
     }
