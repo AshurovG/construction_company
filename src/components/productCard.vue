@@ -80,6 +80,13 @@ export default {
 .product-card_container {
   height: 360px;
   width: 485px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease-out;
+}
+
+.product-card_container:hover{
+  transform: scale(1.1);
 }
 
 .product-card_image {
