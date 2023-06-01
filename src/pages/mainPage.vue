@@ -14,7 +14,7 @@
       <question-list></question-list>
     </div>
     <div class="form_for_order" v-if="isFormOpened">
-        <order-form/>
+        <order-form @closeForm="closeOrderForm"/>
     </div>
     <footer-page></footer-page>
   </div>

@@ -1,6 +1,11 @@
 <template>
     <!-- Здесь помещается шаблон компонента -->
     <div class="form_container">
+        <img
+        class="exit_form_buttton"
+        src="../images/exit.png"
+        @click="closeForm"
+        >
         <form class="order_form" @submit.prevent="sendEmail">
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
@@ -62,6 +67,9 @@
                 this.emailOrPhoneNumber = ''
                 this.order = ''
             },
+            closeForm() {
+                this.$emit('closeForm')
+            }
         }
   }
 </script>
@@ -78,6 +86,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+  overflow: visible;
 }
 
 .order_form {
@@ -162,6 +171,15 @@
 .btn_send_email:hover {
     cursor: pointer;
     background: rgba(135, 15, 15, 0.82);
+}
+
+.exit_form_buttton {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -45px;
+  right: -45px;
+  cursor: pointer;
 }
 
 </style>
