@@ -4,8 +4,6 @@
   </div>
 </template>
 
-
-
 <script>
 import mainPage from './pages/mainPage.vue'
 export default {

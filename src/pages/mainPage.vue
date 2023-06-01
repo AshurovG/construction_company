@@ -52,7 +52,6 @@ export default {
     openOrderForm() {
       this.isFormOpened = true
       this.isScreenLocked = true
-      console.log(this.isFormOpened, this.isScreenLocked)
     },
     closeOrderForm() {
       this.isFormOpened = false

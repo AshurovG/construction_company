@@ -5,6 +5,7 @@
           <img
           class="product-card_image"
           :src="imgUrl"
+          @click="openSlider"
           >
         </div>
         <div class="product-card_container_item product-card_title">
@@ -18,6 +19,10 @@
 export default {
     name: "productCard",
     props: {
+      id: {
+        type: Number,
+        required: true
+      },
       title: {
         type: String,
         required: true
@@ -25,9 +30,19 @@ export default {
       imgUrl: {
         type: String,
         required: true
+      },
+      items: {
+        type: Array,
+        required: true
       }
     },
     methods: {
+      openSlider() {
+        // console.log(this.id)
+        // console.log(this.items)
+        // this.$emit('openSlider(this.id)')
+        this.$emit('openSlider', this.id)
+      }
     }
 }
 </script>

@@ -58,7 +58,6 @@
                 } catch(error) {
                     console.log({error})
                 }
-                // Reset form field
                 this.fio = ''
                 this.emailOrPhoneNumber = ''
                 this.order = ''
