@@ -1,5 +1,8 @@
 <template>
-    <div class="product-card">
+  <transition name="showLockinScreen">
+        <div class="locking_screen" v-if="isScreenLocked" @click="closeSlider"></div>
+      </transition>
+    <div class="product-card" @click="onProductCardClick" :id="id">
       <div class="product-card_container">
         <div class="product-card_container_item">
           <img
@@ -12,12 +15,28 @@
           {{ title }}
         </div>
       </div>
+      <detailed-product-cards-slider
+      class="slider"
+      v-if="isSliderOpened"
+      :items="items"
+      @closeSlider="closeSlider"
+      />
     </div>
 </template>
 
 <script>
+import detailedProductCardsSlider from './detailedProductCardsSlider.vue';
 export default {
     name: "productCard",
+    components: {
+      detailedProductCardsSlider
+    },
+    data () {
+      return {
+        isSliderOpened: false,
+        isScreenLocked: false
+      }
+    },
     props: {
       id: {
         type: Number,
@@ -37,11 +56,16 @@ export default {
       }
     },
     methods: {
+      onProductCardClick() { 
+        console.log(this.items)
+      },
       openSlider() {
-        // console.log(this.id)
-        // console.log(this.items)
-        // this.$emit('openSlider(this.id)')
-        this.$emit('openSlider', this.id)
+        this.isSliderOpened = true,
+        this.isScreenLocked = true
+      },
+      closeSlider() {
+        this.isSliderOpened = false,
+        this.isScreenLocked = false
       }
     }
 }
@@ -49,6 +73,10 @@ export default {
 
 
 <style>
+.product-card {
+  cursor: pointer;
+}
+
 .product-card_container {
   height: 360px;
   width: 485px;
@@ -66,5 +94,14 @@ export default {
   font-size: 20px;
   line-height: 23px;
   color: #000000;
+}
+
+.slider {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
 }
 </style>

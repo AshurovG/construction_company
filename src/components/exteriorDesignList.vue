@@ -14,8 +14,10 @@
         :key="index"
         >
           <product-card
+          :id="product.id"
           :title="product.title"
           :img-url="product.imgUrl"
+          :items="product.items"
           />
         </li>
       </ul>
@@ -40,29 +42,120 @@ export default {
         exteriorDesignListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
           {
-            title: 'Наружное оформление 1',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            id: 1,
+            title: 'Вент. фасад 1',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
           },
           {
-            title: 'Наружное оформление 2',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            id: 2,
+            title: 'Вент. фасад 2',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
+            
           },
           {
-            title: 'Наружное оформление 3',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            id: 3,
+            title: 'Вент. фасад 3',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
           },
           {
-            title: 'Наружное оформление 4',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            id: 4,
+            title: 'Вент. фасад 4',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
           },
           {
-            title: 'Наружное оформление 5',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
+            id: 5,
+            title: 'Вент. фасад 5',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
           },
           {
-            title: 'Наружное оформление 6',
-            imgUrl: 'http://almode.ru/uploads/posts/2021-07/1625467885_37-almode_ru-p-krasivii-dvukhetazhnii-dom-37.jpg'
-          }
+            id: 6,
+            title: 'Вент. фасад 6',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
+          },
         ]
       }
     }

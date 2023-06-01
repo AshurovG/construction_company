@@ -15,29 +15,11 @@
 <script>
 export default {
   name:'detailedProductCard',
-  // props: {
-  //   imgUrl: {
-  //     type: String,
-  //     required: true
-  //   }
-  // },
   props: {
-      id: {
-        type: Number,
-        required: true
-      },
-      title: {
-        type: String,
-        required: true
-      },
-      imgUrl: {
-        type: String,
-        required: true
-      },
-      items: {
-        type: Array,
-        required: false
-      }
+    imgUrl: {
+      type: String,
+      required: true
+    }
   },
 }
 </script>

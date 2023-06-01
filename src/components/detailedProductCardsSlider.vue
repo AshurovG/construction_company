@@ -1,36 +1,36 @@
 <template>
     <div class="carousel">
-        <div class="slide" v-for="(product, index) in products" :key="index" :class="{ active: index === currentSlide }">
-          <detailed-product-card
-          :img-url="product.imgUrl"
-          >
+        <div class="slide" v-for="(product, index) in items" :key="index" :class="{ active: index === currentSlide }">
+          <div class="delaited-product-card_item">
+            <img
+            class="detailed-product-card_image"
+            :src="product.subImgUrl"
+            >
+          </div>
             <div class="carousel-controls">
               <button @click="prevSlide" class="btn_prev"></button>
               <button @click="nextSlide" class="btn_next"></button>
             </div>
-          </detailed-product-card>
         </div>
         <div class="carousel_description">
           <h2 class="carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
           <div class="carousel_description_text">Описание, длинное, что за место, что сделано, где находится и так далее. В общем, вся-вся информация об этой работе</div>
         </div>
-        <div class="counter">Фото объекта {{ currentImage }} из {{ products.length }}</div>
+        <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
+        <img
+        class="exit_buttton"
+        src="../images/exit.png"
+        @click="closeSlider"
+        >
     </div>
 </template>
     
 <script>
-import detailedProductCard from './detailedProductCard.vue';
-import ventilatedFacadesList from './ventilatedFacadesList.vue';
     export default {
         name:'QuestionCard',
         components: {
-          detailedProductCard
         },
         props: {
-          id: {
-            type: Number,
-            required: true
-          },
           items: {
             type: Array,
             required: true
@@ -59,27 +59,29 @@ import ventilatedFacadesList from './ventilatedFacadesList.vue';
         //     imgUrl: 'https://pro-dachnikov.com/uploads/posts/2021-09/1632873627_22-p-chastnii-dom-v-sovremennom-stile-foto-22.jpg'
         //   }
         // ],
-          items,
           currentSlide: 0
           }
         
         },
     methods: {
       prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.products.length) % this.products.length;
+        this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
         if (this.currentImage === 1) {
-          this.currentImage = this.products.length
+          this.currentImage = this.items.length
         } else {
           this.currentImage--
         }
       },
       nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.products.length;
-        if (this.currentImage === this.products.length) {
+        this.currentSlide = (this.currentSlide + 1) % this.items.length;
+        if (this.currentImage === this.items.length) {
           this.currentImage = 1;
         } else {
           this.currentImage++
         }
+      },
+      closeSlider() {
+        this.$emit('closeSlider')
       }
     }
     }
@@ -94,14 +96,18 @@ import ventilatedFacadesList from './ventilatedFacadesList.vue';
   overflow: hidden;
   background-color: inherit;
   display: flex;
+  overflow: visible;
+  z-index: 1000;
+  background-color: #fff;
 }
 
 
 
 .carousel_description {
+  margin-top: 25px;
   position: absolute;
   top: 0;
-  right: 0;
+  right: 30px;
   width: 400px;
 }
 
@@ -241,6 +247,20 @@ import ventilatedFacadesList from './ventilatedFacadesList.vue';
   background-color: #333;
   color: #fff;
   transition: background-color .2s;
+}
+
+.delaited-product-card_item {
+  width: 1000x;
+  height: 800px;
+}
+
+.exit_buttton {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: -30px;
+  right: -50px;
+  cursor: pointer;
 }
     
 </style>
