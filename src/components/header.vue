@@ -3,9 +3,9 @@
         <div class="container">
           <div class="content">
             <div class="header-inner">
-                <div class="header-brand">
+                <button class="header-brand">
                     ФРОЛФАСД
-                </div>
+                </button>
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
                     <a class="header-nav-link" href="#">Портфолио</a>
@@ -55,6 +55,8 @@ export default {
   color: #F5F5F5;
   text-transform: uppercase;
   font-weight: 700;
+
+  cursor: pointer;
 }
 
 
