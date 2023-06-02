@@ -35,39 +35,49 @@
             v-model="order"
             required
             ></textarea><br>
+            <vue-recaptcha ref="recaptcha" @verify="onRecaptchaVerified" :sitekey="'6Lfcf2EmAAAAAF5AdBmzwQab_11nj9ItJkrK7tp8'"></vue-recaptcha>
             <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
-            <div class="g-recaptcha" data-sitekey="6LfrY2EmAAAAAL1ZBMK-UheDCW9-cKNGoMvmfp7S"></div>
         </form>
     </div>
  </template>
 
 <script>
     import emailjs from 'emailjs-com';
+    import VueRecaptcha from 'vue-recaptcha';
     export default {
         data() {
             return {
                 fio: '',
                 emailOrPhoneNumber: '',
-                order: ''
+                order: '',
+                recaptchaResponse: null
             };
         },
+        components: {
+            VueRecaptcha
+        },
         methods: {
-            sendEmail(e) {
-                try {
-                    emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-                    'Yr8QuQUIlXompjRBo', {
-                    fio: this.fio,
-                    emailOrPhoneNumber: this.emailOrPhoneNumber,
-                    order: this.order
-                    })
-
-                } catch(error) {
-                    console.log({error})
-                }
-                this.fio = ''
-                this.emailOrPhoneNumber = ''
-                this.order = ''
+            onRecaptchaVerified: function (response) {
+                this.recaptchaResponse = response;
             },
+
+            sendEmail: function () {
+                if (this.recaptchaResponse === null) {
+                alert('Please verify that you are a human!');
+                return;
+                }
+                emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', this.$refs.form, 'Yr8QuQUIlXompjRBo')
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    this.recaptchaResponse = null;
+                    this.$refs.recaptcha.reset();
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    this.recaptchaResponse = null;
+                    this.$refs.recaptcha.reset();
+                });
+            },
+            
             closeForm() {
                 this.$emit('closeForm')
             }
