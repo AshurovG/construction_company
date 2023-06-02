@@ -3,12 +3,12 @@
         <div class="container">
           <div class="content">
             <div class="header-inner">
-                <button class="header-brand">
+                <button class="header-brand" @click="openMain">
                     ФРОЛФАСД
                 </button>
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
-                    <a class="header-nav-link" href="#">Портфолио</a>
+                    <a class="header-nav-link" href="#"  @click="openPortflio">Портфолио</a>
                     <a class="header-nav-link" href="#">Помощь</a>
                     <a class="header-nav-link" href="#">Контакты</a>
                 </nav>
@@ -27,6 +27,12 @@ export default {
     methods: {
       openOrderForm() {
         this.$emit('openOrderForm')
+      },
+      openPortflio() {
+        this.$emit('openPortfolio')
+      },
+      openMain() {
+        this.$emit('openMain')
       }
     }
 }

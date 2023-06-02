@@ -6,18 +6,32 @@
 
 <script>
 import mainPage from './pages/mainPage.vue'
+// import HeaderPage from '../components/header.vue'
+// import portfolioPage from './pages/portfolioPage.vue'
+
 export default {
   name: 'App',
   components:{
-    mainPage
+    mainPage,
+    // portfolioPage,
+    // HeaderPage
   },
   data() {
     return {
+      // isMainPageOpen: true,
+      // isPortfolioPageOpen: false,
 
     }
   },
   methods: {
-
+    // openMainPage(){
+    //   this.isMainPageOpen=true
+    //   this.isPortfolioPageOpen=false
+    // },
+    // openPortfolioPage(){
+    //   this.isMainPageOpen=false
+    //   this.isPortfolioPageOpen=true
+    // }
   }
 
 }
