@@ -157,6 +157,7 @@
     width: 379px;
     height: 76px;
     padding: 11px 47px;
+    text-align: center;
 
     background: rgba(97, 10, 10, 0.82);
     border-radius: 35px;
