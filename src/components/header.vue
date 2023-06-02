@@ -8,7 +8,7 @@
                 </button>
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
-                    <a class="header-nav-link" href="#"  @click="openPortflio">Портфолио</a>
+                    <a class="header-nav-link" href="#" @click="openPortfolio">Портфолио</a>
                     <a class="header-nav-link" href="#">Помощь</a>
                     <a class="header-nav-link" href="#">Контакты</a>
                 </nav>
@@ -28,8 +28,9 @@ export default {
       openOrderForm() {
         this.$emit('openOrderForm')
       },
-      openPortflio() {
+      openPortfolio() {
         this.$emit('openPortfolio')
+        console.log("open portfolio on header click")
       },
       openMain() {
         this.$emit('openMain')

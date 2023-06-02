@@ -4,7 +4,7 @@
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
     <header-page @openOrderForm="openOrderForm" @openMain="openMain" @openPortfolio="openPortfolio"/>
-    <div class="content" ref="content"  v-if="isPageShow">
+    <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <exterior-design-list/>
@@ -59,11 +59,12 @@ export default {
       this.isScreenLocked = false
     },
     openMain() {
-      this.isPageShow=true
+      this.$emit('openMainPage')
     },
     openPortfolio() {
-      this.isPageShow=false
-    },
+      this.$emit('openPortfolio')
+      console.log("open portfolio on main clicked")
+    }
   },
 
 
