@@ -36,6 +36,7 @@
             required
             ></textarea><br>
             <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
+            <div class="g-recaptcha" data-sitekey="6LfrY2EmAAAAAL1ZBMK-UheDCW9-cKNGoMvmfp7S"></div>
         </form>
     </div>
  </template>
