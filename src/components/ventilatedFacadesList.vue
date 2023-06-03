@@ -55,6 +55,7 @@ export default {
     },
     data() {
       return {
+        ventilatedFacadesListName: "ventilatedFacadesList",
         ventilatedFacadesListTitle: "Вентилируемы фасады",
         ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
@@ -237,6 +238,9 @@ export default {
       openSlider(id) {
         console.log(`Айди такой: ${id}`)
       }
+    },
+    created() {
+      this.$emit("blockTitle", this.ventilatedFacadesListTitle);
     }
 }
 </script>

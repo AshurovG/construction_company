@@ -5,9 +5,9 @@
     </transition>
     <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
     <div class="content" ref="content">
-      <exterior-design-list :flag="!flag"/>
+      <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list  :flag="!flag"/>
+      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks"/>
     </div>
     <div class="form_for_order" v-if="isFormOpened">
         <order-form @closeForm="closeOrderForm"/>
@@ -38,7 +38,8 @@ export default {
     //   isPageShow:false,
       isScreenLocked: false,
       isFormOpened: false,
-      flag: true
+      flag: true,
+      blockTypes: []
     }
   },
   methods: {
@@ -53,7 +54,11 @@ export default {
     openMain() {
       window.scrollTo(0,0)
       this.$emit('openMain')
+      console.log(this.blockTypes)
     },
+    createListOfBlocks(value) {
+      this.blockTypes.push(value);
+    }
   },
 
 }

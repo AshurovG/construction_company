@@ -48,10 +48,11 @@ export default {
       productCard
     },
     props: {
-      openInMain: Boolean
+      openInMain: Boolean,
     },
     data() {
       return {
+        // exteriorDesignListName: "exteriorDesignList",
         exteriorDesignListTitle: "Наружное оформление зданий",
         exteriorDesignListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
@@ -229,6 +230,9 @@ export default {
           },
         ]
       }
+    },
+    created() {
+      this.$emit("blockTitle", this.exteriorDesignListTitle);
     }
 }
 </script>
