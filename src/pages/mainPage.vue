@@ -16,7 +16,7 @@
     <div class="form_for_order" v-if="isFormOpened">
         <order-form @closeForm="closeOrderForm"/>
     </div>
-    <footer-page></footer-page>
+    <footer-page id="contacts"></footer-page>
   </div>
 </template>
 

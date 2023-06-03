@@ -51,8 +51,9 @@ export default {
       this.isScreenLocked = false
     },
     openMain() {
+      window.scrollTo(0,0)
       this.$emit('openMain')
-    }
+    },
   },
 
 }
