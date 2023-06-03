@@ -6,7 +6,7 @@
         src="../images/exit.png"
         @click="closeForm"
         >
-        <form class="order_form" @submit.prevent="sendEmail">
+        <form class="order_form" @submit.prevent="sendEmail" novalidate="true">
             <h1 class="form_title">ФЛОРДФАСД</h1>
             <input
             class="form_item"
@@ -14,17 +14,16 @@
             id="fio"
             name="fio"
             placeholder="ФИО*"
-            v-model="fio"
-            required
+            v-model.trim="state.form.fio"
             ><br>
+            
             <input
             class="form_item"
-            type="text"
-            id="emailOrPhoneNumber"
-            name="emailOrPhoneNumber"
-            placeholder="Телефон или e-mail*"
-            v-model="emailOrPhoneNumber"
-            required
+            type="email"
+            id="email"
+            name="email"
+            placeholder="e-mail*"
+            v-model.trim="state.form.email"
             ><br>
             <textarea
             class="form_order_text"
@@ -32,8 +31,7 @@
             id="order"
             name="order"
             placeholder="Опишите заказ*"
-            v-model="order"
-            required
+            v-model.trim="state.form.order"
             ></textarea><br>
             <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
         </form>
@@ -41,36 +39,82 @@
  </template>
 
 <script>
-    import emailjs from 'emailjs-com';
+    import { useVuelidate } from '@vuelidate/core'
+    import { required, email, minLength, maxLength } from '@vuelidate/validators'
+    import { reactive, computed, watch  } from 'vue'
+    // import emailjs from 'emailjs-com';
+
     export default {
-        data() {
+        setup() {
+            const state = reactive({
+                form: {
+                    fio: '',
+                    email: '',
+                    order: ''
+                },
+                minOrderTextLength: 10,
+                maxOrderTextLength: 500
+            })
+
+            const rules = computed(() => {
+                return {
+                    form: {
+                        fio: { required,
+                            checkFio(value) {
+                                const regex = /^([\u0400-\u04FF]+[\s]?){3}$/;
+                                const matches = value.match(regex);
+                                return matches !== null;
+                            }
+                        },
+                        email: { required, email },
+                        order: { 
+                            required,
+                            minLength: minLength(state.minOrderTextLength),
+                            maxLength: maxLength(state.maxOrderTextLength) 
+                        }
+                    }
+                }
+            })
+            // Отслеживаем изменения в поле fio
+            watch(() => state.form.fio, (newValue) => {
+                rules.value.form.fio.checkFio(newValue)
+            })
+            const v$ = useVuelidate(rules, state)
+
             return {
-                fio: '',
-                emailOrPhoneNumber: '',
-                order: ''
-            };
+                state,
+                v$
+            }
         },
         methods: {
-            sendEmail(e) {
-                try {
-                    emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-                    'Yr8QuQUIlXompjRBo', {
-                    fio: this.fio,
-                    emailOrPhoneNumber: this.emailOrPhoneNumber,
-                    order: this.order
-                    })
-
-                } catch(error) {
-                    console.log({error})
+            sendEmail() {
+                this.v$.$validate()
+                console.log(this.v$)
+                if (!this.v$.$error){
+                    alert(('success'))
+                } else {
+                    alert(('error'))
                 }
-                this.fio = ''
-                this.emailOrPhoneNumber = ''
-                this.order = ''
+                
+                // try {
+                //     emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+                //     'Yr8QuQUIlXompjRBo', {
+                //     fio: this.form.fio,
+                //     email: this.form.email,
+                //     order: this.form.order
+                //     })
+
+                // } catch(error) {
+                //     console.log({error})
+                // }
+                // this.form.fio = ''
+                // this.form.email = ''
+                // this.form.order = ''
             },
             closeForm() {
                 this.$emit('closeForm')
             }
-        }
+        },
   }
 </script>
 
