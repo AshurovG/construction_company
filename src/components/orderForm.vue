@@ -16,6 +16,9 @@
             placeholder="ФИО*"
             v-model.trim="state.form.fio"
             ><br>
+            <span v-if="v$.form.fio.$error">
+                {{ v$.form.fio.$errors[0].message }}
+            </span>
             
             <input
             class="form_item"
@@ -62,8 +65,7 @@
                         fio: { required,
                             checkFio(value) {
                                 const regex = /^([\u0400-\u04FF]+[\s]?){3}$/;
-                                const matches = value.match(regex);
-                                return matches !== null;
+                                return regex.test(value.trim());
                             }
                         },
                         email: { required, email },
