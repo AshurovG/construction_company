@@ -5,13 +5,14 @@
     </transition>
     <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
     <div class="content" ref="content">
-      <exterior-design-list/>
+      <exterior-design-list :flag="!flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list  :flag="flag"/>
+      <ventilated-facades-list  :flag="!flag"/>
     </div>
     <div class="form_for_order" v-if="isFormOpened">
         <order-form @closeForm="closeOrderForm"/>
     </div>
+    <button class="portfolio-page_back-to-main" @click="openMain">На главную</button>
     <footer-page></footer-page>
   </div>
 </template>
@@ -60,5 +61,29 @@ export default {
 
 
 <style>
+.portfolio-page_back-to-main {
+    display: block;
+    width: 454px;
+    height: 72px;
+    margin: 0 auto;
+    margin-top: 55px;
+    /* margin-bottom: 35px; */
 
+    background: rgba(97, 10, 10, 0.82);
+    border-radius: 35px;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+    color: #FFFFFF;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.portfolio-page_back-to-main:hover {
+    background: rgba(69, 5, 5, 0.82);
+}
 </style>

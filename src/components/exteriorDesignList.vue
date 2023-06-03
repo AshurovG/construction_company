@@ -1,30 +1,41 @@
 <template>
     <div class="exterior-design-list">
       <div class="exterior-design-list_container">
-        <h1 
+        <h1
         class="exterior-design-list_title">{{ exteriorDesignListTitle }}</h1>
-        <div class="exterior-design-list_description">
+        <div class="exterior-design-list_description" v-if="openInMain">
           {{ exteriorDesignListDescription }}
         </div>
-        <h1 class="exterior-design-list_examples">Примеры работ</h1>
-        <ul class="exterior-design-list_items">
-        <li
-        class="exterior-design-list_item"
-        v-for="(product, index) in products"
-        :key="index"
-        >
-          <product-card
-          :id="product.id"
-          :title="product.title"
-          :img-url="product.imgUrl"
-          :items="product.items"
-          />
-        </li>
-      </ul>
-      <button 
-        class="exterior-design-list_button"
-        
-        >Посмотреть все работы</button>
+        <h1 class="exterior-design-list_examples" v-if="openInMain">Примеры работ</h1>
+        <ul class="exterior-design-list_items" v-if="openInMain">
+          <li
+          class="exterior-design-list_item"
+          v-for="(product, index) in products.slice(0,6)"
+          :key="index"
+          >
+            <product-card
+            :id="product.id"
+            :title="product.title"
+            :img-url="product.imgUrl"
+            :items="product.items"
+            />
+          </li>
+       </ul>
+       <ul class="exterior-design-list_items" v-else>
+          <li
+          class="exterior-design-list_item"
+          v-for="(product, index) in products.slice(0,9)"
+          :key="index"
+          >
+            <product-card
+            :id="product.id"
+            :title="product.title"
+            :img-url="product.imgUrl"
+            :items="product.items"
+            />
+          </li>
+       </ul>
+      <button class="exterior-design-list_button" v-if="openInMain">Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -36,6 +47,9 @@ export default {
     components: {
       productCard
     },
+    props: {
+      openInMain: Boolean
+    },
     data() {
       return {
         exteriorDesignListTitle: "Наружное оформление зданий",
@@ -43,7 +57,7 @@ export default {
         products: [
           {
             id: 1,
-            title: 'Вент. фасад 1',
+            title: 'Офор. фасад 1',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -62,7 +76,7 @@ export default {
           },
           {
             id: 2,
-            title: 'Вент. фасад 2',
+            title: 'Офор. фасад 2',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -78,11 +92,11 @@ export default {
                 subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
               }
             ]
-            
+
           },
           {
             id: 3,
-            title: 'Вент. фасад 3',
+            title: 'Офор. фасад 3',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -101,7 +115,7 @@ export default {
           },
           {
             id: 4,
-            title: 'Вент. фасад 4',
+            title: 'Офор. фасад 4',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -120,7 +134,7 @@ export default {
           },
           {
             id: 5,
-            title: 'Вент. фасад 5',
+            title: 'Офор. фасад 5',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -139,7 +153,64 @@ export default {
           },
           {
             id: 6,
-            title: 'Вент. фасад 6',
+            title: 'Офор. фасад 6',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
+          },
+          {
+            id: 6,
+            title: 'Офор. фасад 7',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
+          },
+          {
+            id: 6,
+            title: 'Офор. фасад 8',
+            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
+            items: [
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              },
+              {
+                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
+              }
+            ]
+          },
+          {
+            id: 6,
+            title: 'Офор. фасад 9',
             imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
             items: [
               {
@@ -179,13 +250,14 @@ export default {
   letter-spacing: -0.03em;
 
   margin-top: 30px;
+  margin-bottom: 25px;
 }
 
 .exterior-design-list_description {
   font-style: normal;
   font-weight: 500;
   font-size: 1em;
-  margin-top: 25px;
+  /* margin-top: 25px; заккоментил чтобы при удалении описания картинки не слипалсь с заголовком, вместо добавил margin-bottom title */
 }
 
 .exterior-design-list_examples {

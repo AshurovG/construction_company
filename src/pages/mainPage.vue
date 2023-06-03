@@ -7,9 +7,9 @@
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <exterior-design-list/>
+      <exterior-design-list :openInMain="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list  :flag="flag"/>
+      <ventilated-facades-list  :openInMain="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <question-list></question-list>
     </div>

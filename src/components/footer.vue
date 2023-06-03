@@ -56,7 +56,7 @@ export default {
     width: 100%;
     height: 222px;
 
-    margin-top: 139px;
+    margin-top: 110px;
     padding-top: 30px;
     padding-bottom: 200px;
 
