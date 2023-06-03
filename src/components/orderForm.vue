@@ -7,36 +7,56 @@
         @click="closeForm"
         >
         <form class="order_form" @submit.prevent="sendEmail" novalidate="true">
-            <h1 class="form_title">ФЛОРДФАСД</h1>
-            <input
-            class="form_item"
-            type="text"
-            id="fio"
-            name="fio"
-            placeholder="ФИО*"
-            v-model.trim="state.form.fio"
-            ><br>
-            <span v-if="v$.form.fio.$error">
-                {{ v$.form.fio.$errors[0].message }}
-            </span>
-            
-            <input
-            class="form_item"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="e-mail*"
-            v-model.trim="state.form.email"
-            ><br>
-            <textarea
-            class="form_order_text"
-            type="text"
-            id="order"
-            name="order"
-            placeholder="Опишите заказ*"
-            v-model.trim="state.form.order"
-            ></textarea><br>
-            <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
+            <h1 class="form_title">Оформите заказ</h1>
+            <div class="form_item_container">
+                <input
+                class="form_item"
+                type="text"
+                id="fio"
+                name="fio"
+                placeholder="ФИО*"
+                v-model.trim="state.fio"
+                @blur="v$.fio.$touch"
+                ><br>
+                <!-- <span class="error_item" v-if="fio$">Это обязательное поле</span> -->
+                <span class="error_item" v-if="v$.fio.$error">
+                    Некорректное ФИО
+                </span>
+                <!-- <span class="error_item" v-else-if="v$.fio.$dirty && !v$.fio.checkFio">
+                    Некорректное ФИО
+                </span> -->
+            </div>
+                 
+            <div class="form_item_container">
+                <input
+                class="form_item"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="e-mail*"
+                v-model.trim="state.email"
+                @blur="v$.email.$touch"
+                ><br>
+                <span class="error_item" v-if="v$.email.$error">
+                    Некорректный e-mail
+                </span>
+            </div>
+            <div class="form_item_container">
+                <textarea
+                class="form_order_text"
+                type="text"
+                id="order"
+                name="order"
+                placeholder="Опишите заказ*"
+                v-model.trim="state.order"
+                @blur="v$.order.$touch"
+                ></textarea><br>
+                <span class="error_item" v-if="v$.order.$error">
+                    В тексте должно быть от 10 до 500 символов
+                </span>
+            </div>
+            <button :disabled="(v$.fio.$invalid || v$.email.$invalid || v$.order.$invalid)" class="btn_send_email" type="submit" value="Send">Сделать заказ</button>
+            <!-- <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button> -->
         </form>
     </div>
  </template>
@@ -50,23 +70,19 @@
     export default {
         setup() {
             const state = reactive({
-                form: {
-                    fio: '',
-                    email: '',
-                    order: ''
-                },
+                fio: '',
+                email: '',
+                order: '',
                 minOrderTextLength: 10,
                 maxOrderTextLength: 500
             })
 
-            const rules = computed(() => {
-                return {
-                    form: {
-                        fio: { required,
-                            checkFio(value) {
-                                const regex = /^([\u0400-\u04FF]+[\s]?){3}$/;
-                                return regex.test(value.trim());
-                            }
+            const rules = computed(() => ({
+                fio: { required,
+                    checkFio(value) {
+                        const regex = /^([\u0400-\u04FF]+\s){2}[\u0400-\u04FF]+$/;
+                        return regex.test(value.trim());
+                    }
                         },
                         email: { required, email },
                         order: { 
@@ -74,12 +90,13 @@
                             minLength: minLength(state.minOrderTextLength),
                             maxLength: maxLength(state.maxOrderTextLength) 
                         }
-                    }
-                }
-            })
+            }))
+
             // Отслеживаем изменения в поле fio
-            watch(() => state.form.fio, (newValue) => {
-                rules.value.form.fio.checkFio(newValue)
+            watch(() => state.fio, (newValue) => {
+                rules.value.fio.checkFio(newValue)
+                // v$.form.fio.$touch()
+                // v$.form.fio.$dirty = true
             })
             const v$ = useVuelidate(rules, state)
 
@@ -88,15 +105,27 @@
                 v$
             }
         },
+        data() {
+            return {
+            flag: null
+            }
+        },
+        mounted() {
+            this.flag = this.v$
+        },
         methods: {
+            // isValid() {
+            //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
+            // },
             sendEmail() {
                 this.v$.$validate()
-                console.log(this.v$)
+                // console.log(this.flag)
                 if (!this.v$.$error){
                     alert(('success'))
                 } else {
                     alert(('error'))
                 }
+                console.log(this.v$.fio.$invalid || this.v$.email.$invalid || this.v$.order.$invalid)
                 
                 // try {
                 //     emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
@@ -140,10 +169,10 @@
     flex-direction: column;
     align-items: center;
 }
-
-.form_item {
-    /* margin: 0 auto; */
+.form_item_container {
     margin-bottom: 52px;
+}
+.form_item {
     padding: 16px 26px;
     text-align: left;
     width: 720px;
@@ -163,6 +192,7 @@
 }
 
 .form_order_text {
+    resize: none;
     text-align: left;
     max-width: 720px;
     min-width: 720px;
@@ -170,7 +200,6 @@
     max-height: 300px;
     left: 150px;
     top: 419px;
-    margin-bottom: 52px;
     padding: 16px 26px;
 
     background: #FFFFFF;
@@ -185,7 +214,8 @@
 }
 
 .form_title {
-    width: 238px;
+    width: 100%;
+    text-align: center;
     height: 49px;
     margin: 0 auto;
     margin-bottom: 52px;
@@ -219,6 +249,11 @@
     cursor: pointer;
     background: rgba(135, 15, 15, 0.82);
 }
+.btn_send_email:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: default;
+}
 
 .exit_form_buttton {
   width: 70px;
@@ -227,6 +262,12 @@
   top: -45px;
   right: -45px;
   cursor: pointer;
+}
+
+.error_item {
+    color: red;
+    margin-top: 5px;
+    font-size: 16px;
 }
 
 </style>
