@@ -34,6 +34,8 @@ export default {
       },
       openMain() {
         this.$emit('openMain')
+        console.log("open main on header click")
+
       }
     }
 }

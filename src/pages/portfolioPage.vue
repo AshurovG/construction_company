@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
-    <header-page @openOrderForm="openOrderForm" @openMain="openMain"  @openPortfolio="openPortfolio"/>
+    <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
     <div class="content" ref="content">
       <exterior-design-list/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -49,6 +49,9 @@ export default {
       this.isFormOpened = false
       this.isScreenLocked = false
     },
+    openMain() {
+      this.$emit('openMain')
+    }
   },
 
 }

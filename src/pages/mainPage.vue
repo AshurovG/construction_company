@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
-    <header-page @openOrderForm="openOrderForm" @openMain="openMain" @openPortfolio="openPortfolio"/>
+    <header-page @openOrderForm="openOrderForm"  @openPortfolio="openPortfolio"/>
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      isPageShow:true,
+      // isPageShow:true,
       isScreenLocked: false,
       isFormOpened: false,
       flag: true
@@ -57,9 +57,6 @@ export default {
     closeOrderForm() {
       this.isFormOpened = false
       this.isScreenLocked = false
-    },
-    openMain() {
-      this.$emit('openMainPage')
     },
     openPortfolio() {
       this.$emit('openPortfolio')

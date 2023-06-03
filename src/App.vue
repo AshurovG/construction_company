@@ -29,10 +29,12 @@ export default {
     openMainPage(){
       this.isMainPageOpen=true
       this.isPortfolioPageOpen=false
+      console.log("open main on app clicked")
     },
     openPortfolioPage(){
       this.isMainPageOpen=false
       this.isPortfolioPageOpen=true
+      console.log("open portfolio on app clicked")
     }
   }
 
