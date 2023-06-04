@@ -128,6 +128,9 @@
                 showModal: false
             }
         },
+        components: {
+            VueRecaptcha
+        },
         methods: {
             // isValid() {
             //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
@@ -160,6 +163,7 @@
             successSending() {
                 this.showModal = true
             },
+            
             closeForm() {
                 this.$emit('closeForm')
             }
