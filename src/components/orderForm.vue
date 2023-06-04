@@ -63,8 +63,6 @@
             value="Send">
             Сделать заказ
             </button>
-            
-            <!-- <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button> -->
         </form>
         <modal-window
         @closeModalWindow="closeModalWindow"
@@ -81,7 +79,7 @@
     import { useVuelidate } from '@vuelidate/core'
     import { required, email, minLength, maxLength } from '@vuelidate/validators'
     import { reactive, computed, watch  } from 'vue'
-    import emailjs from 'emailjs-com';
+    // import emailjs from 'emailjs-com';
 
     export default {
         components: {
@@ -133,25 +131,25 @@
             // isValid() {
             //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
             // },
-            sendEmail(e) {
-                this.v$.$validate()
-                // console.log(this.flag)
-                if (!this.v$.$error){
-                    try {
-                        emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-                        'Yr8QuQUIlXompjRBo', {
-                            fio: this.fio,
-                            email: this.email,
-                            order: this.order
-                        })
-                    } catch(error) {
-                        console.log({error})
-                    }
-                    this.fio = ''
-                    this.email = ''
-                    this.order = ''
-                }                
-            },
+            // sendEmail(e) {
+            //     this.v$.$validate()
+            //     // console.log(this.flag)
+            //     if (!this.v$.$error){
+            //         try {
+            //             emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+            //             'Yr8QuQUIlXompjRBo', {
+            //                 fio: this.fio,
+            //                 email: this.email,
+            //                 order: this.order
+            //             })
+            //         } catch(error) {
+            //             console.log({error})
+            //         }
+            //         this.fio = ''
+            //         this.email = ''
+            //         this.order = ''
+            //     }                
+            // },
             successSending() {
                 this.showModal = true
             },
@@ -261,10 +259,11 @@
     line-height: 54px;
     letter-spacing: -0.03em;
     color: #F5F5F5;
+    cursor: pointer;
+    transition: background .2s linear;
 }
 
 .btn_send_email:hover {
-    cursor: pointer;
     background: rgba(135, 15, 15, 0.82);
 }
 .btn_send_email:disabled {
@@ -287,81 +286,4 @@
     margin-top: 5px;
     font-size: 16px;
 }
-
-.modal {
-  /* display: none; */
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
-  border-radius: 40px;
-}
-
-.modal-title {
-    width: 100%;
-    height: 20%;
-    font-size: 18px;
-}
-
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 2px solid #888;
-    border-radius: 15px;
-    width: 80%;
-    height: 33%;
-}
-
-.modal-btn {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 170px;
-    height: 44px;
-    padding: 8px 16px;
-    display: block;
-    text-align: center;
-    background: #4CBB17;
-    border-radius: 15px;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 10px;
-    letter-spacing: -0.03em;
-    color: #F5F5F5;
-    cursor: pointer;
-    transition: background .2s linear;
-}
-
-.modal-btn:hover {
-    background: #32810e;
-}
-.modal-text {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.modal-title {
-    width: 100%;
-    font-size: 25px;
-    font-weight: 700;
-}
-
-.modal-subtitle {
-    width: 100%;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.modal-image {
-    display: block;
-    margin: 0 auto;
-}
-
 </style>

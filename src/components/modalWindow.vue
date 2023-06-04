@@ -73,7 +73,7 @@
     padding: 8px 16px;
     display: block;
     text-align: center;
-    background: #4CBB17;
+    background: rgba(97, 10, 10, 0.82);
     border-radius: 15px;
     font-style: normal;
     font-weight: 600;
@@ -86,7 +86,7 @@
 }
 
 .modal-btn:hover {
-    background: #32810e;
+    background: rgba(135, 15, 15, 0.82);
 }
 .modal-text {
     text-align: center;
