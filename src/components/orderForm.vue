@@ -56,7 +56,7 @@
                 </span>
             </div>
             <button 
-            @click="showModal = true"
+            @click="successSending"
             :disabled="(v$.fio.$invalid || v$.email.$invalid || v$.order.$invalid)"
             class="btn_send_email" 
             type="submit" 
@@ -66,27 +66,26 @@
             
             <!-- <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button> -->
         </form>
-        <div class="modal" v-show="showModal">
-            <div class="modal-content">
-                <img class="modal-image" src="../components/assets/pngwing.com.png" alt="">
-                <div class="modal-text">
-                    <p class="modal-title">Вы успешно офоромили заказ!</p>
-                    <p class="modal-subtitle">Ожидайте ответа на почту</p>
-                </div>
-            <button class="modal-btn" @click="showModal = false">Закрыть</button>
-            </div>
-            </div>
+        <modal-window
+        class="modal"
+        :showModal="showModal"
+        v-if="showModal==true"
+        />
         
     </div>
  </template>
 
 <script>
+    import modalWindow from './modalWindow.vue'
     import { useVuelidate } from '@vuelidate/core'
     import { required, email, minLength, maxLength } from '@vuelidate/validators'
     import { reactive, computed, watch  } from 'vue'
     // import emailjs from 'emailjs-com';
 
     export default {
+        components: {
+            modalWindow
+        },
         setup() {
             const state = reactive({
                 fio: '',
@@ -157,6 +156,9 @@
                 // this.form.fio = ''
                 // this.form.email = ''
                 // this.form.order = ''
+            },
+            successSending() {
+                this.showModal = true
             },
             closeForm() {
                 this.$emit('closeForm')
