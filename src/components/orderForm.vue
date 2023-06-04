@@ -67,6 +67,7 @@
             <!-- <button class="btn_send_email" type="submit" value="Send">Сделать заказ</button> -->
         </form>
         <modal-window
+        @closeModalWindow="closeModalWindow"
         class="modal"
         :showModal="showModal"
         v-if="showModal==true"
@@ -128,9 +129,6 @@
                 showModal: false
             }
         },
-        components: {
-            VueRecaptcha
-        },
         methods: {
             // isValid() {
             //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
@@ -166,6 +164,10 @@
             
             closeForm() {
                 this.$emit('closeForm')
+            },
+            closeModalWindow() {
+                this.showModal = false
+                this.closeForm()
             }
         },
   }

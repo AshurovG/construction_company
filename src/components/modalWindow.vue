@@ -20,19 +20,15 @@
             }
         },
         props: {
-            successSending: {
-                type: Function,
-                required: true
-            },
             showModal: {
                 type: Boolean,
                 required: true
             }
         },
         methods: {
-            // closeModalWindow() {
-            //     this.showModal = false
-            // }
+            closeModalWindow() {
+                this.$emit('closeModalWindow')
+            }
         }
     }
 </script>
