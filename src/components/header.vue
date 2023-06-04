@@ -44,6 +44,10 @@ export default {
 
 <style>
 .header {
+  position: fixed; /* Фиксация хедера */
+  top: 0;
+  left: 0;
+  z-index: 1000;
   background-color: #610a0a;
   width: 100%;
   padding: 2rem 0;

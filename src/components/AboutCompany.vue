@@ -23,8 +23,7 @@ export default {
 
 <style>
 .about-company {
-
-
+    margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
     margin-bottom: 30px;
 }
 
