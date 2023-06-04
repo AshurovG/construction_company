@@ -14,11 +14,6 @@
 <script>
     export default {
         name: "modalWindow",
-        data() {
-            return {
-                // showModal: false
-            }
-        },
         props: {
             showModal: {
                 type: Boolean,
@@ -35,7 +30,6 @@
     
 <style>
 .modal {
-    /* display: none; */
     position: fixed;
     z-index: 10000;
     left: 0;

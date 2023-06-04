@@ -1,5 +1,4 @@
 <template>
-    <!-- Здесь помещается шаблон компонента -->
     <div class="form_container">
         <img
         class="exit_form_buttton"
@@ -18,13 +17,9 @@
                 v-model.trim="state.fio"
                 @blur="v$.fio.$touch"
                 ><br>
-                <!-- <span class="error_item" v-if="fio$">Это обязательное поле</span> -->
                 <span class="error_item" v-if="v$.fio.$error">
                     Некорректное ФИО
                 </span>
-                <!-- <span class="error_item" v-else-if="v$.fio.$dirty && !v$.fio.checkFio">
-                    Некорректное ФИО
-                </span> -->
             </div>
                  
             <div class="form_item_container">
@@ -78,8 +73,8 @@
     import modalWindow from './modalWindow.vue'
     import { useVuelidate } from '@vuelidate/core'
     import { required, email, minLength, maxLength } from '@vuelidate/validators'
-    import { reactive, computed, watch  } from 'vue'
-    // import emailjs from 'emailjs-com';
+    import { reactive, computed } from 'vue'
+    import emailjs from 'emailjs-com';
 
     export default {
         components: {
@@ -109,12 +104,6 @@
                         }
             }))
 
-            // Отслеживаем изменения в поле fio
-            watch(() => state.fio, (newValue) => {
-                rules.value.fio.checkFio(newValue)
-                // v$.form.fio.$touch()
-                // v$.form.fio.$dirty = true
-            })
             const v$ = useVuelidate(rules, state)
 
             return {
@@ -128,28 +117,24 @@
             }
         },
         methods: {
-            // isValid() {
-            //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
-            // },
-            // sendEmail(e) {
-            //     this.v$.$validate()
-            //     // console.log(this.flag)
-            //     if (!this.v$.$error){
-            //         try {
-            //             emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-            //             'Yr8QuQUIlXompjRBo', {
-            //                 fio: this.fio,
-            //                 email: this.email,
-            //                 order: this.order
-            //             })
-            //         } catch(error) {
-            //             console.log({error})
-            //         }
-            //         this.fio = ''
-            //         this.email = ''
-            //         this.order = ''
-            //     }                
-            // },
+            sendEmail(e) {
+                this.v$.$validate()
+                if (!this.v$.$error){
+                    try {
+                        emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+                        'Yr8QuQUIlXompjRBo', {
+                            fio: this.fio,
+                            email: this.email,
+                            order: this.order
+                        })
+                    } catch(error) {
+                        console.log({error})
+                    }
+                    this.fio = ''
+                    this.email = ''
+                    this.order = ''
+                }                
+            },
             successSending() {
                 this.showModal = true
             },
