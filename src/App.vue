@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-    <main-page @openPortfolio="openPortfolioPage"  v-if="isMainPageOpen"/>
-    <portfolio-page @openMain="openMainPage" v-if="isPortfolioPageOpen"/>
+    <main-page @openPortfolio="openPortfolioPage"  v-if="isMainPageOpen" @openPortfolioDesigns="openPortfolioDesigns"/>
+    <portfolio-page @openMain="openMainPage" v-if="isPortfolioPageOpen" :selectedInMain="selectedInFilter" />
   </div>
 </template>
 
@@ -23,18 +23,23 @@ export default {
     return {
       isMainPageOpen: true,
       isPortfolioPageOpen: false,
+      selectedInFilter: ''
     }
   },
   methods: {
     openMainPage(){
       this.isMainPageOpen=true
       this.isPortfolioPageOpen=false
-      console.log("open main on app clicked")
     },
     openPortfolioPage(){
       this.isMainPageOpen=false
       this.isPortfolioPageOpen=true
-      console.log("open portfolio on app clicked")
+    },
+    openPortfolioDesigns() {
+      console.log("333")
+      this.selectedInFilter='Наружное оформление зданий'
+      this.isMainPageOpen=false
+      this.isPortfolioPageOpen=true
     }
   }
 

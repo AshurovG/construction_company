@@ -7,7 +7,7 @@
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <exterior-design-list :openInMain="flag"/>
+      <exterior-design-list :openInMain="flag" @openPortfolioDesigns="openPortfolioDesigns"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list  :openInMain="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -60,11 +60,13 @@ export default {
     },
     openPortfolio() {
       this.$emit('openPortfolio')
-      console.log("open portfolio on main clicked")
+    },
+    openPortfolioDesigns() {
+        console.log("2222")
+        this.$emit('openPortfolioDesigns')
     }
+
   },
-
-
 
 }
 </script>
