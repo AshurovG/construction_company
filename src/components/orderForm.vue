@@ -81,7 +81,7 @@
     import { useVuelidate } from '@vuelidate/core'
     import { required, email, minLength, maxLength } from '@vuelidate/validators'
     import { reactive, computed, watch  } from 'vue'
-    // import emailjs from 'emailjs-com';
+    import emailjs from 'emailjs-com';
 
     export default {
         components: {
@@ -133,30 +133,24 @@
             // isValid() {
             //     return(this.v$.fio.$error && this.v$.email.$error && this.v$.order.$error)
             // },
-            sendEmail() {
+            sendEmail(e) {
                 this.v$.$validate()
                 // console.log(this.flag)
                 if (!this.v$.$error){
-                    // alert(('success'))
-                } else {
-                    alert(('error'))
-                }
-                console.log(this.showModal)
-                
-                // try {
-                //     emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-                //     'Yr8QuQUIlXompjRBo', {
-                //     fio: this.form.fio,
-                //     email: this.form.email,
-                //     order: this.form.order
-                //     })
-
-                // } catch(error) {
-                //     console.log({error})
-                // }
-                // this.form.fio = ''
-                // this.form.email = ''
-                // this.form.order = ''
+                    try {
+                        emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+                        'Yr8QuQUIlXompjRBo', {
+                            fio: this.fio,
+                            email: this.email,
+                            order: this.order
+                        })
+                    } catch(error) {
+                        console.log({error})
+                    }
+                    this.fio = ''
+                    this.email = ''
+                    this.order = ''
+                }                
             },
             successSending() {
                 this.showModal = true
