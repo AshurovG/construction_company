@@ -110,7 +110,7 @@ export default {
   height: 100%;
   background: rgba(61, 30, 30, 0.52);
   backdrop-filter: blur(2px);
-  z-index: 500;
+  z-index: 5000;
 }
 
 .showLockinScreen-enter-active,
