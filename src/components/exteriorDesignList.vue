@@ -35,7 +35,7 @@
             />
           </li>
        </ul>
-      <button class="exterior-design-list_button" v-if="openInMain">Посмотреть все работы</button>
+      <button class="exterior-design-list_button" v-if="openInMain" @click="openPortfolioDesigns">Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -48,10 +48,12 @@ export default {
       productCard
     },
     props: {
-      openInMain: Boolean
+      openInMain: Boolean,
     },
     data() {
       return {
+        isComponentCreated : false,
+        // exteriorDesignListName: "exteriorDesignList",
         exteriorDesignListTitle: "Наружное оформление зданий",
         exteriorDesignListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
@@ -228,6 +230,18 @@ export default {
             ]
           },
         ]
+      }
+    },
+    mounted() {
+      if(!this.isComponentCreated){
+        this.$emit("blockTitle", this.exteriorDesignListTitle);
+        this.isComponentCreated=true
+      }
+    },
+    methods: {
+      openPortfolioDesigns() {
+        console.log("111111")
+        this.$emit('openPortfolioDesigns')
       }
     }
 }

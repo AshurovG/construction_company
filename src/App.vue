@@ -12,6 +12,7 @@ export default {
     return {
       isMainPageOpen: true,
       isPortfolioPageOpen: false,
+      selectedInFilter: ''
     }
   },
 }
