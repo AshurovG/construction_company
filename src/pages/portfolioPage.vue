@@ -12,9 +12,9 @@
         @selectOption="selectOption"
       />
 
-      <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-if="showDesign"/>
-      <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-if="showFacades"/>
+      <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
+      <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
+      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"/>
 
     </div>
     <div class="form_for_order" v-if="isFormOpened">
@@ -76,12 +76,15 @@ export default {
     },
     selectOption(option) {
         if(option=='Вентилируемы фасады'){
+            this.selectedOption=option
             this.showDesign=false
             this.showFacades=true
         } else if(option=='Наружное оформление зданий'){
+            this.selectedOption=option
             this.showDesign=true
             this.showFacades=false
         } else {
+            this.selectedOption='Все работы'
             this.showDesign=true
             this.showFacades=true
         }

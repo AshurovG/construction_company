@@ -54,11 +54,12 @@ export default {
         font-size: 1.5rem;
         background-color: #e7e7e7;
         color: #000;
-                cursor: pointer;
+        cursor: pointer;
 
         border-radius: 10px;
         width: 500px;
         display: inline-block;
+        z-index: 99999;
     }
 
     .filter-block {
