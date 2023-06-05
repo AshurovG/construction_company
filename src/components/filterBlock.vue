@@ -59,7 +59,7 @@ export default {
         border-radius: 10px;
         width: 500px;
         display: inline-block;
-        z-index: 99999;
+        /* z-index: ; */
     }
 
     .filter-block {
