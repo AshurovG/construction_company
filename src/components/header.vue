@@ -8,9 +8,9 @@
                 </button>
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
-                    <a class="header-nav-link" href="#" @click="$router.push({name: 'portfolio'})">Портфолио</a>
-                    <a class="header-nav-link" href="#">Помощь</a>
-                    <a class="header-nav-link" href="#">Контакты</a>
+                    <a class="header-nav-link" @click="$router.push({name: 'portfolio'})">Портфолио</a>
+                    <a class="header-nav-link" @click="$router.push({name: 'home', hash: '#faqs'})">Помощь</a>
+                    <a class="header-nav-link" @click="$router.push({name: 'home', hash: '#contacts'})">Контакты</a>
                 </nav>
                 <button class="btn-order" @click="openOrderForm">
                     Сделать заказ

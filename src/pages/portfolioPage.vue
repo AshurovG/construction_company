@@ -21,7 +21,7 @@
         <order-form @closeForm="closeOrderForm"/>
     </div>
     <button class="portfolio-page_back-to-main" @click="$router.push({name: 'home'})">На главную</button>
-    <footer-page></footer-page>
+    <footer-page id="contacts"></footer-page>
   </div>
 </template>
 
