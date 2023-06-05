@@ -12,7 +12,7 @@
     <div class="form_for_order" v-if="isFormOpened">
         <order-form @closeForm="closeOrderForm"/>
     </div>
-    <button class="portfolio-page_back-to-main" @click="openMain">На главную</button>
+    <button class="portfolio-page_back-to-main" @click="$router.push({name: 'home'})">На главную</button>
     <footer-page></footer-page>
   </div>
 </template>
@@ -50,10 +50,6 @@ export default {
       this.isFormOpened = false
       this.isScreenLocked = false
     },
-    openMain() {
-      window.scrollTo(0,0)
-      this.$emit('openMain')
-    },
   },
 
 }
@@ -62,6 +58,10 @@ export default {
 
 
 <style>
+.portfolio_page {
+  margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
+}
+
 .portfolio-page_back-to-main {
     display: block;
     width: 454px;

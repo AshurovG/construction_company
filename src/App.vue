@@ -1,21 +1,22 @@
 <template>
   <div class="page">
-    <main-page @openPortfolio="openPortfolioPage"  v-if="isMainPageOpen"/>
-    <portfolio-page @openMain="openMainPage" v-if="isPortfolioPageOpen"/>
+    <!-- <main-page @openPortfolio="openPortfolioPage"  v-if="isMainPageOpen"/>
+    <portfolio-page @openMain="openMainPage" v-if="isPortfolioPageOpen"/> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import mainPage from './pages/mainPage.vue'
-import PortfolioPage from './pages/portfolioPage.vue'
+// import mainPage from './pages/mainPage.vue'
+// import PortfolioPage from './pages/portfolioPage.vue'
 // import HeaderPage from '../components/header.vue'
 // import portfolioPage from './pages/portfolioPage.vue'
 
 export default {
   name: 'App',
   components:{
-    mainPage,
-    PortfolioPage,
+    // mainPage,
+    // PortfolioPage,
     // portfolioPage,
     // HeaderPage
   },

@@ -3,12 +3,12 @@
         <div class="container">
           <div class="content">
             <div class="header-inner">
-                <button class="header-brand" @click="openMain">
+                <button class="header-brand" @click="$router.push({name: 'home'})">
                     ФРОЛФАСД
                 </button>
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
-                    <a class="header-nav-link" href="#" @click="openPortfolio">Портфолио</a>
+                    <a class="header-nav-link" href="#" @click="$router.push({name: 'portfolio'})">Портфолио</a>
                     <a class="header-nav-link" href="#">Помощь</a>
                     <a class="header-nav-link" href="#">Контакты</a>
                 </nav>
@@ -28,15 +28,6 @@ export default {
       openOrderForm() {
         this.$emit('openOrderForm')
       },
-      openPortfolio() {
-        this.$emit('openPortfolio')
-        console.log("open portfolio on header click")
-      },
-      openMain() {
-        this.$emit('openMain')
-        console.log("open main on header click")
-
-      }
     }
 }
 </script>
