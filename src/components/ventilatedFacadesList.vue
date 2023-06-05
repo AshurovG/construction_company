@@ -260,7 +260,8 @@ export default {
 .ventilated-facades-list_items {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3,auto);
+  justify-content: space-between;
   grid-gap: 20px;
   margin-bottom: 35px;
 }
