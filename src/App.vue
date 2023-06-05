@@ -1,44 +1,19 @@
 <template>
   <div class="page">
-    <!-- <main-page @openPortfolio="openPortfolioPage"  v-if="isMainPageOpen"/>
-    <portfolio-page @openMain="openMainPage" v-if="isPortfolioPageOpen"/> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import mainPage from './pages/mainPage.vue'
-// import PortfolioPage from './pages/portfolioPage.vue'
-// import HeaderPage from '../components/header.vue'
-// import portfolioPage from './pages/portfolioPage.vue'
 
 export default {
   name: 'App',
-  components:{
-    // mainPage,
-    // PortfolioPage,
-    // portfolioPage,
-    // HeaderPage
-  },
   data() {
     return {
       isMainPageOpen: true,
       isPortfolioPageOpen: false,
     }
   },
-  methods: {
-    openMainPage(){
-      this.isMainPageOpen=true
-      this.isPortfolioPageOpen=false
-      console.log("open main on app clicked")
-    },
-    openPortfolioPage(){
-      this.isMainPageOpen=false
-      this.isPortfolioPageOpen=true
-      console.log("open portfolio on app clicked")
-    }
-  }
-
 }
 </script>
 
@@ -49,9 +24,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
-  /* margin-top: 60px; */
 }
 
 
