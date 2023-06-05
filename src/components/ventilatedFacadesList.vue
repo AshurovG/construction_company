@@ -48,13 +48,16 @@ import productCard from './productCard.vue';
 export default {
     name: "ventilatedFacadesList",
     components: {
-      productCard
+      productCard,
+
     },
     props: {
       openInMain: Boolean
     },
     data() {
       return {
+        isComponentCreated: false,
+        ventilatedFacadesListName: "ventilatedFacadesList",
         ventilatedFacadesListTitle: "Вентилируемы фасады",
         ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
@@ -236,6 +239,12 @@ export default {
     methods: {
       openSlider(id) {
         console.log(`Айди такой: ${id}`)
+      },
+    },
+    mounted() {
+      if(!this.isComponentCreated){
+        this.$emit("blockTitle", this.ventilatedFacadesListTitle);
+        this.isComponentCreated = true;
       }
     }
 }
