@@ -7,8 +7,8 @@
                     <img class="arrow-icon" src="./assets/arrow-down-sign-to-navigate.png" alt="">
                 </div>
             </div>
-            <div class="filter-options"
-            v-if="isOptionsShown"
+            <div
+            :class="isOptionsShown ? 'filter-options-shown' : 'filter-options'"
             >
                 <div class="each-option"
                 v-for="option in options"
@@ -72,16 +72,33 @@ export default {
     }
 
     .filter-options {
-        position: absolute;
-        top: 35px;
+        /* display: none; */
+        /* position: relative; */
+        /* overflow-y: hidden;
+        max-height: 0px; */
+        position: relative;
+        top: -5px;
         width: 100%;
         background-color: #e7e7e7;
         color: #000;
-        padding: .5rem;
+        padding:0 .5rem;
+
         border-radius: 10px;
+
+        max-height: 0px;
+        overflow-y: hidden;
+        /* transition: all 1.5s ease-in-out; */
+    }
+
+    .filter-options-shown {
+        top: -5px;
+        padding:0 .5rem;
+        max-height: 1000px;
+        position: relative;
+        transition: all 2.6s linear;
+
     }
     .filter-title {
-
         padding: .5rem;
         position: relative;
         display: flex;

@@ -1,13 +1,13 @@
 <template>
     <div class="header">
         <div class="container">
-          <div class="content">
+
             <div class="header-inner">
                 <button class="header-brand" @click="$router.push({name: 'home'})">
                     ФРОЛФАСД
                 </button>
                 <nav class="header-nav">
-                    <a class="header-nav-link" href="#">Услуги</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'services'}}),scrollToAnchor('services')}">Услуги</a>
                     <a class="header-nav-link" @click="$router.push({name: 'portfolio'})">Портфолио</a>
                     <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs')}">Помощь</a>
                     <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts')}">Контакты</a>
@@ -16,7 +16,7 @@
                     Сделать заказ
                 </button>
             </div>
-          </div>
+
         </div>
     </div>
 </template>
@@ -46,9 +46,13 @@ export default {
   position: fixed; /* Фиксация хедера */
   top: 0;
   left: 0;
+
   z-index: 1000;
+
   background-color: #610a0a;
+
   width: 100%;
+
   padding: 2rem 0;
   margin-bottom: 50px;
 
@@ -129,7 +133,7 @@ export default {
   color: #610A0A;
 }
 
-.content {
+.container {
   margin: 0px 150px;
 }
 

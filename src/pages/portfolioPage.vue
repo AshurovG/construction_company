@@ -5,13 +5,14 @@
     </transition>
     <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
     <div class="content" ref="content">
-      <h1 class="portfolio-page_title">Портфолио</h1>
-      <filter-block
-        :options="blockTypes"
-        :selected="selectedOption"
-        @selectOption="selectOption"
-      />
-
+        <div class="time">
+        <h1 class="portfolio-page_title">Портфолио</h1>
+        <filter-block class="portfolio-page_filter"
+            :options="blockTypes"
+            :selected="selectedOption"
+            @selectOption="selectOption"
+        />
+        </div>
       <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
       <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
       <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"
@@ -109,6 +110,17 @@ export default {
   margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
 }
 
+.time {
+    display: flex;
+    width: 40vw;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.portfolio-page_filter {
+    position: relative;
+
+}
+
 .portfolio-page_back-to-main {
     display: block;
     width: 454px;
@@ -137,10 +149,12 @@ export default {
     font-size: 2em;
     letter-spacing: -0.03em;
 
-    margin-top: 30px;
+    margin-top: 5px;
     margin-bottom: 25px;
-    margin-right: 60px;
+    margin-right: 90px;
     display: inline-block;
+
+
 }
 
 .portfolio-page_back-to-main:hover {

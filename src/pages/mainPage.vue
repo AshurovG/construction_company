@@ -7,7 +7,7 @@
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <exterior-design-list :openInMain="flag" @openPortfolioDesigns="openPortfolioDesigns"/>
+      <exterior-design-list :openInMain="flag" @openPortfolioDesigns="openPortfolioDesigns" id="services" style="scroll-margin-top: 150px;"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list  :openInMain="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -74,7 +74,7 @@ export default {
       const el = document.getElementById(this.selectedAnchor);
       setTimeout(() => {
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        el.scrollIntoView({ behavior: 'smooth'});
       }
       }, 100);
     }
