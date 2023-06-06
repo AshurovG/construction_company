@@ -11,7 +11,7 @@
       <div style="border-bottom: solid 1px #130D0D;"></div>
       <ventilated-facades-list  :openInMain="flag"/>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <question-list></question-list>
+      <question-list id="faqs"/>
     </div>
     <div class="form_for_order" v-if="isFormOpened">
         <order-form @closeForm="closeOrderForm"/>
@@ -41,6 +41,29 @@ export default {
     exteriorDesignList,
     ventilatedFacadesList
   },
+  mounted() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substr(1);
+    setTimeout(() => {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+  },//чтобы мы могли переходить к якорю из portfoliopage
+  updated() {
+  if (window.location.hash) {
+    const hash = window.location.hash.substr(1);
+    console.log(hash)
+    setTimeout(() => {
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+  },//чтобы мы могли переходить к якорю из mainpage
   data() {
     return {
       // isPageShow:true,
@@ -54,6 +77,7 @@ export default {
       this.isFormOpened = true
       this.isScreenLocked = true
     },
+
     closeOrderForm() {
       this.isFormOpened = false
       this.isScreenLocked = false

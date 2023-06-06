@@ -35,7 +35,7 @@
             />
           </li>
        </ul>
-      <button class="exterior-design-list_button" v-if="openInMain" @click="openPortfolioDesigns">Посмотреть все работы</button>
+      <button class="exterior-design-list_button" v-if="openInMain" @click="$router.push({name: 'portfolio'})">Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -302,6 +302,11 @@ export default {
   letter-spacing: -0.02em;
   color: #FFFFFF;
   text-align: center;
+  cursor: pointer;
+}
+
+.exterior-design-list_button:hover {
+  background: rgba(69, 5, 5, 0.82);
 }
 
 </style>

@@ -1,18 +1,20 @@
 <template>
-    <h1 class="faq-title">Часто задаваемые вопросы</h1>
-    <ul class="ques-list">
-        <li
-        v-for="(faq,index) in faqs"
-        :key="index">
-            <question-card
-            :question="faq.q"
-            :answer="faq.a"
-            :open="faq.open"
-            :index="index"
-            @click="()=> ansOpen(index)"
-            />
-        </li>
-    </ul>
+    <div>
+        <h1 class="faq-title">Часто задаваемые вопросы</h1>
+        <ul class="ques-list">
+            <li
+            v-for="(faq,index) in faqs"
+            :key="index">
+                <question-card
+                :question="faq.q"
+                :answer="faq.a"
+                :open="faq.open"
+                :index="index"
+                @click="()=> ansOpen(index)"
+                />
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
