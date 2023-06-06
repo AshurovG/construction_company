@@ -39,26 +39,6 @@
         data(){
           return {
           currentImage: 1,
-        //   products: [
-        //   {
-        //     imgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-        //   },
-        //   {
-        //     imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg'
-        //   },
-        //   {
-        //     imgUrl: 'https://pro-dachnikov.com/uploads/posts/2023-01/1673054977_pro-dachnikov-com-p-krasivii-dvukhetazhnii-dom-foto-89.jpg'
-        //   },
-        //   {
-        //     imgUrl: 'https://pro-dachnikov.com/uploads/posts/2021-10/1633701580_149-p-dom-moei-mechti-kartinki-foto-160.jpg'
-        //   },
-        //   {
-        //     imgUrl: 'https://pro-dachnikov.com/uploads/posts/2021-10/1633835923_16-p-krasivii-fasad-doma-s-mansardoi-foto-17.jpg'
-        //   },
-        //   {
-        //     imgUrl: 'https://pro-dachnikov.com/uploads/posts/2021-09/1632873627_22-p-chastnii-dom-v-sovremennom-stile-foto-22.jpg'
-        //   }
-        // ],
           currentSlide: 0
           }
         
@@ -97,7 +77,7 @@
   background-color: inherit;
   display: flex;
   overflow: visible;
-  z-index: 1000;
+  z-index: 10000;
   background-color: #fff;
 }
 
