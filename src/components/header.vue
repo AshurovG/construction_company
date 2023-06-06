@@ -9,8 +9,8 @@
                 <nav class="header-nav">
                     <a class="header-nav-link" href="#">Услуги</a>
                     <a class="header-nav-link" @click="$router.push({name: 'portfolio'})">Портфолио</a>
-                    <a class="header-nav-link" @click="$router.push({name: 'home', hash: '#faqs'})">Помощь</a>
-                    <a class="header-nav-link" @click="$router.push({name: 'home', hash: '#contacts'})">Контакты</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs')}">Помощь</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts')}">Контакты</a>
                 </nav>
                 <button class="btn-order" @click="openOrderForm">
                     Сделать заказ
@@ -24,10 +24,18 @@
 <script>
 export default {
     name:"HeaderPage",
+    data() {
+    return {
+      selectedAnchor: '',
+      };
+    },
     methods: {
       openOrderForm() {
         this.$emit('openOrderForm')
       },
+      scrollToAnchor(param) {
+        this.$emit("scrollToAnchor",param)
+      }
     }
 }
 </script>
@@ -86,6 +94,7 @@ export default {
   padding:15px 25px ;
 
   transition: color 0.2s linear;
+  cursor: pointer;
 }
 
 .header-nav-link:hover {

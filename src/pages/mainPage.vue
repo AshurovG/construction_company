@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
-    <header-page @openOrderForm="openOrderForm"  @openPortfolio="openPortfolio"/>
+    <header-page @openOrderForm="openOrderForm"  @openPortfolio="openPortfolio" @scrollToAnchor="scrollToAnchor"/>
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
@@ -39,37 +39,42 @@ export default {
     orderForm,
     QuestionList,
     exteriorDesignList,
-    ventilatedFacadesList
+    ventilatedFacadesList,
   },
+  // props: {
+  //   selectedAnchor: String,
+  // },
   mounted() {
-  if (window.location.hash) {
-    const hash = window.location.hash.substr(1);
-    setTimeout(() => {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+    if(this.$route.query.anch) {
+      const el = document.getElementById(this.$route.query.anch);
+      console.log(el)
+      setTimeout(() => {
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 100);
-  }
+      }, 100);
+    }
   },//чтобы мы могли переходить к якорю из portfoliopage
-  updated() {
-  if (window.location.hash) {
-    const hash = window.location.hash.substr(1);
-    console.log(hash)
-    setTimeout(() => {
-      const element = document.getElementById(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-  }
-  },//чтобы мы могли переходить к якорю из mainpage
+
+  // updated() {
+  // if (window.location.hash) {
+  //   const hash = window.location.hash.substr(1);
+  //   console.log(hash)
+  //   setTimeout(() => {
+  //     const element = document.getElementById(hash);
+  //     if (element) {
+  //       element.scrollIntoView({ behavior: 'smooth' });
+  //     }
+  //   }, 100);
+  // }
+  // },//чтобы мы могли переходить к якорю из mainpage
   data() {
     return {
       // isPageShow:true,
       isScreenLocked: false,
       isFormOpened: false,
-      flag: true
+      flag: true,
+      selectedAnchor: ''
     }
   },
   methods: {
@@ -77,6 +82,20 @@ export default {
       this.isFormOpened = true
       this.isScreenLocked = true
     },
+
+    scrollToAnchor(param) {
+      this.selectedAnchor=param
+      if (this.selectedAnchor) {
+      const el = document.getElementById(this.selectedAnchor);
+      console.log(el)
+      setTimeout(() => {
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      }, 100);
+    }
+    },
+
 
     closeOrderForm() {
       this.isFormOpened = false
