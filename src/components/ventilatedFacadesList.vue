@@ -36,9 +36,11 @@
             />
           </li>
         </ul>
-
         <button
-        class="ventilated-facades-list_button" v-if="openInMain">Посмотреть все работы</button>
+        class="ventilated-facades-list_button"
+        v-if="openInMain"
+        @click="()=>{$router.push({name:'portfolio'});optionForFilter()}"
+        >Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -58,7 +60,7 @@ export default {
       return {
         isComponentCreated: false,
         ventilatedFacadesListName: "ventilatedFacadesList",
-        ventilatedFacadesListTitle: "Вентилируемы фасады",
+        ventilatedFacadesListTitle: "Вентилируемые фасады",
         ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
         products: [
           {
@@ -240,6 +242,10 @@ export default {
       openSlider(id) {
         console.log(`Айди такой: ${id}`)
       },
+      optionForFilter() {
+        console.log('11111111111111')
+        this.$emit('optionForFilter',this.ventilatedFacadesListName)
+      }
     },
     mounted() {
       if(!this.isComponentCreated){
@@ -310,6 +316,11 @@ export default {
   letter-spacing: -0.02em;
   color: #FFFFFF;
   text-align: center;
+  cursor: pointer;
+}
+
+.ventilated-facades-list_button:hover {
+  background: rgba(69, 5, 5, 0.82);
 }
 
 </style>

@@ -77,6 +77,7 @@ export default {
       this.isFormOpened = true
       this.isScreenLocked = true
     },
+
     closeOrderForm() {
       this.isFormOpened = false
       this.isScreenLocked = false

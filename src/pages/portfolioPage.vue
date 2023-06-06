@@ -14,7 +14,8 @@
 
       <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
       <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
-      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"/>
+      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"
+      @optionForFilter="optionForFilter"/>
 
     </div>
     <div class="form_for_order" v-if="isFormOpened">
@@ -74,8 +75,11 @@ export default {
     createListOfBlocks(value) {
       this.blockTypes.push(value);
     },
+    optionForFilter() {
+      console.log('222222222')
+    },
     selectOption(option) {
-        if(option=='Вентилируемы фасады'){
+        if(option=='Вентилируемые фасады'){
             this.selectedOption=option
             this.showDesign=false
             this.showFacades=true
@@ -91,6 +95,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$route.params)
     console.log(this.selectedInMain)
   }
 
@@ -140,5 +145,7 @@ export default {
 
 .portfolio-page_back-to-main:hover {
     background: rgba(69, 5, 5, 0.82);
+    /* background: rgba(135, 15, 15, 0.82); */
+
 }
 </style>

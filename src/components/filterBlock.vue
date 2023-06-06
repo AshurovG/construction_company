@@ -42,9 +42,14 @@ export default {
         selectOption(option){
             this.$emit('selectOption',option)
             this.isOptionsShown=false
+        },
+        hideSelect() {
+            this.isOptionsShown=false
         }
+    },
+    mounted() {
+        document.addEventListener('click',this.hideSelect,true)
     }
-
 }
 </script>
 
