@@ -41,13 +41,10 @@ export default {
     exteriorDesignList,
     ventilatedFacadesList,
   },
-  // props: {
-  //   selectedAnchor: String,
-  // },
   mounted() {
+    console.log('перешли из портфолио')
     if(this.$route.query.anch) {
       const el = document.getElementById(this.$route.query.anch);
-      console.log(el)
       setTimeout(() => {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
@@ -56,18 +53,6 @@ export default {
     }
   },//чтобы мы могли переходить к якорю из portfoliopage
 
-  // updated() {
-  // if (window.location.hash) {
-  //   const hash = window.location.hash.substr(1);
-  //   console.log(hash)
-  //   setTimeout(() => {
-  //     const element = document.getElementById(hash);
-  //     if (element) {
-  //       element.scrollIntoView({ behavior: 'smooth' });
-  //     }
-  //   }, 100);
-  // }
-  // },//чтобы мы могли переходить к якорю из mainpage
   data() {
     return {
       // isPageShow:true,
@@ -87,7 +72,6 @@ export default {
       this.selectedAnchor=param
       if (this.selectedAnchor) {
       const el = document.getElementById(this.selectedAnchor);
-      console.log(el)
       setTimeout(() => {
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });

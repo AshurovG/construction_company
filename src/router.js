@@ -19,8 +19,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to) {
-    if (to.hash) {
-      return { selector: to.hash };
+    if (JSON.stringify(to.query) !== "{}") {
+      console.log(to.query);
+      return { selector: to.query };
     } else {
       return { top: 0 };
     }
