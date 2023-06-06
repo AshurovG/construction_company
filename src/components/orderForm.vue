@@ -21,7 +21,7 @@
                     Некорректное ФИО
                 </span>
             </div>
-                 
+
             <div class="form_item_container">
                 <input
                 class="form_item"
@@ -50,11 +50,11 @@
                     В тексте должно быть от 10 до 500 символов
                 </span>
             </div>
-            <button 
+            <button
             @click="successSending"
             :disabled="(v$.fio.$invalid || v$.email.$invalid || v$.order.$invalid)"
-            class="btn_send_email" 
-            type="submit" 
+            class="btn_send_email"
+            type="submit"
             value="Send">
             Сделать заказ
             </button>
@@ -65,7 +65,7 @@
         :showModal="showModal"
         v-if="showModal==true"
         />
-        
+
     </div>
  </template>
 
@@ -97,10 +97,10 @@
                     }
                         },
                         email: { required, email },
-                        order: { 
+                        order: {
                             required,
                             minLength: minLength(state.minOrderTextLength),
-                            maxLength: maxLength(state.maxOrderTextLength) 
+                            maxLength: maxLength(state.maxOrderTextLength)
                         }
             }))
 
@@ -133,12 +133,12 @@
                     this.fio = ''
                     this.email = ''
                     this.order = ''
-                }                
+                }
             },
             successSending() {
                 this.showModal = true
             },
-            
+
             closeForm() {
                 this.$emit('closeForm')
             },
@@ -153,6 +153,7 @@
 <style>
 
 .form_container {
+
   width: 1020px;
   height: 920px;
   background: #fff;
@@ -221,6 +222,7 @@
     margin: 0 auto;
     margin-bottom: 52px;
     padding: 52px 0;
+
 
     font-style: normal;
     font-weight: 700;

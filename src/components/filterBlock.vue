@@ -56,7 +56,8 @@ export default {
 <style>
     .filter-block {
         position: relative;
-        font-size: 1.5rem;
+        font-weight: 400;
+        font-size: 2rem;
         background-color: #e7e7e7;
         color: #000;
         cursor: pointer;
@@ -95,7 +96,7 @@ export default {
         padding:0 .5rem;
         max-height: 1000px;
         position: relative;
-        transition: all 2.6s linear;
+        transition: all 0.3s linear;
 
     }
     .filter-title {

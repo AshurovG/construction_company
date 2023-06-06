@@ -67,7 +67,7 @@ export default {
 .faq-title {
     font-style: normal;
     font-weight: 700;
-    font-size: 2em;
+    font-size: 2.5rem;
     letter-spacing: -0.03em;
 
     margin-top: 25px;
@@ -78,50 +78,6 @@ export default {
     list-style-type: none;
 }
 
-.arrow-icon {
-    width: 17px;
-    display: inline-block;
-}
 
-.faq {
-    display: block;
-    margin: 15px auto;
-    font-size: 1.8rem;
-}
-
-.faq .question {
-    position: relative;
-    color: #000;
-
-    transition: all 0.9s linear;
-}
-
-
-.faq.open .question {
-    margin-bottom: 15px;
-    color: #610a0a;
-}
-
-.faq.open .arrow-icon {
-    transform: rotate(180deg);
-}
-
-
-
-.faq .answer {
-    margin-left: 7.3px;
-    color: #000;
-    /* font-size: 1.2rem; */
-    max-height: 0px;
-    overflow-y: hidden;
-    transition: all 0.5s ease-in-out;
-}
-
-
-.faq.open .answer {
-    max-height: 1000px;
-    position: relative;
-    transition: all 2.6s linear;
-}
 
 </style>

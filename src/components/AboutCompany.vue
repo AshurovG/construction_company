@@ -3,7 +3,7 @@
         <div class="title">
             <h1 class="title"> О компании </h1>
         </div>
-        <div class="company-description">
+        <div class="about-company_description">
             <p>То есть надо продумать текст, из которого будет всем ясно, что это за фирма, чем занимается, какие есть
             услуги, и вообще надо что-то написать, я сейчас просто заполняю любым текстом, чтобы было понятно,
             как выглядит дизайн. Вообще лучше будет если это описание будет без картинок, то есть вот так текст на
@@ -23,16 +23,20 @@ export default {
 
 <style>
 .about-company {
-    margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
+    margin-top: 200px; /* Сделал для отступа от фиксированного хедера! */
     margin-bottom: 30px;
 }
 
 .title {
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    margin-bottom: 1.8rem;
 }
 
-.company-description {
-    font-size: 1.2rem;
+.about-company_description {
+    /* font-style: normal; */
+    font-weight: 400;
+    font-size: 2rem;
 }
 </style>

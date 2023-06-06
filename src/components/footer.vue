@@ -54,13 +54,14 @@ export default {
     color: #F5F5F5;
 
     width: 100%;
-    height: 222px;
+    height: 282px;
 
     margin-top: 110px;
     padding-top: 30px;
     padding-bottom: 200px;
 
-    font-size: 1.6rem;
+    font-size: 2rem;
+    font-weight: 400;
 }
 
 .footer-inner {

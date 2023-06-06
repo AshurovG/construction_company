@@ -1,7 +1,6 @@
 <template>
     <div class="header">
         <div class="container">
-
             <div class="header-inner">
                 <button class="header-brand" @click="$router.push({name: 'home'})">
                     ФРОЛФАСД
@@ -16,7 +15,6 @@
                     Сделать заказ
                 </button>
             </div>
-
         </div>
     </div>
 </template>
@@ -43,6 +41,7 @@ export default {
 
 <style>
 .header {
+  font-family: 'Open Sans', sans-serif;
   position: fixed; /* Фиксация хедера */
   top: 0;
   left: 0;
@@ -59,6 +58,7 @@ export default {
 }
 
 .header-inner {
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,10 +67,11 @@ export default {
 
 .header-brand {
   /* margin-left: 15px; */
-  font-size: 2.4rem;
+  font-size: 2.5rem;
   color: #F5F5F5;
   text-transform: uppercase;
   font-weight: 700;
+  line-height:54.47px;
 
   cursor: pointer;
 }
@@ -80,38 +81,35 @@ export default {
   z-index: 1;
   display: flex;
   justify-content: space-between;
-  gap: 0px;
-  /* width: 50%; */
-
-  /* width: 100%; */
-  /* gap: 120px; */
+  /* gap: 0px; */
 }
 
 .header-nav-link {
   margin-left: 1.5rem;
 
   color: #F5F5F5;
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 2.25rem;
+  font-weight: 600;
   text-decoration: none;
-  border-radius: 35px;
-  padding:15px 25px ;
+  border-radius: 2.18rem;
+  padding: 0.9375rem 1.5625rem ;
+
 
   transition: color 0.2s linear;
   cursor: pointer;
 }
 
 .header-nav-link:hover {
-  /* color: #e5bbbb; */
   background-color: #fff;
   color: #610A0A;
 
 }
 
 .btn-order {
-    font-size: 2.1rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: #610A0A;
+    line-height:54.47px;
 
 
     background-color:#610A0A;
@@ -119,11 +117,10 @@ export default {
     cursor: pointer;
     outline: #F5F5F5 3px solid;
 
-    border-radius: 35px;
+    border-radius: 2em;
     border: 0;
 
-    padding: 0.8rem 2rem;
-    /* margin-right: 20px; */
+    padding: 0.4em 1em;
 
     transition: background-color 0.2s linear;
 }

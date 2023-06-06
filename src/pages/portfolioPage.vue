@@ -5,13 +5,13 @@
     </transition>
     <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
     <div class="content" ref="content">
-        <div class="time">
-        <h1 class="portfolio-page_title">Портфолио</h1>
-        <filter-block class="portfolio-page_filter"
-            :options="blockTypes"
-            :selected="selectedOption"
-            @selectOption="selectOption"
-        />
+        <div class="portfolio-page_starter">
+            <h1 class="portfolio-page_title">Портфолио</h1>
+            <filter-block class="portfolio-page_filter"
+                :options="blockTypes"
+                :selected="selectedOption"
+                @selectOption="selectOption"
+            />
         </div>
       <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
       <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
@@ -110,7 +110,8 @@ export default {
   margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
 }
 
-.time {
+.portfolio-page_starter {
+    margin-top: 200px;
     display: flex;
     width: 40vw;
     align-items: flex-start;
@@ -144,9 +145,9 @@ export default {
 }
 
 .portfolio-page_title {
-    font-style: normal;
+    /* font-style: normal; */
     font-weight: 700;
-    font-size: 2em;
+    font-size: 2.5rem;
     letter-spacing: -0.03em;
 
     margin-top: 5px;

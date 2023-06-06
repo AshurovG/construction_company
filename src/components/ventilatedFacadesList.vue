@@ -275,7 +275,7 @@ export default {
 .ventilated-facades-list_title {
   font-style: normal;
   font-weight: 700;
-  font-size: 2em;
+  font-size: 2.5rem;
   letter-spacing: -0.03em;
 
   margin-top: 30px;
@@ -284,15 +284,15 @@ export default {
 
 .ventilated_facades_list_description {
   font-style: normal;
-  font-weight: 500;
-  font-size: 1em;
+  font-weight: 400;
+  font-size: 2rem;
   /* margin-top: 25px; заккоментил чтобы при удалении описания картинки не слипалсь с заголовком, вместо добавил margin-bottom title */
 }
 
 .ventilated-facades-list_examples {
   font-style: normal;
   font-weight: 700;
-  font-size: 2em;
+  font-size: 2.5rem;
   letter-spacing: -0.03em;
 
   margin-top: 25px;
