@@ -1,9 +1,9 @@
 <template>
     <div class="filter-block">
         <div class="filter-inner">
-            <div class="filter-title" @click="isOptionsShown=!isOptionsShown">
+            <div class="filter-title" @click="isOptionsShown=!isOptionsShown" id="filter-title">
                 <div>{{selected}}</div>
-                <div class="arrow-down-icon">
+                <div :class="isOptionsShown ? 'arrow-up-icon' : 'arrow-down-icon'">
                     <img class="arrow-icon" src="./assets/arrow-down-sign-to-navigate.png" alt="">
                 </div>
             </div>
@@ -43,9 +43,11 @@ export default {
             this.$emit('selectOption',option)
             this.isOptionsShown=false
         },
-        hideSelect() {
-            this.isOptionsShown=false
-        }
+        hideSelect(event) {
+            if (!event.target.closest('#filter-title')){
+                this.isOptionsShown=false
+            }
+        },
     },
     mounted() {
         document.addEventListener('click',this.hideSelect,true)
@@ -116,6 +118,12 @@ export default {
     .arrow-down-icon {
         position: absolute;
         right: 20px;
+    }
+
+    .arrow-up-icon {
+        position: absolute;
+        right: 20px;
+        transform: rotate(180deg);
     }
 
 </style>
