@@ -138,11 +138,17 @@ font-size: 0.7rem;
 }
 
 @media(max-width: 1340px){
-.filter-block {
-font-size: 0.5rem;
-/* margin-top: 16em; */
-}
+    .filter-block {
+    font-size: 0.5rem;
+    /* margin-top: 16em; */
+    }
 
 }
+
+/* @media(max-width: 564px){
+  .filter-block {
+    width: 310px;
+  }
+} */
 
 </style>

@@ -1,15 +1,18 @@
 <template>
     <div class="header">
         <div class="container">
-            <div class="header-inner">
+            <div id="header-inner" class="header-inner">
+                <button class="header-nav-button" @click="adaptMenuShow">
+                  <span></span><span></span><span></span>
+                </button>
                 <button class="header-brand" @click="$router.push({name: 'home'})">
                     ФРОЛФАСД
                 </button>
                 <nav class="header-nav">
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'services'}}),scrollToAnchor('services')}">Услуги</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'services'}}),scrollToAnchor('services'),adaptMenuShow()}">Услуги</a>
                     <a class="header-nav-link" @click="$router.push({name: 'portfolio'})">Портфолио</a>
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs')}">Помощь</a>
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts')}">Контакты</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs'),adaptMenuShow()}">Помощь</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts'),adaptMenuShow()}">Контакты</a>
                 </nav>
                 <button class="btn-order" @click="openOrderForm">
                     Сделать заказ
@@ -25,6 +28,7 @@ export default {
     data() {
     return {
       selectedAnchor: '',
+      // isAdaptMenuActive: false
       };
     },
     methods: {
@@ -33,8 +37,12 @@ export default {
       },
       scrollToAnchor(param) {
         this.$emit("scrollToAnchor",param)
-      }
-    }
+      },
+      adaptMenuShow() {
+        let elem = document.querySelector("#header-inner")
+        elem.classList.toggle('active');
+      },
+    },
 }
 </script>
 
@@ -71,6 +79,44 @@ export default {
   gap: 0;
 
   font-size: 1rem;
+}
+
+.header-nav-button {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: #610a0a;
+  position: relative;
+}
+
+.header-nav-button span {
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background-color: #F5F5F5;
+  left: 5px;
+  transition: transform .4s, opacity .4s,background-color .4s;
+}
+
+.header-nav-button span:first-child {
+  transform: translateY(-10px);
+}
+
+.header-nav-button span:last-child {
+  transform: translateY(10px);
+}
+
+.header-inner.active .header-nav-button span:first-child {
+  transform: translateY(0) rotate(-45deg);
+}
+
+.header-inner.active .header-nav-button span:nth-child(2) {
+  opacity: 0;
+}
+
+.header-inner.active .header-nav-button span:last-child {
+  transform: translateY(0) rotate(45deg);
 }
 
 .header-brand {
@@ -113,23 +159,23 @@ export default {
 }
 
 .btn-order {
-    font-size: 2.5em;
-    font-weight: 700;
-    color: #610A0A;
-    /* line-height:54.47px; */
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #610A0A;
+  /* line-height:54.47px; */
 
 
-    background-color:#610A0A;
-    color: #F5F5F5;
-    cursor: pointer;
-    outline: #F5F5F5 3px solid;
+  background-color:#610A0A;
+  color: #F5F5F5;
+  cursor: pointer;
+  outline: #F5F5F5 3px solid;
 
-    border-radius: 2em;
-    border: 0;
+  border-radius: 2em;
+  border: 0;
 
-    padding: 0.4em 1em;
+  padding: 0.4em 1em;
 
-    transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
 }
 
 .btn-order:hover {
@@ -174,6 +220,41 @@ export default {
 
 }
 
+@media(max-width: 800px){
+  .header-nav-button {
+    display: block;
+    z-index: 2;
+  }
+  .header-nav-link {
+    color: #F5F5F5;
+    margin: 0;
+  }
+  .header-nav {
+    padding: 100px 50px 20px 2px;
+    border:2px solid #610A0A;
+    position: absolute;
+    left: -200px;
+    top: 0;
+    background-color: #610A0A;
+    flex-direction: column;
+    width: 200px;
+
+    transition: transform .4s;
+  }
+
+  .header-brand {
+    margin-left: 10vw;
+    z-index: 3;
+  }
+  .btn-order {
+    font-size: 16px
+  }
+
+  .header-inner.active .header-nav {
+    transform: translateX(100%);
+  }
+
+}
 
 
 

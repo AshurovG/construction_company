@@ -82,6 +82,10 @@ export default {
     color: #F5F5F5;
 }
 
+.contacts p {
+    margin-left: 0;
+}
+
 .tel-icon {
     width: 1.1em;
     margin-right: 7px;
@@ -133,6 +137,20 @@ export default {
   .footer {
     font-size: 0.5rem;
     /* margin-top: 3rem; */
+  }
+
+
+}
+
+@media(max-width:564px) {
+  .footer {
+    font-size: 0.3rem;
+  }
+  .footer-inner {
+    gap: 1vw;
+  }
+    .footer-inner {
+    justify-content: space-between;
   }
 }
 

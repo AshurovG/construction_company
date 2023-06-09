@@ -356,4 +356,10 @@ export default {
 
 }
 
+@media(max-width: 564px){
+  .ventilated-facades-list_button {
+    font-size: 16px;
+  }
+}
+
 </style>

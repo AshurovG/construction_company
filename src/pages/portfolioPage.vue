@@ -76,9 +76,6 @@ export default {
     createListOfBlocks(value) {
       this.blockTypes.push(value);
     },
-    optionForFilter() {
-      console.log('222222222')
-    },
     selectOption(option) {
         if(option=='Вентилируемые фасады'){
             this.selectedOption=option
@@ -95,10 +92,6 @@ export default {
         }
     },
   },
-  mounted() {
-    console.log(this.$route.params)
-    console.log(this.selectedInMain)
-  }
 
 }
 </script>
@@ -112,11 +105,13 @@ export default {
 
 .portfolio-page_starter {
     font-size: 1em;
+    padding-right: 1rem;
 
     margin-top: 13em;
 
+    min-width: 550px;
     display: flex;
-    width: 70%;
+    width: 75%;
     align-items: flex-start;
     justify-content: space-between;
 }
@@ -150,7 +145,7 @@ export default {
 
     margin-top: 5px;
     margin-bottom: 25px;
-    margin-right: 90px;
+    margin-right: 80px;
     display: inline-block;
 
 
@@ -194,6 +189,24 @@ export default {
   }
 
 }
+
+@media(max-width: 564px){
+  .portfolio-page_starter {
+    flex-wrap: wrap;
+    min-width: 290px;
+  }
+  .portfolio-page_title{
+    margin-bottom: 10px;
+  }
+  .portfolio-page_filter {
+    font-size:7px;
+    width: 100%;
+  }
+  .portfolio-page_back-to-main{
+    font-size: 16px;
+  }
+}
+
 
 
 </style>
