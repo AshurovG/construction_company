@@ -343,6 +343,11 @@ export default {
     grid-template-columns: repeat(2, auto);
   }
 
+}
 
+@media(max-width: 564px){
+  .exterior-design-list_button {
+    font-size: 16px;
+  }
 }
 </style>
