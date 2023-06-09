@@ -6,7 +6,7 @@
         <div class="ventilated_facades_list_description" v-if="openInMain">
           {{ ventilatedFacadesListDescription }}
         </div>
-        <h1 class="ventilated-facades-list_examples" v-if="openInMain">Примеры работ</h1>
+        <h1 class="ventilated-facades-list_examples" v-show="openInMain">Примеры работ</h1>
         <ul class="ventilated-facades-list_items" v-if="openInMain">
           <li
           class="ventilated-facades-list_item"
@@ -261,6 +261,8 @@ export default {
 
 .ventilated-facades-list_container {
   width: 100%;
+  font-size: 1rem;
+    margin-top: 30px;
 }
 
 .ventilated-facades-list_items {
@@ -268,52 +270,54 @@ export default {
   display: grid;
   grid-template-columns: repeat(3,auto);
   justify-content: space-between;
-  grid-gap: 20px;
-  margin-bottom: 35px;
+  row-gap: 1vw;
+  column-gap: 2vw;
+  margin-bottom: 2vw;
 }
+
 
 .ventilated-facades-list_title {
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   letter-spacing: -0.03em;
 
-  margin-top: 30px;
+
   margin-bottom: 25px;
 }
 
 .ventilated_facades_list_description {
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 2em;
   /* margin-top: 25px; заккоментил чтобы при удалении описания картинки не слипалсь с заголовком, вместо добавил margin-bottom title */
 }
 
 .ventilated-facades-list_examples {
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   letter-spacing: -0.03em;
 
   margin-top: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
 }
 
 .ventilated-facades-list_button {
   display: block;
-  width: 454px;
-  height: 72px;
   margin: 0 auto;
-  margin-bottom: 35px;
+  margin-bottom: 2vw;
+
 
   background: rgba(97, 10, 10, 0.82);
-  border-radius: 35px;
+  border-radius: 2em;
 
   font-style: normal;
   font-weight: 600;
-  font-size: 28px;
-  line-height: 44px;
+  font-size: 2.5em;
+  padding: 0.8em 2em;
   letter-spacing: -0.02em;
+  /* line-height: 44px; */
   color: #FFFFFF;
   text-align: center;
   cursor: pointer;
@@ -321,6 +325,35 @@ export default {
 
 .ventilated-facades-list_button:hover {
   background: rgba(69, 5, 5, 0.82);
+}
+
+@media(max-width:1800px) {
+  .ventilated-facades-list_container {
+    font-size: 0.8rem;
+  }
+}
+@media(max-width:1550px) {
+  .ventilated-facades-list_container {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 1340px){
+  .ventilated-facades-list_container {
+    font-size: 0.5rem;
+  }
+
+  .ventilated-facades-list_title {
+    font-size: 24px;
+  }
+
+}
+
+@media(max-width: 800px){
+  .ventilated-facades-list_items {
+    grid-template-columns: repeat(2, auto);
+  }
+
 }
 
 </style>

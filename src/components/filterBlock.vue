@@ -56,74 +56,93 @@ export default {
 </script>
 
 <style>
-    .filter-block {
-        position: relative;
-        font-weight: 400;
-        font-size: 2rem;
-        background-color: #e7e7e7;
-        color: #000;
-        cursor: pointer;
+.filter-block {
+    position: relative;
+    font-weight: 400;
+    font-size: 1rem;
+    background-color: #e7e7e7;
+    color: #000;
+    cursor: pointer;
 
-        border-radius: 10px;
-        width: 500px;
-        display: inline-block;
-    }
+    margin: 5px 0;
 
-    .filter-block {
-        margin: 5px 0;
+    border-radius: 10px;
+    width: 900px;
+    display: inline-block;
+}
 
-    }
+.filter-inner {
+    font-size: 2em;
+}
 
-    .filter-options {
-        /* display: none; */
-        /* position: relative; */
-        /* overflow-y: hidden;
-        max-height: 0px; */
-        position: relative;
-        top: -5px;
-        width: 100%;
-        background-color: #e7e7e7;
-        color: #000;
-        padding:0 .5rem;
 
-        border-radius: 10px;
 
-        max-height: 0px;
-        overflow-y: hidden;
-        /* transition: all 1.5s ease-in-out; */
-    }
+.filter-options {
+    position: relative;
+    top: -5px;
+    width: 100%;
+    background-color: #e7e7e7;
+    color: #000;
+    padding:0 .5rem;
 
-    .filter-options-shown {
-        top: -5px;
-        padding:0 .5rem;
-        max-height: 1000px;
-        position: relative;
-        transition: all 0.3s linear;
+    border-radius: 10px;
 
-    }
-    .filter-title {
-        padding: .5rem;
-        position: relative;
-        display: flex;
-    }
+    max-height: 0px;
+    overflow-y: hidden;
+}
 
-    .each-option {
-        margin: 10px 0;
-        width: 100%;
-    }
-    .each-option:hover {
-        background-color: #b7b7b7;
-    }
+.filter-options-shown {
+    top: -5px;
+    padding:0 .5rem;
+    max-height: 1000px;
+    position: relative;
+    transition: all 0.3s linear;
 
-    .arrow-down-icon {
-        position: absolute;
-        right: 20px;
-    }
+}
+.filter-title {
+    padding: .5rem;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-    .arrow-up-icon {
-        position: absolute;
-        right: 20px;
-        transform: rotate(180deg);
-    }
+}
+
+.each-option {
+    margin: 10px 0;
+    width: 100%;
+}
+.each-option:hover {
+    background-color: #b7b7b7;
+}
+
+.arrow-down-icon {
+    margin-right: 1%;
+}
+
+.arrow-up-icon {
+    margin-right: 1%;
+    transform: rotate(180deg);
+}
+
+@media(max-width:1800px) {
+.filter-block {
+    font-size: 0.8rem;
+}
+}
+
+@media(max-width:1550px) {
+.filter-block {
+font-size: 0.7rem;
+}
+}
+
+@media(max-width: 1340px){
+.filter-block {
+font-size: 0.5rem;
+/* margin-top: 16em; */
+}
+
+}
 
 </style>

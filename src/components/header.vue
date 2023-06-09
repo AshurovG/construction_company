@@ -42,6 +42,7 @@ export default {
 <style>
 .header {
   font-family: 'Open Sans', sans-serif;
+
   position: fixed; /* Фиксация хедера */
   top: 0;
   left: 0;
@@ -57,21 +58,27 @@ export default {
 
 }
 
+
+.container {
+  padding: 0 1rem;
+  margin: 0px 134px;
+}
+
 .header-inner {
-  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0;
+
+  font-size: 1rem;
 }
 
 .header-brand {
-  /* margin-left: 15px; */
-  font-size: 2.5rem;
+  font-size: 2.5em;
   color: #F5F5F5;
   text-transform: uppercase;
   font-weight: 700;
-  line-height:54.47px;
+  line-height:1.7em;
 
   cursor: pointer;
 }
@@ -81,18 +88,18 @@ export default {
   z-index: 1;
   display: flex;
   justify-content: space-between;
-  /* gap: 0px; */
+
 }
 
 .header-nav-link {
-  margin-left: 1.5rem;
+  margin-left: 0.5em;
 
   color: #F5F5F5;
-  font-size: 2.25rem;
+  font-size: 2em;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 2.18rem;
-  padding: 0.9375rem 1.5625rem ;
+  border-radius: 3.18rem;
+  padding: 0.5em 0.7em ;
 
 
   transition: color 0.2s linear;
@@ -106,10 +113,10 @@ export default {
 }
 
 .btn-order {
-    font-size: 2.5rem;
+    font-size: 2.5em;
     font-weight: 700;
     color: #610A0A;
-    line-height:54.47px;
+    /* line-height:54.47px; */
 
 
     background-color:#610A0A;
@@ -130,8 +137,41 @@ export default {
   color: #610A0A;
 }
 
-.container {
-  margin: 0px 150px;
+
+@media(max-width: 1800px){
+  .header-inner {
+    font-size: 0.8rem;
+  }
+}
+
+@media(max-width: 1550px){
+  .header-inner {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 1340px){
+  .header-inner {
+    font-size: 0.5rem;
+  }
+  .btn-order {
+    font-size: 20px;
+    padding: 0.4em 0.8em;
+  }
+
+  .header-brand {
+    font-size: 24px;
+  }
+
+}
+
+@media(max-width: 1080px){
+  .container {
+    width: 100%;
+    max-width: 812px;
+    margin: 0 auto;
+  }
+
 }
 
 

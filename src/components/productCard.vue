@@ -58,7 +58,7 @@ export default {
       }
     },
     methods: {
-      onProductCardClick() { 
+      onProductCardClick() {
         console.log(this.items)
       },
       openSlider() {
@@ -77,8 +77,9 @@ export default {
 <style>
 
 .product-card_container {
-  height: 360px;
-  width: 485px;
+  font-size: 1rem;
+  height: auto;
+  width: 100%;
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease-out;
@@ -89,16 +90,16 @@ export default {
 }
 
 .product-card_image {
-  width: 485px;
-  height: 310px;
-  margin-bottom: 10px;
+  width: 100%;
+  height: auto;
+  /* margin-bottom: 10px; */
   cursor: pointer;
 }
 
 .product-card_title {
   font-style: normal;
   font-weight: 200;
-  font-size: 20px;
+  font-size: 1.25em;
   line-height: 23px;
   color: #000000;
 }
@@ -120,5 +121,12 @@ export default {
 .showSlider-enter-from,
 .showSlider-leave-to {
   opacity: 0;
+}
+
+@media(max-width: 1340px){
+  .product-card_title {
+    font-size: 0.8rem;
+  }
+
 }
 </style>

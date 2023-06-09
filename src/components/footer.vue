@@ -54,22 +54,23 @@ export default {
     color: #F5F5F5;
 
     width: 100%;
-    height: 282px;
+    /* height: 282px; */
 
-    margin-top: 110px;
+    margin-top: 6em;
     padding-top: 30px;
-    padding-bottom: 200px;
+    padding-bottom: 30px;
 
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 400;
 }
 
 .footer-inner {
-    width: 70%;
-
+    font-size: 2em;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    gap: 7vw;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
 .footer-inner p {
@@ -82,12 +83,12 @@ export default {
 }
 
 .tel-icon {
-    width: 1.4rem;
+    width: 1.1em;
     margin-right: 7px;
 }
 
 .mail-icon {
-    width: 1.5rem;
+    width: 1.2em;
     margin-right: 7px;
 
 }
@@ -102,12 +103,37 @@ export default {
 }
 
 .social-icon {
-   height: 40PX;
+   height: 2em;
    transition: opacity 0.2s linear;
 }
 
 .social-icon:hover {
     opacity: 0.6;
+}
+
+@media(max-width:1800px) {
+  .footer {
+    font-size: 0.8rem;
+  }
+}
+@media(max-width:1550px) {
+  .footer {
+    font-size: 0.7rem;
+    /* margin-top: 3rem; */
+  }
+}
+@media(max-width:1340px) {
+  .footer {
+    font-size: 0.5rem;
+    /* margin-top: 3rem; */
+  }
+}
+
+@media(max-width:1080px) {
+  .footer {
+    font-size: 0.5rem;
+    /* margin-top: 3rem; */
+  }
 }
 
 

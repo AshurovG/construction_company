@@ -78,6 +78,24 @@ export default {
     list-style-type: none;
 }
 
+@media(max-width:1800px) {
+  .faq-title {
+    font-size: 2rem;
+  }
+}
+
+@media(max-width:1550px) {
+  .faq-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media(max-width:1340px) {
+  .faq-title {
+    font-size: 1.5rem;
+  }
+}
+
 
 
 </style>

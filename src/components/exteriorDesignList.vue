@@ -35,7 +35,7 @@
             />
           </li>
        </ul>
-      <button class="exterior-design-list_button" v-if="openInMain" @click="$router.push({name: 'portfolio'})">Посмотреть все работы</button>
+       <button class="exterior-design-list_button" v-if="openInMain" @click="$router.push({name: 'portfolio'})">Посмотреть все работы</button>
       </div>
     </div>
 </template>
@@ -254,52 +254,57 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, auto);
   justify-content: space-between;
-  grid-gap: 20px;
-  margin-bottom: 2rem;
+  row-gap: 1vw;
+  column-gap: 2vw;
+  margin-bottom: 2vw;
+  /* grid-auto-rows: minmax(10px,auto); */
 }
 
+
+.exterior-design-list_container {
+  width: 100%;
+  font-size: 1rem;
+  margin-top: 30px;
+}
 
 .exterior-design-list_title {
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   letter-spacing: -0.03em;
 
-  margin-top: 30px;
   margin-bottom: 25px;
 }
 
 .exterior-design-list_description {
   font-style: normal;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 2em;
   /* margin-top: 25px; заккоментил чтобы при удалении описания картинки не слипалсь с заголовком, вместо добавил margin-bottom title */
 }
 
 .exterior-design-list_examples {
   font-style: normal;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.5em;
   letter-spacing: -0.03em;
 
   margin-top: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
 }
 
 .exterior-design-list_button {
   display: block;
-  width: 454px;
-  height: 72px;
   margin: 0 auto;
-  margin-bottom: 35px;
+  margin-bottom: 2vw;
 
   background: rgba(97, 10, 10, 0.82);
-  border-radius: 35px;
+  border-radius: 2em;
 
   font-style: normal;
   font-weight: 600;
-  font-size: 28px;
-  line-height: 44px;
+  font-size: 2.5em;
+  padding: 0.8em 2em;
   letter-spacing: -0.02em;
   color: #FFFFFF;
   text-align: center;
@@ -310,4 +315,34 @@ export default {
   background: rgba(69, 5, 5, 0.82);
 }
 
+@media(max-width:1800px) {
+  .exterior-design-list_container {
+    font-size: 0.8rem;
+  }
+}
+
+@media(max-width:1550px) {
+  .exterior-design-list_container {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 1340px){
+  .exterior-design-list_container {
+    font-size: 0.5rem;
+  }
+
+  .exterior-design-list_title {
+    font-size: 24px;
+  }
+
+}
+
+@media(max-width: 800px){
+  .exterior-design-list_items {
+    grid-template-columns: repeat(2, auto);
+  }
+
+
+}
 </style>

@@ -125,9 +125,11 @@ export default {
 }
 
 .content {
+  padding: 0 1rem;
   opacity: 1;
   transition: opacity .2s linear;
-  margin: 0px 150px;
+  /* width: 100%; */
+  margin: 0px 134px;
   position: relative;
 }
 
@@ -160,5 +162,14 @@ export default {
 .showOrderForm-enter-from,
 .showOrderForm-leave-to {
   opacity: 0;
+}
+
+
+@media(max-width: 1080px){
+  .content {
+    width: 100%;
+    max-width: 812px;
+    margin: 0 auto;
+  }
 }
 </style>

@@ -22,6 +22,7 @@ export default {
 <style>
 .question-card {
     position: relative;
+    font-size: 1rem;
 
 }
 
@@ -46,7 +47,7 @@ export default {
 .faq {
     display: block;
     margin: 15px auto;
-    font-size: 2rem;
+    font-size: 2em;
     font-weight: 400;
 }
 
@@ -70,7 +71,7 @@ export default {
 
 
 .faq .answer {
-    margin-left: 10.3px;
+    margin-left: 0.3em;
     color: #000;
     /* font-size: 1.2rem; */
     max-height: 0px;
@@ -83,6 +84,23 @@ export default {
     max-height: 1000px;
     position: relative;
     transition: all 2.6s linear;
+}
+
+@media(max-width:1800px) {
+  .question-card {
+    font-size: 0.8rem;
+  }
+}
+@media(max-width:1550px) {
+  .question-card {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width:1340px) {
+  .question-card {
+    font-size: 0.5rem;
+  }
 }
 </style>
 

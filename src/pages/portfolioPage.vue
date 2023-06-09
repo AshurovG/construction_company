@@ -1,29 +1,29 @@
 <template>
   <div class="portfolio_page">
-    <transition name="showLockinScreen">
-      <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
-    </transition>
-    <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
-    <div class="content" ref="content">
-        <div class="portfolio-page_starter">
-            <h1 class="portfolio-page_title">Портфолио</h1>
-            <filter-block class="portfolio-page_filter"
-                :options="blockTypes"
-                :selected="selectedOption"
-                @selectOption="selectOption"
-            />
-        </div>
-      <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
-      <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
-      <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"
-      @optionForFilter="optionForFilter"/>
+        <transition name="showLockinScreen">
+        <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
+        </transition>
+        <header-page @openOrderForm="openOrderForm" @openMain="openMain" />
+        <div class="content" ref="content">
+            <div class="portfolio-page_starter">
+                <h1 class="portfolio-page_title">Портфолио</h1>
+                <filter-block class="portfolio-page_filter"
+                    :options="blockTypes"
+                    :selected="selectedOption"
+                    @selectOption="selectOption"
+                />
+            </div>
+            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign"/>
+            <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign&&showFacades"></div>
+            <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"
+            @optionForFilter="optionForFilter"/>
 
-    </div>
-    <div class="form_for_order" v-if="isFormOpened">
-        <order-form @closeForm="closeOrderForm"/>
-    </div>
-    <button class="portfolio-page_back-to-main" @click="$router.push({name: 'home'})">На главную</button>
-    <footer-page id="contacts"></footer-page>
+        </div>
+        <div class="form_for_order" v-if="isFormOpened">
+            <order-form @closeForm="closeOrderForm"/>
+        </div>
+        <button class="portfolio-page_back-to-main" @click="$router.push({name: 'home'})">На главную</button>
+        <footer-page id="contacts"></footer-page>
   </div>
 </template>
 
@@ -107,13 +107,16 @@ export default {
 
 <style>
 .portfolio_page {
-  margin-top: 170px; /* Сделал для отступа от фиксированного хедера! */
+    font-size: 1rem;
 }
 
 .portfolio-page_starter {
-    margin-top: 200px;
+    font-size: 1em;
+
+    margin-top: 13em;
+
     display: flex;
-    width: 40vw;
+    width: 70%;
     align-items: flex-start;
     justify-content: space-between;
 }
@@ -123,31 +126,26 @@ export default {
 }
 
 .portfolio-page_back-to-main {
-    display: block;
-    width: 454px;
-    height: 72px;
-    margin: 0 auto;
-    margin-top: 55px;
-    /* margin-bottom: 35px; */
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 2vw;
 
-    background: rgba(97, 10, 10, 0.82);
-    border-radius: 35px;
+  background: rgba(97, 10, 10, 0.82);
+  border-radius: 2em;
 
-    font-style: normal;
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 44px;
-    letter-spacing: -0.02em;
-    color: #FFFFFF;
-    text-align: center;
-
-    cursor: pointer;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.5em;
+  padding: 0.8em 4em;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
 }
 
 .portfolio-page_title {
-    /* font-style: normal; */
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2.5em;
     letter-spacing: -0.03em;
 
     margin-top: 5px;
@@ -163,4 +161,39 @@ export default {
     /* background: rgba(135, 15, 15, 0.82); */
 
 }
+
+@media(max-width:1800px) {
+  .portfolio-page_starter {
+    font-size: 0.8rem;
+  }
+  .portfolio_page {
+    font-size: 0.8rem;
+  }
+
+}
+
+@media(max-width:1550px) {
+  .portfolio-page_starter {
+    font-size: 0.7rem;
+  }
+  .portfolio_page {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 1340px){
+  .portfolio-page_starter {
+    font-size: 0.5rem;
+    margin-top: 16em;
+  }
+  .portfolio_page {
+    font-size: 0.5rem;
+  }
+  .portfolio-page_title  {
+    font-size: 24px;
+  }
+
+}
+
+
 </style>
