@@ -230,7 +230,7 @@ export default {
     margin: 0;
   }
   .header-nav {
-    padding: 100px 50px 20px 2px;
+    padding: 100px 50px 15px 2px;
     border:2px solid #610A0A;
     position: absolute;
     left: -200px;
@@ -253,9 +253,44 @@ export default {
   .header-inner.active .header-nav {
     transform: translateX(100%);
   }
+  .header-nav-link:hover {
+    background: none;
+    color: #F5F5F5;
+  }
 
 }
 
+@media(max-width: 479px){
+  .header-nav {
+    padding-bottom: 35px;
+  }
+  .btn-order {
+    font-weight: 400;
+    margin: 0;
+    padding-top: 16px;
+    padding-bottom: 0;
+    padding-left: 14.5px;
+    z-index: 2;
+    color: #F5F5F5;
+    position: absolute;
+    top: 230px;
+    left: -200px;
+    outline: none;
+    width: 200px;
+    transition: transform .4s;
+  }
+  .header-inner.active .btn-order {
+    transform: translateX(100%);
+  }
+
+  .btn-order:hover {
+    background: none;
+    color: #F5F5F5;
+  }
+
+
+
+}
 
 
 </style>
