@@ -6,17 +6,19 @@
             class="detailed-product-card_image"
             :src="product.subImgUrl"
             >
+            <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
           </div>
-            <div class="carousel-controls">
-              <button @click="prevSlide" class="btn_prev"></button>
-              <button @click="nextSlide" class="btn_next"></button>
-            </div>
+          <div class="carousel-controls">
+            <button @click="prevSlide" class="btn_prev"></button>
+            <button @click="nextSlide" class="btn_next"></button>
+          </div>
+
         </div>
         <div class="carousel_description">
           <h2 class="carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
           <div class="carousel_description_text">Описание, длинное, что за место, что сделано, где находится и так далее. В общем, вся-вся информация об этой работе</div>
         </div>
-        <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
+        <!-- <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
         <img
         class="exit_buttton"
         src="../images/exit.png"
@@ -24,7 +26,7 @@
         >
     </div>
 </template>
-    
+
 <script>
     export default {
         name:'QuestionCard',
@@ -41,7 +43,7 @@
           currentImage: 1,
           currentSlide: 0
           }
-        
+
         },
     methods: {
       prevSlide() {
@@ -66,12 +68,12 @@
     }
     }
 </script>
-    
+
 <style>
 
 .carousel {
-  width: 1450px;
-  height: 800px;
+  width: 80%;
+  height: 40vw;
   position: relative;
   overflow: hidden;
   background-color: inherit;
@@ -84,19 +86,22 @@
 
 
 .carousel_description {
-  margin-top: 25px;
+
   position: absolute;
   top: 0;
-  right: 30px;
-  width: 400px;
+  right: 0;
+  width: 29%;
+  font-size:1rem;
+  margin-top: 2em;
+  /* margin-left: 15px; */
 }
 
 .carousel_description_title {
   margin-bottom: 20px;
   font-style: normal;
   font-weight: 700;
-  font-size: 32px;
-  line-height: 44px;
+  font-size: 2em;
+  line-height: 1.2em;
   text-align: center;
   letter-spacing: -0.02em;
 
@@ -106,23 +111,23 @@
 .carousel_description_text {
   font-style: normal;
   font-weight: 400;
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 1.375em;
+  line-height: 1.2em;
   letter-spacing: -0.02em;
 
   color: #000000;
 }
 .counter {
-  margin-bottom: 30px;
+  margin-bottom: 1em;
   position: absolute;
   bottom: 0;
-  left: 1050px;
+  right: -12vw;
 
   font-style: normal;
   font-weight: 400;
-  font-size: 22px;
-  line-height: 30px;
-  letter-spacing: -0.03em;
+  font-size: 1.375em;
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
 
   color: #000000
 }
@@ -131,7 +136,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 1000px;
+  width: 70%;
   height: 100%;
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -166,8 +171,8 @@
 .btn_next{
   position: relative;
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 4vw;
+  height: 4vw;
   background-color: #D9D9D9;
   border: none;
   outline: none;
@@ -182,10 +187,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
-  width: 40px;
-  height: 40px;
-  border-top: 2px solid #fff;
-  border-right: 2px solid #fff;
+  width: 2vw;
+  height: 2vw;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
 }
 
 .btn_next:hover::before {
@@ -196,8 +201,8 @@
 .btn_prev{
   position: relative;
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 4vw;
+  height: 4vw;
   background-color: #D9D9D9;
   border: none;
   outline: none;
@@ -212,10 +217,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
-  width: 40px;
-  height: 40px;
-  border-bottom: 2px solid #fff;
-  border-left: 2px solid #fff;
+  width: 2vw;
+  height: 2vw;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
 }
 
 .btn_prev:hover::before {
@@ -230,19 +235,63 @@
 }
 
 .delaited-product-card_item {
-  width: 1000x;
-  height: 800px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .exit_buttton {
-  width: 70px;
-  height: 70px;
+  width: 5%;
+  height: auto;
   position: absolute;
-  top: -30px;
-  right: -50px;
+  top: -5%;
+  right: -4%;
   cursor: pointer;
 }
-    
+
+@media(max-width:1800px) {
+  .carousel_description {
+    font-size: 0.8rem;
+  }
+}
+
+@media(max-width:1550px) {
+  .carousel_description {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 1340px){
+  .carousel_description {
+    font-size: 0.6rem;
+  }
+  .counter {
+    right: -120px;
+  }
+}
+
+@media(max-width: 1080px){
+  .carousel_description {
+    font-size: 0.5rem;
+  }
+  .counter {
+    right: -110px;
+  }
+}
+
+@media(max-width: 800px){
+  .carousel_description {
+    font-size: 0.4rem;
+  }
+  .counter {
+    font-size: 8px;
+    right: -80px;
+  }
+  .carousel_description_title {
+    margin-bottom: 10px;
+  }
+
+}
+
 </style>
-    
-    
+
