@@ -293,5 +293,21 @@
 
 }
 
+@media(max-width: 480px){
+  .carousel_description {
+    font-size: 0.3rem;
+    margin-top: 5px;
+  }
+  .carousel_description_title {
+    margin-bottom: 5px;
+  }
+  .counter {
+    font-size: 6px;
+    right: -60px;
+    bottom: -3px;
+  }
+
+}
+
 </style>
 
