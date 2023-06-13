@@ -42,7 +42,6 @@ export default {
     ventilatedFacadesList,
   },
   mounted() {
-    console.log('перешли из портфолио')
     if(this.$route.query.anch) {
       const el = document.getElementById(this.$route.query.anch);
       setTimeout(() => {
@@ -89,8 +88,7 @@ export default {
       this.$emit('openPortfolio')
     },
     openPortfolioDesigns() {
-        console.log("2222")
-        this.$emit('openPortfolioDesigns')
+      this.$emit('openPortfolioDesigns')
     }
 
   },

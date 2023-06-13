@@ -2,17 +2,17 @@
     <div class="header">
         <div class="container">
             <div id="header-inner" class="header-inner">
-                <button class="header-nav-button" @click="adaptMenuShow">
+                <button class="header-nav-button" id="header-nav-button">
                   <span></span><span></span><span></span>
                 </button>
                 <button class="header-brand" @click="$router.push({name: 'home'})">
                     ФРОЛФАСД
                 </button>
-                <nav class="header-nav">
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'services'}}),scrollToAnchor('services'),adaptMenuShow()}">Услуги</a>
+                <nav class="header-nav" id="header-nav">
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'services'}}),scrollToAnchor('services')}">Услуги</a>
                     <a class="header-nav-link" @click="$router.push({name: 'portfolio'})">Портфолио</a>
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs'),adaptMenuShow()}">Помощь</a>
-                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts'),adaptMenuShow()}">Контакты</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'faqs'}}),scrollToAnchor('faqs')}">Помощь</a>
+                    <a class="header-nav-link" @click="()=>{$router.push({name: 'home',query: { anch: 'contacts'}}),scrollToAnchor('contacts')}">Контакты</a>
                 </nav>
                 <button class="btn-order" @click="openOrderForm">
                     Сделать заказ
@@ -28,7 +28,7 @@ export default {
     data() {
     return {
       selectedAnchor: '',
-      // isAdaptMenuActive: false
+      isAdaptMenuActive: false
       };
     },
     methods: {
@@ -38,10 +38,20 @@ export default {
       scrollToAnchor(param) {
         this.$emit("scrollToAnchor",param)
       },
-      adaptMenuShow() {
+      adaptMenuShow(event) {
         let elem = document.querySelector("#header-inner")
+        if (!event.target.closest('#header-nav-button')){
+          elem.classList.remove('active');
+          return
+        }
         elem.classList.toggle('active');
       },
+    },
+    mounted() {
+      document.addEventListener('click', this.adaptMenuShow)
+    },
+    beforeUnmount() {
+      document.removeEventListener('click', this.adaptMenuShow)
     },
 }
 </script>

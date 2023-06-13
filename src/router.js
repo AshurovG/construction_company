@@ -20,7 +20,6 @@ const router = createRouter({
   routes,
   scrollBehavior(to) {
     if (JSON.stringify(to.query) !== "{}") {
-      console.log(to.query);
       return { selector: to.query };
     } else {
       return { top: 0 };
