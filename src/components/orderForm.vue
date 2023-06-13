@@ -270,7 +270,7 @@
 .error_item {
     color: red;
     margin-top: 5px;
-    font-size: 1em;
+    font-size: 1.3em;
 }
 
 @media(max-width:1550px) {
@@ -299,14 +299,16 @@
   .order_form {
     font-size: 0.6rem;
   }
+  .form_container {
+    height: 60%;
+    width: 90%;
+  }
 }
 @media(max-width: 479px){
   .order_form {
     font-size: 0.5rem;
   }
-  .form_container {
-    height: 50%;
-  }
+
 }
 
 </style>
