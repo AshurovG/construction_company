@@ -1,7 +1,9 @@
 <template>
     <div class="modal-window">
             <div class="modal-content">
-                <img class="modal-image" src="../components/assets/pngwing.com.png" alt="">
+                <div class="modal-image-container">
+                    <img class="modal-image" src="../components/assets/pngwing.com.png" alt="">
+                </div>
                 <div class="modal-text">
                     <p class="modal-title">Вы успешно офоромили заказ!</p>
                     <p class="modal-subtitle">Ожидайте ответа на почту</p>
@@ -10,7 +12,7 @@
             </div>
     </div>
 </template>
-    
+
 <script>
     export default {
         name: "modalWindow",
@@ -27,7 +29,7 @@
         }
     }
 </script>
-    
+
 <style>
 .modal {
     position: fixed;
@@ -38,41 +40,38 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    border-radius: 40px;
+    border-radius: 5%;
 }
 
-.modal-title {
-    width: 100%;
-    height: 20%;
-    font-size: 18px;
-}
+
 
 .modal-content {
-    position: relative;
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
+    padding: 1em 0.6em;
     border: 2px solid #888;
     border-radius: 15px;
     width: 80%;
     height: 33%;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
+
+
 .modal-btn {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 170px;
-    height: 44px;
-    padding: 8px 16px;
+    margin-right: -70%;
+    padding: 0.4em 1em;
     display: block;
     text-align: center;
     background: rgba(97, 10, 10, 0.82);
     border-radius: 15px;
     font-style: normal;
     font-weight: 600;
-    font-size: 22px;
-    line-height: 10px;
+    font-size: 1.375em;
     letter-spacing: -0.03em;
     color: #F5F5F5;
     cursor: pointer;
@@ -84,25 +83,58 @@
 }
 .modal-text {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 1em;
+    font-size: 1em;
 }
 
 .modal-title {
     width: 100%;
-    font-size: 25px;
+    font-size: 1.56em;
     font-weight: 700;
 }
 
 .modal-subtitle {
     width: 100%;
-    font-size: 20px;
+    font-size: 1.25em;
     font-weight: 500;
+}
+
+.modal-image-container {
+    margin: 0 auto;
+    height: 40%;
 }
 
 .modal-image {
     display: block;
-    margin: 0 auto;
+    margin: 0;
+    height: 100%;
+}
+
+@media(max-width:1550px) {
+  .modal-content {
+    font-size: 0.9rem;
+  }
+}
+@media(max-width: 1340px){
+  .modal-content {
+    font-size: 0.8rem;
+  }
+}
+@media(max-width: 1080px){
+  .modal-content {
+    font-size: 0.7rem;
+  }
+}
+
+@media(max-width: 800px){
+  .modal-content {
+    font-size: 0.6rem;
+  }
+}
+@media(max-width: 479px){
+  .modal-content {
+    font-size: 0.4rem;
+  }
 }
 </style>
-    
-    
+

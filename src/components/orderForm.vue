@@ -154,10 +154,10 @@
 
 .form_container {
 
-  width: 1020px;
-  height: 920px;
+  width: 50%;
+  height: 80%;
   background: #fff;
-  border-radius: 40px;
+  border-radius: 5%;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -167,24 +167,32 @@
 }
 
 .order_form {
+    font-size: 1rem;
+    height: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.order_form :nth-child(4) {
+    height: 50%;
+}
 .form_item_container {
-    margin-bottom: 52px;
+    margin-bottom: 4%;
+    height: 10%;
+    width: 80%;
 }
 .form_item {
-    padding: 16px 26px;
+    padding: .5em 1em;
     text-align: left;
-    width: 720px;
-    height: 75px;
+    width: 100%;
+    height: 95%;
     left: 150px;
     top: 170px;
 
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 2em;
     line-height: 44px;
     letter-spacing: -0.02em;
 
@@ -196,13 +204,11 @@
 .form_order_text {
     resize: none;
     text-align: left;
-    max-width: 720px;
-    min-width: 720px;
-    min-height: 300px;
-    max-height: 300px;
+    width: 100%;
+    height: 100%;
     left: 150px;
     top: 419px;
-    padding: 16px 26px;
+    padding: .5em 1em;
 
     background: #FFFFFF;
     border: 1px solid rgba(97, 10, 10, 0.82);
@@ -210,8 +216,7 @@
 
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
-    line-height: 44px;
+    font-size: 2em;
     letter-spacing: -0.02em;
 }
 
@@ -219,31 +224,25 @@
     width: 100%;
     text-align: center;
     height: 49px;
-    margin: 0 auto;
-    margin-bottom: 52px;
-    padding: 52px 0;
-
+    margin: 1.1em auto;
 
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
-    line-height: 54px;
-    letter-spacing: -0.03em;
+    font-size: 2.5em;
+
     color: #610A0A;
 }
 
 .btn_send_email {
-    width: 379px;
-    height: 76px;
-    padding: 11px 47px;
+    padding: .7em 2.2em;
     text-align: center;
 
     background: rgba(97, 10, 10, 0.82);
-    border-radius: 35px;
+    border-radius: 2em;
     font-style: normal;
     font-weight: 600;
-    font-size: 32px;
-    line-height: 54px;
+    font-size: 2em;
+
     letter-spacing: -0.03em;
     color: #F5F5F5;
     cursor: pointer;
@@ -260,17 +259,54 @@
 }
 
 .exit_form_buttton {
-  width: 70px;
-  height: 70px;
+  width: 10%;
+  height: auto;
   position: absolute;
-  top: -45px;
-  right: -45px;
+  top: -3%;
+  right: -5%;
   cursor: pointer;
 }
 
 .error_item {
     color: red;
     margin-top: 5px;
-    font-size: 16px;
+    font-size: 1em;
 }
+
+@media(max-width:1550px) {
+  .order_form {
+    font-size: 0.9rem;
+  }
+}
+@media(max-width: 1340px){
+  .order_form {
+    font-size: 0.8rem;
+  }
+  .form_container {
+    width: 70%;
+  }
+}
+@media(max-width: 1080px){
+  .order_form {
+    font-size: 0.7rem;
+  }
+  .form_container {
+    height: 70%;
+  }
+}
+
+@media(max-width: 800px){
+  .order_form {
+    font-size: 0.6rem;
+  }
+}
+@media(max-width: 479px){
+  .order_form {
+    font-size: 0.5rem;
+  }
+  .form_container {
+    height: 50%;
+  }
+}
+
 </style>
