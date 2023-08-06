@@ -1,274 +1,128 @@
 <template>
-    <div class="ventilated-facades-list">
-      <div class="ventilated-facades-list_container">
-        <h1
-        class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
-        <div class="ventilated_facades_list_description" v-if="openInMain">
-          {{ ventilatedFacadesListDescription }}
-        </div>
-        <h1 class="ventilated-facades-list_examples" v-show="openInMain">Примеры работ</h1>
-        <ul class="ventilated-facades-list_items" v-if="openInMain">
-          <li
-          class="ventilated-facades-list_item"
-          v-for="(product, index) in products.slice(0,6)"
-          :key="index"
-          >
-            <product-card
-            :id="product.id"
-            :title="product.title"
-            :img-url="product.imgUrl"
-            :items="product.items"
-            @openSlider="openSlider"
-            />
-          </li>
-        </ul>
-        <ul class="ventilated-facades-list_items" v-else>
-          <li
-          class="ventilated-facades-list_item"
-          v-for="(product, index) in products.slice(0,9)"
-          :key="index"
-          >
-            <product-card
-            :id="product.id"
-            :title="product.title"
-            :img-url="product.imgUrl"
-            :items="product.items"
-            />
-          </li>
-        </ul>
-        <button
-        class="ventilated-facades-list_button"
-        v-if="openInMain"
-        @click="()=>{$router.push({name:'portfolio'});optionForFilter()}"
-        >Посмотреть все работы</button>
+  <div class="ventilated-facades-list">
+    <div class="ventilated-facades-list_container">
+      <h1 class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
+      <div class="ventilated_facades_list_description" v-if="openInMain">
+        {{ ventilatedFacadesListDescription }}
       </div>
+      <h1 class="ventilated-facades-list_examples" v-show="openInMain">Примеры работ</h1>
+      <ul class="ventilated-facades-list_items" v-if="openInMain">
+        <li class="ventilated-facades-list_item" v-for="(product, index) in products.slice(0, 6)" :key="index">
+          <product-card :id="product.id" :title="product.ventilated_facades_title"
+            :img-url="product.ventilated_facades_url" :desc="product.ventilated_facades_description"
+            :items="product.items" @openSlider="openSlider" />
+        </li>
+      </ul>
+      <ul class="ventilated-facades-list_items" v-else>
+        <li class="ventilated-facades-list_item" v-for="(product, index) in products.slice(0, 9)" :key="index">
+          <product-card :id="product.id" :title="product.ventilated_facades_title"
+            :img-url="product.ventilated_facades_url" :desc="product.ventilated_facades_description"
+            :items="product.items" />
+        </li>
+      </ul>
+      <button class="ventilated-facades-list_button" v-if="openInMain"
+        @click="() => { $router.push({ name: 'portfolio' }); optionForFilter() }">Посмотреть все работы</button>
     </div>
+  </div>
 </template>
 
 <script>
 import productCard from './productCard.vue';
 export default {
-    name: "ventilatedFacadesList",
-    components: {
-      productCard,
+  name: "ventilatedFacadesList",
+  components: {
+    productCard
+  },
+  props: {
+    openInMain: Boolean
+  },
+  mounted() {
+    if (!this.isComponentCreated) {
+      this.$emit("blockTitle", this.ventilatedFacadesListTitle);
+      this.isComponentCreated = true;
+    }
 
+    this.getAllVentilatedFacades()
+  },
+  data() {
+    return {
+      isComponentCreated: false,
+      ventilatedFacadesListName: "ventilatedFacadesList",
+      ventilatedFacadesListTitle: "Вентилируемые фасады",
+      ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
+      products: [],
+      errors: []
+    }
+  },
+  methods: {
+    openSlider(id) {
+      console.log(`Айди такой: ${id}`)
     },
-    props: {
-      openInMain: Boolean
+    optionForFilter() {
+      this.$emit('optionForFilter', this.ventilatedFacadesListName)
     },
-    data() {
-      return {
-        isComponentCreated: false,
-        ventilatedFacadesListName: "ventilatedFacadesList",
-        ventilatedFacadesListTitle: "Вентилируемые фасады",
-        ventilatedFacadesListDescription: "Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются. Здесь кратко описано, что это за услуга / где и как используется. Также было бы полезно указать, какие материалы используются.",
-        products: [
-          {
-            id: 1,
-            title: 'Вент. фасад 1',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://s8.stc.all.kpcdn.net/family/wp-content/uploads/2022/08/top-russkaya-golubaya-koshka-960h540.jpg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 2,
-            title: 'Вент. фасад 2',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-
-          },
-          {
-            id: 3,
-            title: 'Вент. фасад 3',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 4,
-            title: 'Вент. фасад 4',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 5,
-            title: 'Вент. фасад 5',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 6,
-            title: 'Вент. фасад 6',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 6,
-            title: 'Вент. фасад 7',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 6,
-            title: 'Вент. фасад 8',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-          {
-            id: 6,
-            title: 'Вент. фасад 9',
-            imgUrl: 'https://dekot21.ru/wp-content/uploads/9/8/3/983bcc84a5d7cf71605828ef9646bb40.jpeg',
-            items: [
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              },
-              {
-                subImgUrl: 'https://northcliffe.ru/wp-content/uploads/0/9/9/099d38211fb85a0169e58d2737ba502b.jpeg'
-              }
-            ]
-          },
-        ]
+    async getAllVentilatedFacades() {
+      try {
+        const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
+          method: 'GET',
+          mode: 'cors'
+        })
+        const data = await res.json()
+        if (res.status == 200 || res.status == 201) {
+          this.products = data;
+          for (var i = 0; i < this.products.length; i++) {
+            this.products[i].items = []
+            this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
+          }
+          console.log(data)
+        } else {
+          this.errors = data
+          console.log(data)
+        }
+      } catch (error) {
+        console.log(error)
       }
     },
-    methods: {
-      openSlider(id) {
-        console.log(`Айди такой: ${id}`)
-      },
-      optionForFilter() {
-        console.log('11111111111111')
-        this.$emit('optionForFilter',this.ventilatedFacadesListName)
-      }
-    },
-    mounted() {
-      if(!this.isComponentCreated){
-        this.$emit("blockTitle", this.ventilatedFacadesListTitle);
-        this.isComponentCreated = true;
+
+    async getVentilatedFacadeItemsById(id) {
+      try {
+        const res = await fetch('http://localhost:8000/api/ventilatedfacadeitems/' + id, {
+          method: 'GET',
+          mode: 'cors'
+        })
+        const data = await res.json()
+        if (res.status == 200 || res.status == 201) {
+          for (let product of this.products) {
+            for (let item of data) {
+              if (product.ventilated_facades_id === item.ventilated_facades_id) {
+                product.items.push(item.ventilated_facade_items_url)
+              }
+            }
+          }
+        } else {
+          this.errors = data
+          console.log(data)
+        }
+      } catch (error) {
+        console.log(error)
       }
     }
+  }
 }
 </script>
 
 
 <style>
-
 .ventilated-facades-list_container {
   width: 100%;
   font-size: 1rem;
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .ventilated-facades-list_items {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(3,auto);
+  grid-template-columns: repeat(3, auto);
   justify-content: space-between;
   row-gap: 1vw;
   column-gap: 2vw;
@@ -332,13 +186,14 @@ export default {
     font-size: 0.8rem;
   }
 }
+
 @media(max-width:1550px) {
   .ventilated-facades-list_container {
     font-size: 0.7rem;
   }
 }
 
-@media(max-width: 1340px){
+@media(max-width: 1340px) {
   .ventilated-facades-list_container {
     font-size: 0.5rem;
   }
@@ -349,17 +204,16 @@ export default {
 
 }
 
-@media(max-width: 800px){
+@media(max-width: 800px) {
   .ventilated-facades-list_items {
     grid-template-columns: repeat(2, auto);
   }
 
 }
 
-@media(max-width: 564px){
+@media(max-width: 564px) {
   .ventilated-facades-list_button {
     font-size: 16px;
   }
 }
-
 </style>
