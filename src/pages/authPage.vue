@@ -17,7 +17,7 @@
                     <span class="error_item" v-if="v$.pass.$error">
                         Это обязательное поле
                     </span>
-                    <button class="auth_btn">
+                    <button class="auth_btn" :disabled="(v$.login.$invalid || v$.pass.$invalid)">
                         Войти
                     </button>
                 </form>
@@ -161,18 +161,14 @@ export default {
     transition: background .2s linear;
 }
 
-.auth_btn:hover {
-    background: #d7d5d5;
-}
-
-.btn_send_email:hover {
-    background: rgba(135, 15, 15, 0.82);
-}
-
-.btn_send_email:disabled {
+.auth_btn:disabled {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
+}
+
+.auth_btn:hover {
+    background: #d7d5d5;
 }
 
 @media(max-width:580px) {
