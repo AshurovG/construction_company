@@ -33,6 +33,11 @@ import { reactive, computed } from 'vue'
 
 export default {
     name: "authPage",
+    data() {
+        return {
+            isSuccess: undefined
+        }
+    },
     setup() {
         const state = reactive({
             login: '',
@@ -52,17 +57,47 @@ export default {
         }
     },
     methods: {
-        sendAuth() {
+        async sendAuth() {
+            await this.getAnswerFromServer()
             this.v$.$validate()
             if (!this.v$.$error) {
                 try {
-                    //здесь сделать post запрос с паролем и логином, и на бэке сверить данные
-                    console.log('SUCCESS ! ! !')
+                    if (this.isSuccess == true) {
+                        console.log('SUCCESS ! ! !')
+                    } else {
+                        console.log("WRONG ! ! !")
+                        // console.log(this.state.pass)
+                    }
                 } catch (error) {
                     console.log({ error })
                 }
-                this.login = ''
-                this.pass = ''
+                // this.state.pass = ''
+                // this.state.login = ''
+            }
+        },
+
+        async getAnswerFromServer() {
+            try {
+                const res = await fetch('http://localhost:8000/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        login: this.state.login,
+                        pass: this.state.pass
+                    }),
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    this.isSuccess = data.check;
+                    console.log(this.isSuccess)
+                    // console.log(this.state.login)
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
             }
         }
     }
