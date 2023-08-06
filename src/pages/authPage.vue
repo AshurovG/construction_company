@@ -3,12 +3,20 @@
         <div class="auth_window">
             <div class="auth_container">
                 <h1 class="auth_title">Авторизация администратора</h1>
-                <form class="auth_form" action="#">
+                <form class="auth_form" @submit.prevent="sendAuth">
                     <h2 class="auth_subtitle">
                         Заполните данные для входа:
                     </h2>
-                    <input class="auth_item" type="text" placeholder="Логин">
-                    <input class="auth_item" type="password" placeholder="Пароль">
+                    <input class="auth_item" type="text" placeholder="Логин" v-model.trim="state.login"
+                        @blur="v$.login.$touch">
+                    <span class="error_item" v-if="v$.login.$error">
+                        Это обязательное поле
+                    </span>
+                    <input class="auth_item" type="password" placeholder="Пароль" v-model.trim="state.pass"
+                        @blur="v$.pass.$touch">
+                    <span class="error_item" v-if="v$.pass.$error">
+                        Это обязательное поле
+                    </span>
                     <button class="auth_btn">
                         Войти
                     </button>
@@ -19,8 +27,45 @@
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
+
 export default {
-    name: "AboutCompanyPage"
+    name: "authPage",
+    setup() {
+        const state = reactive({
+            login: '',
+            pass: ''
+        })
+
+        const rules = computed(() => ({
+            login: { required },
+            pass: { required }
+        }))
+
+        const v$ = useVuelidate(rules, state)
+
+        return {
+            state,
+            v$
+        }
+    },
+    methods: {
+        sendAuth() {
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                try {
+                    //здесь сделать post запрос с паролем и логином, и на бэке сверить данные
+                    console.log('SUCCESS ! ! !')
+                } catch (error) {
+                    console.log({ error })
+                }
+                this.login = ''
+                this.pass = ''
+            }
+        }
+    }
 }
 </script>
 
@@ -32,7 +77,7 @@ export default {
 
 .auth_window {
     width: 550px;
-    height: 400px;
+    height: 450px;
     background: #610a0a;
     border-radius: 5%;
     position: fixed;
@@ -62,7 +107,12 @@ export default {
 .auth_subtitle {
     color: #fff;
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+}
+
+.error_item {
+    color: red;
+    margin-top: 5px;
+    font-size: 1.3em;
 }
 
 .auth_form {
@@ -77,7 +127,7 @@ export default {
 .auth_item {
     padding: .5em 1em;
     text-align: left;
-    margin-bottom: 5%;
+    margin-top: 5%;
     height: 20%;
     width: 100%;
     left: 150px;
@@ -95,6 +145,7 @@ export default {
 }
 
 .auth_btn {
+    margin-top: 1rem;
     padding: .5em 1.2em;
     text-align: center;
 
@@ -108,6 +159,10 @@ export default {
     color: #610a0a;
     cursor: pointer;
     transition: background .2s linear;
+}
+
+.auth_btn:hover {
+    background: #d7d5d5;
 }
 
 .btn_send_email:hover {
@@ -131,7 +186,7 @@ export default {
 
     .auth_window {
         width: 460px;
-        height: 335px;
+        height: 375px;
     }
 
     .auth_container {
@@ -145,7 +200,6 @@ export default {
 
     .auth_subtitle {
         font-size: 1rem;
-        margin-bottom: .83rem;
     }
 
     .auth_form {
@@ -163,7 +217,7 @@ export default {
 @media(max-width:480px) {
     .auth_window {
         width: 383px;
-        height: 279px;
+        height: 313px;
     }
 
     .auth_container {
@@ -177,7 +231,6 @@ export default {
 
     .auth_subtitle {
         font-size: .83rem;
-        margin-bottom: .69rem;
     }
 
     .auth_form {
@@ -195,7 +248,7 @@ export default {
 @media(max-width:390px) {
     .auth_window {
         width: 319px;
-        height: 233px;
+        height: 260px;
     }
 
     .auth_container {
@@ -209,7 +262,6 @@ export default {
 
     .auth_subtitle {
         font-size: .69rem;
-        margin-bottom: .58rem;
     }
 
     .auth_form {
