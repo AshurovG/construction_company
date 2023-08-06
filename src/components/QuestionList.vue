@@ -18,28 +18,10 @@ export default {
         QuestionCard
     },
     mounted() {
-        this.setQuestions()
+        this.getAllQuestions()
     },
     data() {
         return {
-            // faqs: [
-            //     {
-            //         q:'Первый вопрос',
-            //         a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-            //         open:false
-            //     },
-            //     {
-            //         q:'Второй вопрос',
-            //         a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-            //         open:false
-            //     },
-            //     {
-            //         q:'Третий вопрос',
-            //         a:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-            //         open:false
-            //     },
-            // ]
-
             faqs: [],
             errors: []
         }
@@ -57,8 +39,7 @@ export default {
             });
         },
 
-        async setQuestions() {
-
+        async getAllQuestions() {
             try {
                 const res = await fetch('http://localhost:8000/api/questions', {
                     method: 'GET',
@@ -69,7 +50,6 @@ export default {
                     this.faqs = data;
                     for (var i = 0; i < this.faqs.length; i++) {
                         this.faqs[i].open = false;
-                        console.log(this.faqs[i])
                     }
                 } else {
                     this.errors = data

@@ -1,76 +1,72 @@
 <template>
-    <div class="carousel">
-        <div class="slide" v-for="(product, index) in items" :key="index" :class="{ active: index === currentSlide }">
-          <div class="delaited-product-card_item">
-            <img
-            class="detailed-product-card_image"
-            :src="product.subImgUrl"
-            >
-            <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
-          </div>
-          <div class="carousel-controls">
-            <button @click="prevSlide" class="btn_prev"></button>
-            <button @click="nextSlide" class="btn_next"></button>
-          </div>
+  <div class="carousel">
+    <div class="slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
+      <div class="delaited-product-card_item">
+        <img class="detailed-product-card_image" :src="item">
+        <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
+      </div>
+      <div class="carousel-controls">
+        <button @click="prevSlide" class="btn_prev"></button>
+        <button @click="nextSlide" class="btn_next"></button>
+      </div>
 
-        </div>
-        <div class="carousel_description">
-          <h2 class="carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
-          <div class="carousel_description_text">Описание, длинное, что за место, что сделано, где находится и так далее. В общем, вся-вся информация об этой работе</div>
-        </div>
-        <!-- <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
-        <img
-        class="exit_buttton"
-        src="../images/exit.png"
-        @click="closeSlider"
-        >
     </div>
+    <div class="carousel_description">
+      <h2 class="carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
+      <div class="carousel_description_text">{{ desc }}</div>
+    </div>
+    <!-- <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
+    <img class="exit_buttton" src="../images/exit.png" @click="closeSlider">
+  </div>
 </template>
 
 <script>
-    export default {
-        name:'QuestionCard',
-        components: {
-        },
-        props: {
-          items: {
-            type: Array,
-            required: true
-          }
-        },
-        data(){
-          return {
-          currentImage: 1,
-          currentSlide: 0
-          }
+export default {
+  name: 'QuestionCard',
+  components: {
+  },
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    desc: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      currentImage: 1,
+      currentSlide: 0
+    }
 
-        },
-    methods: {
-      prevSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
-        if (this.currentImage === 1) {
-          this.currentImage = this.items.length
-        } else {
-          this.currentImage--
-        }
-      },
-      nextSlide() {
-        this.currentSlide = (this.currentSlide + 1) % this.items.length;
-        if (this.currentImage === this.items.length) {
-          this.currentImage = 1;
-        } else {
-          this.currentImage++
-        }
-      },
-      closeSlider() {
-        this.$emit('closeSlider')
+  },
+  methods: {
+    prevSlide() {
+      this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
+      if (this.currentImage === 1) {
+        this.currentImage = this.items.length
+      } else {
+        this.currentImage--
       }
+    },
+    nextSlide() {
+      this.currentSlide = (this.currentSlide + 1) % this.items.length;
+      if (this.currentImage === this.items.length) {
+        this.currentImage = 1;
+      } else {
+        this.currentImage++
+      }
+    },
+    closeSlider() {
+      this.$emit('closeSlider')
     }
-    }
+  }
+}
 </script>
 
 <style>
-
 .carousel {
   width: 80%;
   height: 40vw;
@@ -91,7 +87,7 @@
   top: 0;
   right: 0;
   width: 29%;
-  font-size:1rem;
+  font-size: 1rem;
   margin-top: 2em;
   /* margin-left: 15px; */
 }
@@ -117,6 +113,7 @@
 
   color: #000000;
 }
+
 .counter {
   margin-bottom: 1em;
   position: absolute;
@@ -168,7 +165,7 @@
   align-items: center;
 }
 
-.btn_next{
+.btn_next {
   position: relative;
   display: inline-block;
   width: 4vw;
@@ -198,7 +195,7 @@
   border-right-color: #fff;
 }
 
-.btn_prev{
+.btn_prev {
   position: relative;
   display: inline-block;
   width: 4vw;
@@ -261,46 +258,52 @@
   }
 }
 
-@media(max-width: 1340px){
+@media(max-width: 1340px) {
   .carousel_description {
     font-size: 0.6rem;
   }
+
   .counter {
     right: -120px;
   }
 }
 
-@media(max-width: 1080px){
+@media(max-width: 1080px) {
   .carousel_description {
     font-size: 0.5rem;
   }
+
   .counter {
     right: -110px;
   }
 }
 
-@media(max-width: 800px){
+@media(max-width: 800px) {
   .carousel_description {
     font-size: 0.4rem;
   }
+
   .counter {
     font-size: 8px;
     right: -80px;
   }
+
   .carousel_description_title {
     margin-bottom: 10px;
   }
 
 }
 
-@media(max-width: 480px){
+@media(max-width: 480px) {
   .carousel_description {
     font-size: 0.3rem;
     margin-top: 5px;
   }
+
   .carousel_description_title {
     margin-bottom: 5px;
   }
+
   .counter {
     font-size: 6px;
     right: -60px;
@@ -308,6 +311,5 @@
   }
 
 }
-
 </style>
 
