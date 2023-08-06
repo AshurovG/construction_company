@@ -1,5 +1,6 @@
 import mainPage from "@/pages/mainPage";
 import portfolioPage from "@/pages/portfolioPage";
+import authPage from "@/pages/authPage"
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     name: "portfolio",
     component: portfolioPage,
   },
+  {
+    path: "/admin",
+    name: "admin",
+    component: authPage,
+  }
 ];
 
 const router = createRouter({

@@ -1,169 +1,134 @@
 <template>
     <div class="form_container">
-        <img
-        class="exit_form_buttton"
-        src="../images/exit.png"
-        @click="closeForm"
-        >
+        <img class="exit_form_buttton" src="../images/exit.png" @click="closeForm">
         <form class="order_form" @submit.prevent="sendEmail" novalidate="true">
             <h1 class="form_title">Оформите заказ</h1>
             <div class="form_item_container">
-                <input
-                class="form_item"
-                type="text"
-                id="fio"
-                name="fio"
-                placeholder="ФИО*"
-                v-model.trim="state.fio"
-                @blur="v$.fio.$touch"
-                ><br>
+                <input class="form_item" type="text" id="fio" name="fio" placeholder="ФИО*" v-model.trim="state.fio"
+                    @blur="v$.fio.$touch"><br>
                 <span class="error_item" v-if="v$.fio.$error">
                     Некорректное ФИО
                 </span>
             </div>
 
             <div class="form_item_container">
-                <input
-                class="form_item"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="e-mail*"
-                v-model.trim="state.email"
-                @blur="v$.email.$touch"
-                ><br>
+                <input class="form_item" type="email" id="email" name="email" placeholder="e-mail*"
+                    v-model.trim="state.email" @blur="v$.email.$touch"><br>
                 <span class="error_item" v-if="v$.email.$error">
                     Некорректный e-mail
                 </span>
             </div>
             <div class="form_item_container">
-                <textarea
-                class="form_order_text"
-                type="text"
-                id="order"
-                name="order"
-                placeholder="Опишите заказ*"
-                v-model.trim="state.order"
-                @blur="v$.order.$touch"
-                ></textarea><br>
+                <textarea class="form_order_text" type="text" id="order" name="order" placeholder="Опишите заказ*"
+                    v-model.trim="state.order" @blur="v$.order.$touch"></textarea><br>
                 <span class="error_item" v-if="v$.order.$error">
                     В тексте должно быть от 10 до 500 символов
                 </span>
             </div>
-            <button
-            @click="successSending"
-            :disabled="(v$.fio.$invalid || v$.email.$invalid || v$.order.$invalid)"
-            class="btn_send_email"
-            type="submit"
-            value="Send">
-            Сделать заказ
+            <button @click="successSending" :disabled="(v$.fio.$invalid || v$.email.$invalid || v$.order.$invalid)"
+                class="btn_send_email" type="submit" value="Send">
+                Сделать заказ
             </button>
         </form>
-        <modal-window
-        @closeModalWindow="closeModalWindow"
-        class="modal"
-        :showModal="showModal"
-        v-if="showModal==true"
-        />
+        <modal-window @closeModalWindow="closeModalWindow" class="modal" :showModal="showModal" v-if="showModal == true" />
 
     </div>
- </template>
+</template>
 
 <script>
-    import modalWindow from './modalWindow.vue'
-    import { useVuelidate } from '@vuelidate/core'
-    import { required, email, minLength, maxLength } from '@vuelidate/validators'
-    import { reactive, computed } from 'vue'
-    import emailjs from 'emailjs-com';
+import modalWindow from './modalWindow.vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, minLength, maxLength } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
+import emailjs from 'emailjs-com';
 
-    export default {
-        components: {
-            modalWindow
-        },
-        setup() {
-            const state = reactive({
-                fio: '',
-                email: '',
-                order: '',
-                minOrderTextLength: 10,
-                maxOrderTextLength: 500
-            })
+export default {
+    components: {
+        modalWindow
+    },
+    setup() {
+        const state = reactive({
+            fio: '',
+            email: '',
+            order: '',
+            minOrderTextLength: 10,
+            maxOrderTextLength: 500
+        })
 
-            const rules = computed(() => ({
-                fio: { required,
-                    checkFio(value) {
-                        const regex = /^([\u0400-\u04FF]+\s){2}[\u0400-\u04FF]+$/;
-                        return regex.test(value.trim());
-                    }
-                        },
-                        email: { required, email },
-                        order: {
-                            required,
-                            minLength: minLength(state.minOrderTextLength),
-                            maxLength: maxLength(state.maxOrderTextLength)
-                        }
-            }))
-
-            const v$ = useVuelidate(rules, state)
-
-            return {
-                state,
-                v$
-            }
-        },
-        data() {
-            return {
-                showModal: false
-            }
-        },
-        methods: {
-            sendEmail(e) {
-                this.v$.$validate()
-                if (!this.v$.$error){
-                    try {
-                        emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
-                        'Yr8QuQUIlXompjRBo', {
-                            fio: this.fio,
-                            email: this.email,
-                            order: this.order
-                        })
-                    } catch(error) {
-                        console.log({error})
-                    }
-                    this.fio = ''
-                    this.email = ''
-                    this.order = ''
+        const rules = computed(() => ({
+            fio: {
+                required,
+                checkFio(value) {
+                    const regex = /^([\u0400-\u04FF]+\s){2}[\u0400-\u04FF]+$/;
+                    return regex.test(value.trim());
                 }
             },
-            successSending() {
-                this.showModal = true
-            },
+            email: { required, email },
+            order: {
+                required,
+                minLength: minLength(state.minOrderTextLength),
+                maxLength: maxLength(state.maxOrderTextLength)
+            }
+        }))
 
-            closeForm() {
-                this.$emit('closeForm')
-            },
-            closeModalWindow() {
-                this.showModal = false
-                this.closeForm()
+        const v$ = useVuelidate(rules, state)
+
+        return {
+            state,
+            v$
+        }
+    },
+    data() {
+        return {
+            showModal: false
+        }
+    },
+    methods: {
+        sendEmail(e) {
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                try {
+                    emailjs.sendForm('service_8dbscaj', 'template_9v0h7qn', e.target,
+                        'Yr8QuQUIlXompjRBo', {
+                        fio: this.fio,
+                        email: this.email,
+                        order: this.order
+                    })
+                } catch (error) {
+                    console.log({ error })
+                }
+                this.fio = ''
+                this.email = ''
+                this.order = ''
             }
         },
-  }
+        successSending() {
+            this.showModal = true
+        },
+
+        closeForm() {
+            this.$emit('closeForm')
+        },
+        closeModalWindow() {
+            this.showModal = false
+            this.closeForm()
+        }
+    },
+}
 </script>
 
 <style>
-
 .form_container {
-
-  width: 50%;
-  height: 80%;
-  background: #fff;
-  border-radius: 5%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10000;
-  overflow: visible;
+    width: 50%;
+    height: 80%;
+    background: #fff;
+    border-radius: 5%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    overflow: visible;
 }
 
 .order_form {
@@ -177,11 +142,13 @@
 .order_form :nth-child(4) {
     height: 50%;
 }
+
 .form_item_container {
     margin-bottom: 4%;
     height: 10%;
     width: 80%;
 }
+
 .form_item {
     padding: .5em 1em;
     text-align: left;
@@ -252,19 +219,20 @@
 .btn_send_email:hover {
     background: rgba(135, 15, 15, 0.82);
 }
+
 .btn_send_email:disabled {
-  background-color: #cccccc;
-  color: #666666;
-  cursor: default;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
 }
 
 .exit_form_buttton {
-  width: 10%;
-  height: auto;
-  position: absolute;
-  top: -3%;
-  right: -5%;
-  cursor: pointer;
+    width: 10%;
+    height: auto;
+    position: absolute;
+    top: -3%;
+    right: -5%;
+    cursor: pointer;
 }
 
 .error_item {
@@ -274,41 +242,46 @@
 }
 
 @media(max-width:1550px) {
-  .order_form {
-    font-size: 0.9rem;
-  }
-}
-@media(max-width: 1340px){
-  .order_form {
-    font-size: 0.8rem;
-  }
-  .form_container {
-    width: 70%;
-  }
-}
-@media(max-width: 1080px){
-  .order_form {
-    font-size: 0.7rem;
-  }
-  .form_container {
-    height: 70%;
-  }
+    .order_form {
+        font-size: 0.9rem;
+    }
 }
 
-@media(max-width: 800px){
-  .order_form {
-    font-size: 0.6rem;
-  }
-  .form_container {
-    height: 60%;
-    width: 90%;
-  }
-}
-@media(max-width: 479px){
-  .order_form {
-    font-size: 0.5rem;
-  }
+@media(max-width: 1340px) {
+    .order_form {
+        font-size: 0.8rem;
+    }
 
+    .form_container {
+        width: 70%;
+    }
 }
 
+@media(max-width: 1080px) {
+    .order_form {
+        font-size: 0.7rem;
+    }
+
+    .form_container {
+        height: 70%;
+    }
+}
+
+@media(max-width: 800px) {
+    .order_form {
+        font-size: 0.6rem;
+    }
+
+    .form_container {
+        height: 60%;
+        width: 90%;
+    }
+}
+
+@media(max-width: 479px) {
+    .order_form {
+        font-size: 0.5rem;
+    }
+
+}
 </style>
