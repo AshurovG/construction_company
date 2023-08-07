@@ -1,0 +1,266 @@
+<template>
+    <div class="header">
+        <div class="container">
+            <div id="header-inner" class="header-inner">
+                <button class="header-nav-button" id="header-nav-button">
+                    <span></span><span></span><span></span>
+                </button>
+                <span class="header-brand">
+                    ФРОЛФАСД
+                </span>
+                <span class="header-brand">Панель администратора</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "HeaderPage",
+    data() {
+        return {
+            selectedAnchor: '',
+            isAdaptMenuActive: false
+        };
+    },
+    methods: {
+        openOrderForm() {
+            this.$emit('openOrderForm')
+        },
+        scrollToAnchor(param) {
+            this.$emit("scrollToAnchor", param)
+        },
+        adaptMenuShow(event) {
+            let elem = document.querySelector("#header-inner")
+            if (!event.target.closest('#header-nav-button')) {
+                elem.classList.remove('active');
+                return
+            }
+            elem.classList.toggle('active');
+        },
+    },
+    mounted() {
+        document.addEventListener('click', this.adaptMenuShow)
+    },
+    beforeUnmount() {
+        document.removeEventListener('click', this.adaptMenuShow)
+    },
+}
+</script>
+
+
+<style>
+.header {
+    font-family: 'Open Sans', sans-serif;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+
+    background-color: #610a0a;
+
+    width: 100%;
+
+    padding: 2rem 0;
+    margin-bottom: 50px;
+
+}
+
+.container {
+    padding: 0 1rem;
+    margin: 0px 134px;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+
+    font-size: 1rem;
+}
+
+.header-nav-button {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #610a0a;
+    position: relative;
+}
+
+.header-nav-button span {
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: #F5F5F5;
+    left: 5px;
+    transition: transform .4s, opacity .4s, background-color .4s;
+}
+
+.header-nav-button span:first-child {
+    transform: translateY(-10px);
+}
+
+.header-nav-button span:last-child {
+    transform: translateY(10px);
+}
+
+.header-inner.active .header-nav-button span:first-child {
+    transform: translateY(0) rotate(-45deg);
+}
+
+.header-inner.active .header-nav-button span:nth-child(2) {
+    opacity: 0;
+}
+
+.header-inner.active .header-nav-button span:last-child {
+    transform: translateY(0) rotate(45deg);
+}
+
+.header-brand {
+    font-size: 2.5em;
+    color: #F5F5F5;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.7em;
+
+    cursor: text;
+}
+
+.header-nav {
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.header-nav-link:hover {
+    background-color: #fff;
+    color: #610A0A;
+
+}
+
+.btn-order:hover {
+    background-color: #F5F5F5;
+    color: #610A0A;
+}
+
+
+@media(max-width: 1800px) {
+    .header-inner {
+        font-size: 0.8rem;
+    }
+}
+
+@media(max-width: 1550px) {
+    .header-inner {
+        font-size: 0.7rem;
+    }
+}
+
+@media(max-width: 1340px) {
+    .header-inner {
+        font-size: 0.5rem;
+    }
+
+    .btn-order {
+        font-size: 20px;
+        padding: 0.4em 0.8em;
+    }
+
+    .header-brand {
+        font-size: 24px;
+    }
+
+}
+
+@media(max-width: 1080px) {
+    .container {
+        width: 100%;
+        max-width: 812px;
+        margin: 0 auto;
+    }
+
+}
+
+@media(max-width: 800px) {
+    .header-nav-button {
+        display: block;
+        z-index: 2;
+    }
+
+    .header-nav-link {
+        color: #F5F5F5;
+        margin: 0;
+    }
+
+    .header-nav {
+        padding: 100px 50px 15px 2px;
+        border: 2px solid #610A0A;
+        position: absolute;
+        left: -200px;
+        top: 0;
+        background-color: #610A0A;
+        flex-direction: column;
+        width: 200px;
+
+        transition: transform .4s;
+    }
+
+    .header-brand {
+        margin-left: 10vw;
+        z-index: 3;
+    }
+
+    .btn-order {
+        font-size: 16px
+    }
+
+    .header-inner.active .header-nav {
+        transform: translateX(100%);
+    }
+
+    .header-nav-link:hover {
+        background: none;
+        color: #F5F5F5;
+    }
+
+}
+
+@media(max-width: 479px) {
+    .header-nav {
+        padding-bottom: 35px;
+    }
+
+    .btn-order {
+        font-weight: 400;
+        margin: 0;
+        padding-top: 16px;
+        padding-bottom: 0;
+        padding-left: 14.5px;
+        z-index: 2;
+        color: #F5F5F5;
+        position: absolute;
+        top: 230px;
+        left: -200px;
+        outline: none;
+        width: 200px;
+        transition: transform .4s;
+    }
+
+    .header-inner.active .btn-order {
+        transform: translateX(100%);
+    }
+
+    .btn-order:hover {
+        background: none;
+        color: #F5F5F5;
+    }
+
+
+
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="auth">
+    <div class="auth" v-if="isOpenModal">
         <div class="auth_window">
             <div class="auth_container">
                 <h1 class="auth_title">Авторизация администратора</h1>
@@ -17,6 +17,9 @@
                     <span class="error_item" v-if="v$.pass.$error">
                         Это обязательное поле
                     </span>
+                    <span class="error_item" v-if="!isSuccess">
+                        Неверный логин или пароль
+                    </span>
                     <button class="auth_btn" :disabled="(v$.login.$invalid || v$.pass.$invalid)">
                         Войти
                     </button>
@@ -24,6 +27,7 @@
             </div>
         </div>
     </div>
+    <adminPage v-if="!isOpenModal" />
 </template>
 
 <script>
@@ -31,12 +35,18 @@ import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 
+import adminPage from './adminPage.vue'
+
 export default {
     name: "authPage",
     data() {
         return {
-            isSuccess: undefined
+            isSuccess: true,
+            isOpenModal: true
         }
+    },
+    components: {
+        adminPage
     },
     setup() {
         const state = reactive({
@@ -58,12 +68,13 @@ export default {
     },
     methods: {
         async sendAuth() {
-            await this.getAnswerFromServer()
             this.v$.$validate()
+            await this.getAnswerFromServer()
             if (!this.v$.$error) {
                 try {
                     if (this.isSuccess == true) {
                         console.log('SUCCESS ! ! !')
+                        this.isOpenModal = false
                     } else {
                         console.log("WRONG ! ! !")
                         // console.log(this.state.pass)
@@ -112,7 +123,7 @@ export default {
 
 .auth_window {
     width: 550px;
-    height: 450px;
+    height: 500px;
     background: #610a0a;
     border-radius: 5%;
     position: fixed;
@@ -207,17 +218,9 @@ export default {
 }
 
 @media(max-width:580px) {
-    /* .auth_window {
-        width: 460px;
-        height: 335px;
-        top: 3%;
-        left: 50%;
-        transform: translate(-50%);
-    } */
-
     .auth_window {
         width: 460px;
-        height: 375px;
+        height: 417px;
     }
 
     .auth_container {
@@ -248,7 +251,7 @@ export default {
 @media(max-width:480px) {
     .auth_window {
         width: 383px;
-        height: 313px;
+        height: 348px;
     }
 
     .auth_container {
@@ -279,7 +282,7 @@ export default {
 @media(max-width:390px) {
     .auth_window {
         width: 319px;
-        height: 260px;
+        height: 290px;
     }
 
     .auth_container {
