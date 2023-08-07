@@ -1,5 +1,5 @@
 <template>
-    <div class="portfolio_page">
+    <div class="admin_page">
         <headerForAdmin />
         <div class="content" ref="content">
             <div class="portfolio-page_starter">
@@ -8,8 +8,8 @@
             </div>
             <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign" />
             <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
-            <ventilated-facades-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showFacades"
-                @optionForFilter="optionForFilter" />
+            <ventilated-facades-list :flag="!flag" :showFacades="showFacades" @blockTitle="createListOfBlocks"
+                v-show="showFacades" @optionForFilter="optionForFilter" />
             <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions"
                 @optionForFilter="optionForFilter" />
 
@@ -80,7 +80,7 @@ export default {
   
   
 <style>
-.portfolio_page {
+.admin_page {
     font-size: 1rem;
 }
 

@@ -1,7 +1,13 @@
 <template>
   <div class="ventilated-facades-list">
     <div class="ventilated-facades-list_container">
-      <h1 class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
+      <h1 v-if="!showFacades" class="ventilated-facades-list_title">{{ ventilatedFacadesListTitle }}</h1>
+      <h1 v-if="showFacades" class="ventilated-facades-list_title">Редактирование информации о вентилируемых фасадах</h1>
+      <div class="change_buttons">
+        <button v-if="showFacades" class="admin_btn">Добавить</button>
+        <!-- <button v-if="showFacades" class="admin_btn">Изменить</button>
+        <button v-if="showFacades" class="admin_btn">Удалить</button> -->
+      </div>
       <div class="ventilated_facades_list_description" v-if="openInMain">
         {{ ventilatedFacadesListDescription }}
       </div>
@@ -34,7 +40,8 @@ export default {
     productCard
   },
   props: {
-    openInMain: Boolean
+    openInMain: Boolean,
+    showFacades: Boolean
   },
   mounted() {
     if (!this.isComponentCreated) {
@@ -171,13 +178,34 @@ export default {
   font-size: 2.5em;
   padding: 0.8em 2em;
   letter-spacing: -0.02em;
-  /* line-height: 44px; */
+  transition: background linear .2s;
   color: #FFFFFF;
   text-align: center;
   cursor: pointer;
 }
 
 .ventilated-facades-list_button:hover {
+  background: rgba(69, 5, 5, 0.82);
+}
+
+.admin_btn {
+  display: inline-block;
+  margin-bottom: 1em;
+  /* margin-right: 2em; */
+  background: rgba(97, 10, 10, 0.82);
+  border-radius: 1em;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 2.5em;
+  padding: 0.8em 1.5em;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+  transition: background linear .2s;
+}
+
+.admin_btn:hover {
   background: rgba(69, 5, 5, 0.82);
 }
 
