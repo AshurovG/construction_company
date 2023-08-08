@@ -12,18 +12,20 @@
         </div>
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
+        <deleteWindow />
     </div>
 </template>
 
 <script>
-// import adminProductCard from "./adminProductCard.vue"
 import adminDetailedProductCardsSlider from "./adminDetailedProductCardsSlider.vue";
+import deleteWindow from "./deleteWindow.vue"
 
 export default {
     name: "CorrectVentilatedFacades",
     components: {
         // adminProductCard,
-        adminDetailedProductCardsSlider
+        adminDetailedProductCardsSlider,
+        deleteWindow
     },
     props: {
         id: {
