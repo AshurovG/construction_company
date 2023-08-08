@@ -137,6 +137,12 @@ export default {
     }
 }
 
+@media(max-width: 480px) {
+    .correct_one_facade_btns {
+        font-size: .6rem;
+    }
+}
+
 @media(max-width: 400px) {
     .correct_ventilated_facades {
         font-size: .6rem;
