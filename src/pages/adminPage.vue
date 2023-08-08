@@ -3,16 +3,18 @@
         <headerForAdmin />
         <div class="content" ref="content">
             <div class="portfolio-page_starter">
-                <filter-block class="portfolio-page_filter" :options="blockTypes" :selected="selectedOption"
+                <adminFilterBlock class="portfolio-page_filter" :options="blockTypes" :selected="selectedOption"
                     @selectOption="selectOption" />
             </div>
-            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign" />
+            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign && !showCorrect" />
             <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
-            <ventilated-facades-list :flag="!flag" :showFacades="showFacades" @blockTitle="createListOfBlocks"
-                v-show="showFacades" @optionForFilter="optionForFilter" />
-            <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions"
+            <adminVentilatedFacadesListVue :flag="!flag" :showFacades="showFacades" @onProductCardClick="onProductCardClick"
+                @blockTitle="createListOfBlocks" v-show="showFacades && !showCorrect" @optionForFilter="optionForFilter" />
+            <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions && !showCorrect"
                 @optionForFilter="optionForFilter" />
-
+            <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
+                :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
+                :desc="product.ventilated_facades_description" :items="product.items" />
         </div>
         <footer-page id="contacts"></footer-page>
     </div>
@@ -22,9 +24,10 @@
 import headerForAdmin from '@/components/headerForAdmin.vue';
 import FooterPage from '../components/footer.vue'
 import exteriorDesignList from '../components/exteriorDesignList.vue';
-import ventilatedFacadesList from '../components/ventilatedFacadesList.vue';
+import adminVentilatedFacadesListVue from '@/components/adminPanelComponents/adminVentilatedFacadesList.vue';
 import QuestionList from '@/components/QuestionList.vue';
-import filterBlock from '../components/filterBlock.vue';
+import adminFilterBlock from "../components/adminPanelComponents/adminFilterBlock.vue"
+import correctVentilatedFacades from '@/components/adminPanelComponents/correctVentilatedFacades.vue';
 
 export default {
     name: 'App',
@@ -32,9 +35,10 @@ export default {
         headerForAdmin,
         FooterPage,
         exteriorDesignList,
-        ventilatedFacadesList,
-        filterBlock,
-        QuestionList
+        adminVentilatedFacadesListVue,
+        adminFilterBlock,
+        QuestionList,
+        correctVentilatedFacades
     },
     data() {
         return {
@@ -44,7 +48,15 @@ export default {
             selectedOption: 'Часто задаваемые вопросы',
             showDesign: false,
             showFacades: false,
-            showQuestions: true
+            showQuestions: true,
+            showCorrect: false,
+            product: {
+                ventilated_facades_id: undefined,
+                ventilated_facades_title: undefined,
+                ventilated_facades_url: undefined,
+                ventilated_facades_description: undefined,
+                items: undefined
+            }
         }
     },
     props: {
@@ -60,18 +72,29 @@ export default {
                 this.showDesign = false
                 this.showFacades = true
                 this.showQuestions = false
+                this.showCorrect = false
             } else if (option == 'Наружное оформление зданий') {
                 this.selectedOption = option
                 this.showDesign = true
                 this.showFacades = false
                 this.showQuestions = false
+                this.showCorrect = false
             } else {
                 this.selectedOption = 'Часто задаваемые вопросы'
                 this.showQuestions = true
                 this.showDesign = false
                 this.showFacades = false
+                this.showCorrect = false
             }
         },
+        onProductCardClick(id, title, imgUrl, desc, items) {
+            console.log(id, title, imgUrl, desc, items)
+            this.product.ventilated_facades_id = id
+            this.product.ventilated_facades_url = imgUrl
+            this.product.ventilated_facades_description = desc
+            this.product.items = items
+            this.showCorrect = true;
+        }
     },
 
 }
