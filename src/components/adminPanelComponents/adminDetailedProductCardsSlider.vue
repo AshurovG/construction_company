@@ -338,6 +338,10 @@ export default {
     display: block;
   }
 
+  .admin_main {
+    width: 90%;
+  }
+
   .correct_one_facade_item_btns {
     flex-direction: row;
   }
