@@ -1,22 +1,31 @@
 <template>
   <div class="admin_carousel">
-    <div class="admin_slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
-      <div class="admin_delaited-product-card_item">
-        <img class="admin_detailed-product-card_image" :src="item">
+    <div class="correct_one_facade_item_btns">
+      <button class="correct_one_facade_item_btn">Добавить</button>
+      <button class="correct_one_facade_item_btn">Удалить</button>
+    </div>
+    <div class="admin_main">
+      <div class="admin_slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
+        <div class="admin_delaited-product-card_item">
+          <img class="admin_detailed-product-card_image" :src="item">
+          <!-- <div class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
+        </div>
+        <div class="admin_carousel-controls">
+          <button @click="prevSlide" class="btn_prev"></button>
+          <button @click="nextSlide" class="btn_next"></button>
+        </div>
+
+      </div>
+      <div class="admin_carousel_description">
+        <div class="admin_carousel_description_info">
+          <h2 class="admin_carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
+          <div class="admin_carousel_description_text">{{ desc }}</div>
+        </div>
         <div class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
       </div>
-      <div class="admin_carousel-controls">
-        <button @click="prevSlide" class="btn_prev"></button>
-        <button @click="nextSlide" class="btn_next"></button>
-      </div>
+    </div>
 
-    </div>
-    <div class="admin_carousel_description">
-      <h2 class="admin_carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
-      <div class="admin_carousel_description_text">{{ desc }}</div>
-    </div>
-    <!-- <div class="counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
-    <img class="admin_exit_buttton" src="../../images/exit.png" @click="closeSlider">
+
   </div>
 </template>
 
@@ -68,6 +77,11 @@ export default {
 
 <style>
 .admin_carousel {
+  display: flex;
+  width: 100%;
+}
+
+.admin_main {
   width: 80%;
   height: 40vw;
   position: relative;
@@ -75,28 +89,30 @@ export default {
   background-color: inherit;
   display: flex;
   overflow: visible;
-  z-index: 10000;
   background-color: #fff;
 }
 
 
 
 .admin_carousel_description {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: absolute;
   top: 0;
   right: 0;
   width: 29%;
+  height: 100%;
   font-size: 1rem;
   margin-top: 2em;
   /* margin-left: 15px; */
 }
 
-.cadmin_arousel_description_title {
+.admin_carousel_description_title {
   margin-bottom: 20px;
   font-style: normal;
   font-weight: 700;
-  font-size: 2em;
+  font-size: 1.5em;
   line-height: 1.2em;
   text-align: center;
   letter-spacing: -0.02em;
@@ -115,14 +131,12 @@ export default {
 }
 
 .admin_counter {
-  margin-bottom: 1em;
-  position: absolute;
-  bottom: 0;
-  right: -12vw;
+  margin-bottom: 2em;
+  margin-right: 2em;
 
   font-style: normal;
   font-weight: 400;
-  font-size: 1.375em;
+  font-size: 1.5em;
   line-height: 1.2em;
   letter-spacing: -0.02em;
 
@@ -132,7 +146,6 @@ export default {
 .admin_slide {
   position: absolute;
   top: 0;
-  left: 0;
   width: 70%;
   height: 100%;
   opacity: 0;
@@ -246,6 +259,32 @@ export default {
   cursor: pointer;
 }
 
+.correct_one_facade_item_btns {
+  margin-right: 2em;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+.correct_one_facade_item_btn {
+  display: block;
+  margin-bottom: 2vw;
+
+  background: rgba(97, 10, 10, 0.82);
+  border-radius: 1em;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.2em;
+  width: 8em;
+  height: 3em;
+  letter-spacing: -0.02em;
+  transition: background linear .2s;
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+}
+
 @media(max-width:1800px) {
   .admin_carousel_description {
     font-size: 0.8rem;
@@ -294,6 +333,24 @@ export default {
 
 }
 
+@media(max-width: 600px) {
+  .admin_carousel {
+    display: block;
+  }
+
+  .correct_one_facade_item_btns {
+    flex-direction: row;
+  }
+
+  .correct_one_facade_item_btns {
+    font-size: .8rem;
+  }
+
+  .correct_one_facade_item_btn {
+    margin-right: 1em;
+  }
+}
+
 @media(max-width: 480px) {
   .admin_carousel_description {
     font-size: 0.3rem;
@@ -308,6 +365,10 @@ export default {
     font-size: 6px;
     right: -60px;
     bottom: -3px;
+  }
+
+  .correct_one_facade_item_btns {
+    font-size: .6rem;
   }
 
 }

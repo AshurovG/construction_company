@@ -126,7 +126,6 @@ export default {
   font-size: 2.5em;
   letter-spacing: -0.03em;
 
-
   margin-bottom: 25px;
 }
 
