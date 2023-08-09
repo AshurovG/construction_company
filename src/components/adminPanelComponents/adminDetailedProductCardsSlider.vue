@@ -1,8 +1,11 @@
 <template>
   <div class="admin_carousel">
+    <transition name="showLockinScreen">
+      <div class="locking_screen" v-if="isDeleteWindowOpened" @click="isDeleteWindowOpened = false"></div>
+    </transition>
     <div class="correct_one_facade_item_btns">
       <button class="correct_one_facade_item_btn">Добавить</button>
-      <button class="correct_one_facade_item_btn">Удалить</button>
+      <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacade">Удалить</button>
     </div>
     <div class="admin_main">
       <div class="admin_slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
@@ -23,6 +26,7 @@
         </div>
         <div class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
       </div>
+      <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
     </div>
 
 
@@ -30,9 +34,12 @@
 </template>
 
 <script>
+import deleteWindow from "./deleteWindow.vue"
+
 export default {
   name: 'QuestionCard',
   components: {
+    deleteWindow
   },
   props: {
     items: {
@@ -47,7 +54,8 @@ export default {
   data() {
     return {
       currentImage: 1,
-      currentSlide: 0
+      currentSlide: 0,
+      isDeleteWindowOpened: false
     }
 
   },
@@ -70,6 +78,13 @@ export default {
     },
     closeSlider() {
       this.$emit('closeSlider')
+    },
+    deleteVentilatedFacade() {
+      this.isDeleteWindowOpened = true
+      console.log(this.isDeleteWindowOpened)
+    },
+    cancelDelete() {
+      this.isDeleteWindowOpened = false
     }
   }
 }

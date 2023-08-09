@@ -1,18 +1,21 @@
 <template>
     <div class="correct_ventilated_facades">
+        <transition name="showLockinScreen">
+            <div class="locking_screen" v-if="isDeleteWindowOpened" @click="isDeleteWindowOpened = false"></div>
+        </transition>
         <h1 class="correct_ventilated_facades_title">Главное фото объекта</h1>
         <!-- <adminProductCard class="admin_product_card" :id="id" :title="title" :img-url="imgUrl" :desc="desc"
             :items="items" /> -->
         <div class="one_ventilated_facade_container">
             <div class="correct_one_facade_btns">
                 <button class="correct_one_facade_btn">Изменить</button>
-                <button class="correct_one_facade_btn">Удалить</button>
+                <button @click="deleteVentilatedFacade" class="correct_one_facade_btn">Удалить</button>
             </div>
             <img class="card_image" :src="imgUrl" alt="">
         </div>
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
-        <deleteWindow />
+        <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
     </div>
 </template>
 
@@ -26,6 +29,11 @@ export default {
         // adminProductCard,
         adminDetailedProductCardsSlider,
         deleteWindow
+    },
+    data() {
+        return {
+            isDeleteWindowOpened: false,
+        }
     },
     props: {
         id: {
@@ -49,7 +57,15 @@ export default {
             required: true
         }
     },
-
+    methods: {
+        deleteVentilatedFacade() {
+            this.isDeleteWindowOpened = true
+            console.log(this.isDeleteWindowOpened)
+        },
+        cancelDelete() {
+            this.isDeleteWindowOpened = false
+        }
+    }
 }
 </script>
 
@@ -114,7 +130,16 @@ export default {
     background: rgba(69, 5, 5, 0.82);
 }
 
-
+.locking_screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(61, 30, 30, 0.52);
+    backdrop-filter: blur(2px);
+    z-index: 5000;
+}
 
 @media(max-width: 600px) {
     .correct_ventilated_facades {

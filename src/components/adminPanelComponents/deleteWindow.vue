@@ -17,7 +17,8 @@ export default {
         },
         cancelDelete() {
             console.log('Удаление отменено');
-        },
+            this.$emit('cancelDelete')
+        }
     },
 };
 </script>
