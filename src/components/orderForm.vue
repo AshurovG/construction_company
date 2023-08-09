@@ -230,7 +230,7 @@ export default {
     width: 10%;
     height: auto;
     position: absolute;
-    top: -3%;
+    top: -5%;
     right: -5%;
     cursor: pointer;
 }

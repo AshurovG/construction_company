@@ -1,10 +1,13 @@
 <template>
   <div class="admin_ventilated-facades-list">
+    <transition name="showLockinScreen">
+      <div class="locking_screen" v-if="isAddMainItemFormOpened" @click="isAddMainItemFormOpened = false"></div>
+    </transition>
     <div class="admin_ventilated-facades-list_container">
       <h1 class="admin_ventilated-facades-list_title">Редактирование информации о вентилируемых фасадах
       </h1>
       <div class="admin_change_buttons">
-        <button class="admin_btn">Добавить</button>
+        <button @click="isAddMainItemFormOpened = true" class="admin_btn">Добавить</button>
       </div>
       <ul class="admin_ventilated-facades-list_items">
         <li class="admin_ventilated-facades-list_item" v-for="(product, index) in products.slice(0, 9)" :key="index">
@@ -14,15 +17,19 @@
         </li>
       </ul>
     </div>
+    <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false" />
   </div>
 </template>
 
 <script>
 import adminProductCard from './adminProductCard.vue';
+import addMainItemForm from './addMainItemForm.vue';
+
 export default {
   name: "ventilatedFacadesList",
   components: {
-    adminProductCard
+    adminProductCard,
+    addMainItemForm
   },
   mounted() {
     if (!this.isComponentCreated) {
@@ -38,7 +45,8 @@ export default {
       ventilatedFacadesListName: "adminVentilatedFacadesList",
       ventilatedFacadesListTitle: "Вентилируемые фасады",
       products: [],
-      errors: []
+      errors: [],
+      isAddMainItemFormOpened: false
     }
   },
   methods: {
@@ -96,6 +104,10 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    openAddMainItemForm() {
+      this.isAddMainItemFormOpened = true
+      console.log(this.isAddMainItemFormOpened)
     }
   }
 }
@@ -189,6 +201,17 @@ export default {
 
 .admin_btn:hover {
   background: rgba(69, 5, 5, 0.82);
+}
+
+.locking_screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(61, 30, 30, 0.52);
+  backdrop-filter: blur(2px);
+  z-index: 5000;
 }
 
 @media(max-width:1800px) {
