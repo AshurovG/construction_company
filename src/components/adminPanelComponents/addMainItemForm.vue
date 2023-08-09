@@ -1,31 +1,46 @@
 <template>
-    <div class="add_main_item_form">
+    <successOperatingWindow class="success_window" @goBack="goBack" v-if="isSuccessOperatingWindowOpened" />
+    <div class="add_main_item_form" v-if="!isSuccessOperatingWindowOpened">
         <img class="exit_form_buttton" src="../../images/exit.png" @click="closeAddMainItemForm">
         <h1 class="add_main_item_form_title">
             Заполните данные
         </h1>
-        <from class="add_main_item_form_info" @submit.prevent="send()">
+        <form class="add_main_item_form_info" @submit.prevent="sendData">
             <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="title">
             <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
                 v-model="desc"></textarea>
             <input type="text" placeholder="урл*" class="add_main_item_form_item" v-model="imgUrl">
-            <button type="submit" class="add_main_item_form_btn">Сохранить</button>
-        </from>
+            <button type="submit" class="add_main_item_form_btn"
+                @click="isSuccessOperatingWindowOpened = true">Сохранить</button>
+        </form>
     </div>
 </template>
   
 <script>
+import successOperatingWindow from './successOperatingWindow.vue';
+
 export default {
+    components: {
+        successOperatingWindow
+    },
     data() {
         return {
             title: "",
             desc: "",
-            imgUrl: ""
+            imgUrl: "",
+            isSuccessOperatingWindowOpened: false
         }
     },
     methods: {
         closeAddMainItemForm() {
             this.$emit('closeAddMainItemForm')
+        },
+        sendData() {
+            console.log('Success!')
+        },
+        goBack() {
+            this.$emit('goBack')
+            this.isSuccessOperatingWindowOpened = false;
         }
     },
 };
@@ -36,7 +51,7 @@ export default {
     width: 50%;
     height: 60%;
     position: fixed;
-    z-index: 10000;
+    z-index: 6000;
     top: 25%;
     left: 50%;
     transform: translateX(-50%);
@@ -106,5 +121,10 @@ export default {
 .add_main_item_form_btn:active {
     background-color: #3e8e41;
     transform: translateY(1px);
+}
+
+.success_window {
+    position: fixed;
+    z-index: 8000px;
 }
 </style>

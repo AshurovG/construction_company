@@ -17,7 +17,8 @@
         </li>
       </ul>
     </div>
-    <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false" />
+    <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
+      @goBack="goBack" />
   </div>
 </template>
 
@@ -58,6 +59,9 @@ export default {
     },
     onProductCardClick(id, title, imgUrl, desc, items) {
       this.$emit('onProductCardClick', id, title, imgUrl, desc, items)
+    },
+    goBack() {
+      this.isAddMainItemFormOpened = false
     },
     async getAllVentilatedFacades() {
       try {
@@ -203,7 +207,7 @@ export default {
   background: rgba(69, 5, 5, 0.82);
 }
 
-.locking_screen {
+/* .locking_screen {
   position: fixed;
   top: 0;
   left: 0;
@@ -212,7 +216,7 @@ export default {
   background: rgba(61, 30, 30, 0.52);
   backdrop-filter: blur(2px);
   z-index: 5000;
-}
+} */
 
 @media(max-width:1800px) {
   .admin_ventilated-facades-list_container {

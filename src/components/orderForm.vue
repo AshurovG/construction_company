@@ -1,5 +1,6 @@
 <template>
-    <div class="form_container">
+    <modal-window @closeModalWindow="closeModalWindow" class="modal" :showModal="showModal" v-if="showModal" />
+    <div class="form_container" v-if="!showModal">
         <img class="exit_form_buttton" src="../images/exit.png" @click="closeForm">
         <form class="order_form" @submit.prevent="sendEmail" novalidate="true">
             <h1 class="form_title">Оформите заказ</h1>
@@ -30,7 +31,6 @@
                 Сделать заказ
             </button>
         </form>
-        <modal-window @closeModalWindow="closeModalWindow" class="modal" :showModal="showModal" v-if="showModal == true" />
 
     </div>
 </template>
