@@ -20,12 +20,14 @@ export default {
   
 <style scoped>
 .success_modal {
+    font-size: 1rem;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60%;
-    height: 18%;
+    width: 35em;
+    height: 8em;
     position: fixed;
     top: 25%;
     left: 50%;
@@ -56,16 +58,42 @@ export default {
     margin-top: .2em;
     background-color: #008f51;
     color: #fff;
-    width: 8em;
-    height: 3em;
+    min-width: 7em;
+    min-height: 2em;
+    max-width: 7em;
+    max-height: 2em;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
 }
 
-@media(max-width: 750px) {
-    .delete-modal {
-        width: 80%;
+@media(max-width: 1000px) {
+    /* .success_modal {
+        width: 60%
+    } */
+}
+
+@media(max-width: 800px) {
+    .success_modal {
+        font-size: .9rem;
+    }
+}
+
+@media(max-width: 650px) {
+    .success_modal {
+        font-size: .8rem;
+    }
+}
+
+@media(max-width: 500px) {
+    .success_modal {
+        font-size: .6rem;
+    }
+}
+
+@media(max-width: 370px) {
+    .success_modal {
+        font-size: .5rem;
     }
 }
 </style>
