@@ -10,8 +10,7 @@
             <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
                 v-model="desc"></textarea>
             <input type="text" placeholder="урл*" class="add_main_item_form_item" v-model="imgUrl">
-            <button type="submit" class="add_main_item_form_btn"
-                @click="isSuccessOperatingWindowOpened = true">Сохранить</button>
+            <button type="submit" class="add_main_item_form_btn">Сохранить</button>
         </form>
     </div>
 </template>
@@ -28,20 +27,68 @@ export default {
             title: "",
             desc: "",
             imgUrl: "",
-            isSuccessOperatingWindowOpened: false
+            isSuccessOperatingWindowOpened: false,
+            isSuccessSending: false,
+            products: [],
+            errors: []
         }
     },
     methods: {
         closeAddMainItemForm() {
             this.$emit('closeAddMainItemForm')
         },
-        sendData() {
-            console.log('Success!')
+        async sendData() {
+            await this.postData()
+            await this.getAllVentilatedFacades()
+            this.isSuccessOperatingWindowOpened = true
+            console.log('sjkldjalkfjaslkfjd')
         },
+        async postData() {
+            try {
+                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: this.title,
+                        desc: this.desc,
+                        url: this.imgUrl
+                    }),
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    console.log('yes')
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async getAllVentilatedFacades() {
+            try {
+                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    this.products = data;
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
         goBack() {
             this.$emit('goBack')
             this.isSuccessOperatingWindowOpened = false;
-        }
+        },
     },
 };
 </script>

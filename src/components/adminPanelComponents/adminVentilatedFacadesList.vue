@@ -38,7 +38,7 @@ export default {
       this.isComponentCreated = true;
     }
 
-    this.getAllVentilatedFacades()
+    this.getAllVentilatedFacades(0)
   },
   data() {
     return {
@@ -62,8 +62,11 @@ export default {
     },
     goBack() {
       this.isAddMainItemFormOpened = false
+      this.$nextTick(() => {
+        this.getAllVentilatedFacades(1)
+      })
     },
-    async getAllVentilatedFacades() {
+    async getAllVentilatedFacades(iSnewElement) {
       try {
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
@@ -72,9 +75,13 @@ export default {
         const data = await res.json()
         if (res.status == 200 || res.status == 201) {
           this.products = data;
-          for (var i = 0; i < this.products.length; i++) {
-            this.products[i].items = []
-            this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
+          if (!iSnewElement) {
+            for (let i = 0; i < this.products.length; i++) {
+              this.products[i].items = []
+              console.log(`id = ${this.products[i].ventilated_facades_id}`)
+              this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
+              console.log(`id = ${this.products[i].ventilated_facades_id}`)
+            }
           }
           console.log(data)
         } else {
@@ -111,7 +118,6 @@ export default {
     },
     openAddMainItemForm() {
       this.isAddMainItemFormOpened = true
-      console.log(this.isAddMainItemFormOpened)
     }
   }
 }
