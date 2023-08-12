@@ -10,7 +10,7 @@
         <button @click="isAddMainItemFormOpened = true" class="admin_btn">Добавить</button>
       </div>
       <ul class="admin_ventilated-facades-list_items">
-        <li class="admin_ventilated-facades-list_item" v-for="(product, index) in products.slice(0, 9)" :key="index">
+        <li class="admin_ventilated-facades-list_item" v-for="(product, index) in products" :key="index">
           <adminProductCard @onProductCardClick="onProductCardClick" :id="product.ventilated_facades_id"
             :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
             :desc="product.ventilated_facades_description" :items="product.items" />
@@ -63,10 +63,10 @@ export default {
     goBack() {
       this.isAddMainItemFormOpened = false
       this.$nextTick(() => {
-        this.getAllVentilatedFacades(1)
+        this.getAllVentilatedFacades(1) // Для нового элемента рендерим только саму карточку без доп. фото 
       })
     },
-    async getAllVentilatedFacades(iSnewElement) {
+    async getAllVentilatedFacades(isNewElement) {
       try {
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
@@ -75,12 +75,14 @@ export default {
         const data = await res.json()
         if (res.status == 200 || res.status == 201) {
           this.products = data;
-          if (!iSnewElement) {
+          if (!isNewElement) {
             for (let i = 0; i < this.products.length; i++) {
               this.products[i].items = []
-              console.log(`id = ${this.products[i].ventilated_facades_id}`)
               this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
-              console.log(`id = ${this.products[i].ventilated_facades_id}`)
+            }
+          } else {
+            for (let i = 0; i < this.products.length; i++) {
+              this.products[i].items = []
             }
           }
           console.log(data)
