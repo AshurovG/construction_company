@@ -9,24 +9,32 @@
             <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="title">
             <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
                 v-model="desc"></textarea>
-            <input type="text" placeholder="урл*" class="add_main_item_form_item" v-model="imgUrl">
+            <!-- <input type="text" placeholder="урл*" class="add_main_item_form_item" v-model="imgUrl"> -->
+            <div style="height: 500px; width: 500px; border: 1px solid red; position: relative;">
+                <DropZone :uploadOnDrop="false" :multipleUpload="false" :parallelUpload="1" :maxFiles="1"
+                    :acceptedFiles="['jpg', 'png', 'svg', 'jpeg']" :ref="dropzone" @input="file = $event" />
+            </div>
             <button type="submit" class="add_main_item_form_btn">Сохранить</button>
         </form>
     </div>
 </template>
   
 <script>
+import DropZone from 'dropzone-vue';
 import successOperatingWindow from './successOperatingWindow.vue';
 
 export default {
     components: {
-        successOperatingWindow
+        successOperatingWindow,
+        DropZone,
     },
     data() {
         return {
             title: "",
             desc: "",
             imgUrl: "",
+            file: null,
+            dropzone: null,
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
             products: [],
@@ -38,6 +46,8 @@ export default {
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
+            this.dropzone.value.processQueue();
+            console.log(this.file)
             await this.postData()
             await this.getAllVentilatedFacades()
             this.isSuccessOperatingWindowOpened = true
@@ -173,5 +183,15 @@ export default {
 .success_window {
     position: fixed;
     z-index: 8000px;
+}
+
+.ventilated_facade_dropzone {
+    width: 50%;
+    height: 50%;
+    border: 1px solid #ccc;
+    border-radius: .2em;
+    padding: .5em;
+    margin-bottom: .8em;
+    font-size: 1em;
 }
 </style>
