@@ -9,10 +9,8 @@
             <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="title">
             <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
                 v-model="desc"></textarea>
-            <!-- <input type="text" placeholder="урл*" class="add_main_item_form_item" v-model="imgUrl"> -->
-            <div style="height: 500px; width: 500px; border: 1px solid red; position: relative;">
-                <DropZone :uploadOnDrop="false" :multipleUpload="false" :parallelUpload="1" :maxFiles="1"
-                    :acceptedFiles="['jpg', 'png', 'svg', 'jpeg']" :ref="dropzone" @input="file = $event" />
+            <div ref="dropzone" class="ventilated_facade_dropzone">
+                Upload
             </div>
             <button type="submit" class="add_main_item_form_btn">Сохранить</button>
         </form>
@@ -20,13 +18,13 @@
 </template>
   
 <script>
-import DropZone from 'dropzone-vue';
+import Dropzone from "dropzone"
 import successOperatingWindow from './successOperatingWindow.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     components: {
         successOperatingWindow,
-        DropZone,
     },
     data() {
         return {
@@ -41,17 +39,28 @@ export default {
             errors: []
         }
     },
+    mounted() {
+        this.dropzone = new Dropzone(this.$refs.dropzone, {
+            url: "http://localhost:8000/api/ventilatedfacades",
+            autoProcessQueue: false
+        })
+    },
     methods: {
         closeAddMainItemForm() {
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
-            this.dropzone.value.processQueue();
-            console.log(this.file)
-            await this.postData()
-            await this.getAllVentilatedFacades()
+            const ventilatedFacade = new FormData()
+            const file = this.dropzone.getAcceptedFiles()[0]
+            ventilatedFacade.append('ventilated_facades_url', file)
+            ventilatedFacade.append('ventilated_facades_title', this.title)
+            ventilatedFacade.append('ventilated_facades_description', this.desc)
+            // console.log(this.dropzone.getAcceptedFiles())
+            console.log(`file: ${file}`)
+            // await this.postData()
+            // await this.getAllVentilatedFacades()
             this.isSuccessOperatingWindowOpened = true
-            console.log('sjkldjalkfjaslkfjd')
+            // this.$refs.dropzone.processQueue()
         },
         async postData() {
             try {
@@ -95,12 +104,18 @@ export default {
             }
         },
 
+        // fileUpload(event) {
+        //     const files = event.target.files;
+        //     console.log(files)
+        //     return files
+        // },
+
         goBack() {
             this.$emit('goBack')
             this.isSuccessOperatingWindowOpened = false;
         },
     },
-};
+});
 </script>
   
 <style scoped>
