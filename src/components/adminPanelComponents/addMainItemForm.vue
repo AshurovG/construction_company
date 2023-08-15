@@ -33,6 +33,7 @@ export default defineComponent({
             imgUrl: "",
             file: null,
             dropzone: null,
+            ventilatedFacadeData: null,
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
             products: [],
@@ -50,27 +51,35 @@ export default defineComponent({
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
-            const ventilatedFacade = new FormData()
-            const file = this.dropzone.getAcceptedFiles()[0]
-            ventilatedFacade.append('ventilated_facades_url', file)
-            ventilatedFacade.append('ventilated_facades_title', this.title)
-            ventilatedFacade.append('ventilated_facades_description', this.desc)
+            // const file = this.dropzone.getAcceptedFiles()[0]
+            // this.ventilatedFacadeData.append('ventilated_facades_url', 'fdfdf')
+            // this.ventilatedFacadeData.append('ventilated_facades_title', this.title)
+            // this.ventilatedFacadeData.append('ventilated_facades_description', this.desc)
             // console.log(this.dropzone.getAcceptedFiles())
-            console.log(`file: ${file}`)
-            // await this.postData()
+            // console.log(`form data is${this.ventilatedFacadeData}`)
+            // console.log(this.dropzone.getAcceptedFiles())
+            await this.postData()
             // await this.getAllVentilatedFacades()
             this.isSuccessOperatingWindowOpened = true
             // this.$refs.dropzone.processQueue()
         },
         async postData() {
             try {
+                const formdata = new FormData()
+                const file = this.dropzone.getAcceptedFiles()
+                formdata.append('url', file)
+                formdata.append('title', this.title)
+                formdata.append('desc', this.desc)
+                console.log(`form data is ${formdata.get("title")}`)
+                console.log(`file is ${formdata.get("file[]")}`)
+                console.log(this.dropzone.getAcceptedFiles())
                 const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        title: this.title,
-                        desc: this.desc,
-                        url: this.imgUrl
+                        title: formdata.get('title'),
+                        desc: formdata.get('desc'),
+                        url: formdata.get('url')
                     }),
                     mode: 'cors'
                 })
