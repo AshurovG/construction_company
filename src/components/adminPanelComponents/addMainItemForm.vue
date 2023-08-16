@@ -13,12 +13,14 @@
                 Upload
             </div>
             <button type="submit" class="add_main_item_form_btn">Сохранить</button>
+            <img class="product-card_image" :src="uploadedFile">
         </form>
     </div>
 </template>
   
 <script>
 import Dropzone from "dropzone"
+// import axios from "axios";
 import successOperatingWindow from './successOperatingWindow.vue';
 import { defineComponent } from 'vue';
 
@@ -33,9 +35,11 @@ export default defineComponent({
             imgUrl: "",
             file: null,
             dropzone: null,
+            formData: null,
             ventilatedFacadeData: null,
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
+            uploadedFile: null,
             products: [],
             errors: []
         }
@@ -51,13 +55,7 @@ export default defineComponent({
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
-            // const file = this.dropzone.getAcceptedFiles()[0]
-            // this.ventilatedFacadeData.append('ventilated_facades_url', 'fdfdf')
-            // this.ventilatedFacadeData.append('ventilated_facades_title', this.title)
-            // this.ventilatedFacadeData.append('ventilated_facades_description', this.desc)
-            // console.log(this.dropzone.getAcceptedFiles())
-            // console.log(`form data is${this.ventilatedFacadeData}`)
-            // console.log(this.dropzone.getAcceptedFiles())
+            // await axios.post("http://localhost:8000/api/ventilatedfacades", formData);
             await this.postData()
             // await this.getAllVentilatedFacades()
             this.isSuccessOperatingWindowOpened = true
@@ -65,25 +63,26 @@ export default defineComponent({
         },
         async postData() {
             try {
-                const formdata = new FormData()
-                const file = this.dropzone.getAcceptedFiles()
-                formdata.append('url', file)
-                formdata.append('title', this.title)
-                formdata.append('desc', this.desc)
-                console.log(`form data is ${formdata.get("title")}`)
-                console.log(`file is ${formdata.get("file[]")}`)
-                console.log(this.dropzone.getAcceptedFiles())
+                const file = this.dropzone.getAcceptedFiles()[0];
+                console.log(file)
+                const formData = new FormData();
+                formData.append('title', this.title);
+                formData.append('file', file);
+                formData.append('desc', this.desc);
+                // const urlEncodedFormData = new URLSearchParams(formData).toString()
+                // console.log(urlEncodedFormData)
+
                 const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        title: formdata.get('title'),
-                        desc: formdata.get('desc'),
-                        url: formdata.get('url')
-                    }),
+                    // headers: {
+                    //     "Content-Type": "application/x-www-form-urlencoded"
+                    // },
+                    body: formData,
                     mode: 'cors'
                 })
                 const data = await res.json()
+                console.log(data.file)
+                // this.uploadedFile = res.data.file
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
                 } else {
