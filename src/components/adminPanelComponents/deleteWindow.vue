@@ -12,7 +12,7 @@
 export default {
     methods: {
         deleteRecord() {
-            // Ваш код для удаления записи
+            this.$emit('deleteRecord')
             console.log('Запись удалена');
         },
         cancelDelete() {

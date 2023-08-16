@@ -15,7 +15,7 @@
         </div>
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
-        <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
+        <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
     </div>
 </template>
 
@@ -62,8 +62,31 @@ export default {
             this.isDeleteWindowOpened = true
             console.log(this.isDeleteWindowOpened)
         },
+        deleteRecord() {
+            this.isDeleteWindowOpened = false
+            console.log(this.id)
+            this.deleteVentilatedFacadeItemsById(this.id)
+            this.$emit('deleteRecord')
+        },
         cancelDelete() {
             this.isDeleteWindowOpened = false
+        },
+        async deleteVentilatedFacadeItemsById(id) {
+            try {
+                const res = await fetch('http://localhost:8000/api/ventilatedfacades/' + id, {
+                    method: 'DELETE',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    console.log('success delete ventilated facade')
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 }

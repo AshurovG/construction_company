@@ -14,7 +14,7 @@
                 @optionForFilter="optionForFilter" />
             <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
                 :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-                :desc="product.ventilated_facades_description" :items="product.items" />
+                :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="deleteRecord" />
         </div>
         <footer-page id="contacts"></footer-page>
     </div>
@@ -94,6 +94,13 @@ export default {
             this.product.ventilated_facades_description = desc
             this.product.items = items
             this.showCorrect = true;
+        },
+        deleteRecord() {
+            this.showCorrect = false
+            this.selectedOption = 'Часто задаваемые вопросы'
+            this.showQuestions = false
+            this.showDesign = false
+            this.showFacades = true
         }
     },
 

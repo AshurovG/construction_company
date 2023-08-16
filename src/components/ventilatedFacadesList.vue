@@ -129,7 +129,11 @@ export default {
 .ventilated-facades-list_items {
   list-style-type: none;
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
+  /* Изменяем auto на 1fr */
+  grid-auto-rows: 1fr;
+  /* Добавляем эту строку для одинаковой высоты */
+  /* grid-template-columns: repeat(3, auto); */
   justify-content: space-between;
   row-gap: 1vw;
   column-gap: 2vw;

@@ -5,7 +5,7 @@
     </transition>
     <div class="correct_one_facade_item_btns">
       <button class="correct_one_facade_item_btn">Добавить</button>
-      <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacade">Удалить</button>
+      <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacadeItem">Удалить</button>
     </div>
     <div class="admin_main">
       <div class="admin_slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
@@ -79,7 +79,7 @@ export default {
     closeSlider() {
       this.$emit('closeSlider')
     },
-    deleteVentilatedFacade() {
+    deleteVentilatedFacadeItem() {
       this.isDeleteWindowOpened = true
       console.log(this.isDeleteWindowOpened)
     },
