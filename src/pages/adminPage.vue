@@ -8,8 +8,9 @@
             </div>
             <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign && !showCorrect" />
             <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
-            <adminVentilatedFacadesListVue :flag="!flag" :showFacades="showFacades" @onProductCardClick="onProductCardClick"
-                @blockTitle="createListOfBlocks" v-show="showFacades && !showCorrect" @optionForFilter="optionForFilter" />
+            <adminVentilatedFacadesListVue ref="listRef" :flag="!flag" :showFacades="showFacades"
+                @onProductCardClick="onProductCardClick" @blockTitle="createListOfBlocks"
+                v-show="showFacades && !showCorrect" @optionForFilter="optionForFilter" />
             <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions && !showCorrect"
                 @optionForFilter="optionForFilter" />
             <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
@@ -101,6 +102,9 @@ export default {
             this.showQuestions = false
             this.showDesign = false
             this.showFacades = true
+            this.$nextTick(() => { // Для моментального удаления фасада вызываем метод дочернего объекта
+                this.$refs.listRef.getAllVentilatedFacades(0);
+            })
         }
     },
 
