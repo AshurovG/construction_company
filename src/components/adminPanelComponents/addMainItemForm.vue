@@ -9,8 +9,10 @@
             <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="title">
             <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
                 v-model="desc"></textarea>
-            <div ref="dropzone" class="ventilated_facade_dropzone">
-                Upload
+            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone">
+                Фотография jpg/jpeg, png:
+                <div class="type-error-message" style="display: none;">Файл неверного типа</div>
+                <div class="size-error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
             <button type="submit" class="add_main_item_form_btn">Сохранить</button>
             <img class="product-card_image" :src="uploadedFile">
@@ -47,7 +49,34 @@ export default defineComponent({
     mounted() {
         this.dropzone = new Dropzone(this.$refs.dropzone, {
             url: "http://localhost:8000/api/ventilatedfacades",
-            autoProcessQueue: false
+            autoProcessQueue: false,
+            maxFilesize: 2000000,
+            maxFiles: 1,
+            acceptedFiles: ".jpg, .png",
+            thumbnailWidth: 150,
+            capture: "image/*",
+            init: function () {
+                this.on("addedfile", function (file) {
+
+                    if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
+                        this.removeFile(this.files[0]);
+                    } else if (file.size > this.options.maxFilesize) {
+                        this.removeFile(this.files[0]);
+                        this.removeFile(file);
+                        document.querySelector(".size-error-message").style.display = "block";
+                    } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                        this.removeFile(this.files[0]);
+                        this.removeFile(file);
+                        document.querySelector(".type-error-message").style.display = "block";
+                    } else {
+                        document.querySelector(".type-error-message").style.display = "none";
+                        document.querySelector(".size-error-message").style.display = "none";
+                    }
+                });
+                this.on("drop", function (file) {
+                    this.addFile(file);
+                });
+            }
         })
     },
     methods: {
@@ -55,7 +84,6 @@ export default defineComponent({
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
-            // await axios.post("http://localhost:8000/api/ventilatedfacades", formData);
             this.isSuccessOperatingWindowOpened = true
 
             await this.postData()
@@ -127,7 +155,7 @@ export default defineComponent({
 });
 </script>
   
-<style scoped>
+<style>
 .add_main_item_form {
     width: 50%;
     height: 60%;
@@ -210,12 +238,27 @@ export default defineComponent({
 }
 
 .ventilated_facade_dropzone {
-    width: 50%;
+    width: 100%;
     height: 50%;
     border: 1px solid #ccc;
     border-radius: .2em;
     padding: .5em;
     margin-bottom: .8em;
     font-size: 1em;
+}
+
+/* .dz-image {
+} */
+
+.dz-image-preview {
+    width: 150px;
+}
+
+.dz-success-mark {
+    display: none;
+}
+
+.dz-error-mark {
+    display: none;
 }
 </style>

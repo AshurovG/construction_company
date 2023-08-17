@@ -93,7 +93,7 @@ export default {
     async getAllVentilatedFacades() {
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
       try {
-        await delay(100); // Делаем задержку для того чтобы успел обработаться DELETE запрос
+        await delay(200); // Делаем задержку для того чтобы успел обработаться DELETE запрос
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
           mode: 'cors'
