@@ -24,7 +24,8 @@
           <h2 class="admin_carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
           <div class="admin_carousel_description_text">{{ desc }}</div>
         </div>
-        <div class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
+        <div v-if="items.length != 0" class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
+        <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
       <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
     </div>

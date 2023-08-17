@@ -8,8 +8,8 @@
             </div>
             <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign" />
             <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
-            <adminVentilatedFacadesListVue :flag="!flag" :showFacades="showFacades" @blockTitle="createListOfBlocks"
-                v-show="showFacades" @optionForFilter="optionForFilter" />
+            <adminVentilatedFacadesListVue ref="ventilatedFacadesRef" :flag="!flag" :showFacades="showFacades"
+                @blockTitle="createListOfBlocks" v-show="showFacades" @optionForFilter="optionForFilter" />
             <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions"
                 @optionForFilter="optionForFilter" />
 
@@ -62,6 +62,7 @@ export default {
                 this.showDesign = false
                 this.showFacades = true
                 this.showQuestions = false
+                this.$refs.ventilatedFacadesRef.showCorrect = false;
             } else if (option == 'Наружное оформление зданий') {
                 this.selectedOption = option
                 this.showDesign = true

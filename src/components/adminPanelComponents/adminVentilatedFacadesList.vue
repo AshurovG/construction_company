@@ -81,16 +81,16 @@ export default {
     goBack() {
       this.isAddMainItemFormOpened = false
       this.$nextTick(() => {
-        this.getAllVentilatedFacades(1) // Для нового элемента рендерим только саму карточку без доп. фото 
+        this.getAllVentilatedFacades() // Для нового элемента рендерим только саму карточку без доп. фото 
       })
     },
     deleteRecord() {
       this.showCorrect = false
       this.$nextTick(() => {
-        this.getAllVentilatedFacades(0) // Для нового элемента рендерим только саму карточку без доп. фото 
+        this.getAllVentilatedFacades() // Для нового элемента рендерим только саму карточку без доп. фото 
       })
     },
-    async getAllVentilatedFacades(isNewElement) {
+    async getAllVentilatedFacades() {
       console.log("ререндер")
       try {
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
@@ -99,19 +99,20 @@ export default {
         })
         const data = await res.json()
         console.log(data)
+
         if (res.status == 200 || res.status == 201) {
           this.products = data;
-          if (!isNewElement) {
-            for (let i = 0; i < this.products.length; i++) {
-              this.products[i].items = []
-              this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
-            }
-          } else {
-            for (let i = 0; i < this.products.length; i++) {
-              this.products[i].items = []
-            }
+          // if (!isNewElement) {
+          for (let i = 0; i < this.products.length; i++) {
+            this.products[i].items = []
+            this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
           }
-          await this.$forceUpdate();
+          // } else {
+          //   for (let i = 0; i < this.products.length; i++) {
+          //     this.products[i].items = []
+          //   }
+          // }
+          this.$forceUpdate();
 
         } else {
           this.errors = data
