@@ -102,9 +102,13 @@ export default {
             this.showQuestions = false
             this.showDesign = false
             this.showFacades = true
-            this.$nextTick(() => { // Для моментального удаления фасада вызываем метод дочернего объекта
-                this.$refs.listRef.getAllVentilatedFacades(0);
-            })
+            // this.$refs.listRef.$nextTick(() => { // Для моментального удаления фасада вызываем метод дочернего объекта
+            //     this.$refs.listRef.getAllVentilatedFacades(0);
+            // })
+            // this.$nextTick(() => {
+            //     this.$refs.listRef.getAllVentilatedFacades(0);
+            // });
+            this.$refs.listRef.goBack();
         }
     },
 
