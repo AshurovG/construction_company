@@ -56,9 +56,10 @@ export default defineComponent({
         },
         async sendData() {
             // await axios.post("http://localhost:8000/api/ventilatedfacades", formData);
+            this.isSuccessOperatingWindowOpened = true
+
             await this.postData()
             // await this.getAllVentilatedFacades()
-            this.isSuccessOperatingWindowOpened = true
             // this.$refs.dropzone.processQueue()
         },
         async postData() {

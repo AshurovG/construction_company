@@ -21,7 +21,7 @@
       @goBack="goBack" />
     <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
       :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-      :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="deleteRecord" />
+      :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="goBack" />
   </div>
 </template>
 
@@ -80,23 +80,26 @@ export default {
     },
     goBack() {
       this.isAddMainItemFormOpened = false
-      this.$nextTick(() => {
-        this.getAllVentilatedFacades() // Для нового элемента рендерим только саму карточку без доп. фото 
-      })
-    },
-    deleteRecord() {
       this.showCorrect = false
       this.$nextTick(() => {
-        this.getAllVentilatedFacades() // Для нового элемента рендерим только саму карточку без доп. фото 
+        this.getAllVentilatedFacades()
       })
     },
+    // deleteRecord() {
+    //   this.$nextTick(() => {
+    //     this.getAllVentilatedFacades()
+    //   })
+    // },
     async getAllVentilatedFacades() {
-      console.log("ререндер")
+      const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
       try {
+        await delay(100); // Делаем задержку для того чтобы успел обработаться DELETE запрос
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
           mode: 'cors'
         })
+        console.log("ререндер")
+
         const data = await res.json()
         console.log(data)
 
