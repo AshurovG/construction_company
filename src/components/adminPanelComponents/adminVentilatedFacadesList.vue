@@ -3,7 +3,7 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isAddMainItemFormOpened" @click="isAddMainItemFormOpened = false"></div>
     </transition>
-    <div class="admin_ventilated-facades-list_container">
+    <div v-if="!showCorrect" class="admin_ventilated-facades-list_container">
       <h1 class="admin_ventilated-facades-list_title">Редактирование информации о вентилируемых фасадах
       </h1>
       <div class="admin_change_buttons">
@@ -19,18 +19,23 @@
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
+    <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
+      :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
+      :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="deleteRecord" />
   </div>
 </template>
 
 <script>
 import adminProductCard from './adminProductCard.vue';
 import addMainItemForm from './addMainItemForm.vue';
+import correctVentilatedFacades from '@/components/adminPanelComponents/correctVentilatedFacades.vue';
 
 export default {
   name: "ventilatedFacadesList",
   components: {
     adminProductCard,
     addMainItemForm,
+    correctVentilatedFacades
   },
   mounted() {
     if (!this.isComponentCreated) {
@@ -45,6 +50,14 @@ export default {
       isComponentCreated: false,
       ventilatedFacadesListName: "adminVentilatedFacadesList",
       ventilatedFacadesListTitle: "Вентилируемые фасады",
+      showCorrect: false,
+      product: {
+        ventilated_facades_id: undefined,
+        ventilated_facades_title: undefined,
+        ventilated_facades_url: undefined,
+        ventilated_facades_description: undefined,
+        items: undefined
+      },
       products: [],
       errors: [],
       isAddMainItemFormOpened: false
@@ -58,7 +71,12 @@ export default {
       this.$emit('optionForFilter', this.ventilatedFacadesListName)
     },
     onProductCardClick(id, title, imgUrl, desc, items) {
-      this.$emit('onProductCardClick', id, title, imgUrl, desc, items)
+      this.product.ventilated_facades_id = id
+      this.product.ventilated_facades_title = title
+      this.product.ventilated_facades_url = imgUrl
+      this.product.ventilated_facades_description = desc
+      this.product.items = items
+      this.showCorrect = true
     },
     goBack() {
       this.isAddMainItemFormOpened = false
@@ -66,13 +84,21 @@ export default {
         this.getAllVentilatedFacades(1) // Для нового элемента рендерим только саму карточку без доп. фото 
       })
     },
+    deleteRecord() {
+      this.showCorrect = false
+      this.$nextTick(() => {
+        this.getAllVentilatedFacades(0) // Для нового элемента рендерим только саму карточку без доп. фото 
+      })
+    },
     async getAllVentilatedFacades(isNewElement) {
+      console.log("ререндер")
       try {
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
           mode: 'cors'
         })
         const data = await res.json()
+        console.log(data)
         if (res.status == 200 || res.status == 201) {
           this.products = data;
           if (!isNewElement) {
@@ -85,7 +111,8 @@ export default {
               this.products[i].items = []
             }
           }
-          console.log(data)
+          await this.$forceUpdate();
+
         } else {
           this.errors = data
           console.log(data)
@@ -120,7 +147,8 @@ export default {
     },
     openAddMainItemForm() {
       this.isAddMainItemFormOpened = true
-    }
+    },
+
   }
 }
 </script>

@@ -6,16 +6,13 @@
                 <adminFilterBlock class="portfolio-page_filter" :options="blockTypes" :selected="selectedOption"
                     @selectOption="selectOption" />
             </div>
-            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign && !showCorrect" />
+            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign" />
             <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
-            <adminVentilatedFacadesListVue ref="listRef" :flag="!flag" :showFacades="showFacades"
-                @onProductCardClick="onProductCardClick" @blockTitle="createListOfBlocks"
-                v-show="showFacades && !showCorrect" @optionForFilter="optionForFilter" />
-            <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions && !showCorrect"
+            <adminVentilatedFacadesListVue :flag="!flag" :showFacades="showFacades" @blockTitle="createListOfBlocks"
+                v-show="showFacades" @optionForFilter="optionForFilter" />
+            <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions"
                 @optionForFilter="optionForFilter" />
-            <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
-                :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-                :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="deleteRecord" />
+
         </div>
         <footer-page id="contacts"></footer-page>
     </div>
@@ -28,7 +25,7 @@ import exteriorDesignList from '../components/exteriorDesignList.vue';
 import adminVentilatedFacadesListVue from '@/components/adminPanelComponents/adminVentilatedFacadesList.vue';
 import QuestionList from '@/components/QuestionList.vue';
 import adminFilterBlock from "../components/adminPanelComponents/adminFilterBlock.vue"
-import correctVentilatedFacades from '@/components/adminPanelComponents/correctVentilatedFacades.vue';
+
 
 export default {
     name: 'App',
@@ -39,7 +36,6 @@ export default {
         adminVentilatedFacadesListVue,
         adminFilterBlock,
         QuestionList,
-        correctVentilatedFacades
     },
     data() {
         return {
@@ -50,14 +46,7 @@ export default {
             showDesign: false,
             showFacades: false,
             showQuestions: true,
-            showCorrect: false,
-            product: {
-                ventilated_facades_id: undefined,
-                ventilated_facades_title: undefined,
-                ventilated_facades_url: undefined,
-                ventilated_facades_description: undefined,
-                items: undefined
-            }
+
         }
     },
     props: {
@@ -73,43 +62,19 @@ export default {
                 this.showDesign = false
                 this.showFacades = true
                 this.showQuestions = false
-                this.showCorrect = false
             } else if (option == 'Наружное оформление зданий') {
                 this.selectedOption = option
                 this.showDesign = true
                 this.showFacades = false
                 this.showQuestions = false
-                this.showCorrect = false
             } else {
                 this.selectedOption = 'Часто задаваемые вопросы'
                 this.showQuestions = true
                 this.showDesign = false
                 this.showFacades = false
-                this.showCorrect = false
             }
         },
-        onProductCardClick(id, title, imgUrl, desc, items) {
-            console.log(id, title, imgUrl, desc, items)
-            this.product.ventilated_facades_id = id
-            this.product.ventilated_facades_url = imgUrl
-            this.product.ventilated_facades_description = desc
-            this.product.items = items
-            this.showCorrect = true;
-        },
-        deleteRecord() {
-            this.showCorrect = false
-            this.selectedOption = 'Часто задаваемые вопросы'
-            this.showQuestions = false
-            this.showDesign = false
-            this.showFacades = true
-            // this.$refs.listRef.$nextTick(() => { // Для моментального удаления фасада вызываем метод дочернего объекта
-            //     this.$refs.listRef.getAllVentilatedFacades(0);
-            // })
-            // this.$nextTick(() => {
-            //     this.$refs.listRef.getAllVentilatedFacades(0);
-            // });
-            this.$refs.listRef.goBack();
-        }
+
     },
 
 }
