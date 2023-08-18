@@ -1,14 +1,15 @@
 <template>
     <div class="correct_ventilated_facades">
         <transition name="showLockinScreen">
-            <div class="locking_screen" v-if="isDeleteWindowOpened" @click="isDeleteWindowOpened = false"></div>
+            <div class="locking_screen" v-if="isDeleteWindowOpened || isCorrectWindowOpened"
+                @click="isDeleteWindowOpened = false; isCorrectWindowOpened = false"></div>
         </transition>
         <h1 class="correct_ventilated_facades_title">Главное фото объекта</h1>
         <!-- <adminProductCard class="admin_product_card" :id="id" :title="title" :img-url="imgUrl" :desc="desc"
             :items="items" /> -->
         <div class="one_ventilated_facade_container">
             <div class="correct_one_facade_btns">
-                <button class="correct_one_facade_btn">Изменить</button>
+                <button @click="correctVentilatedFacade" class="correct_one_facade_btn">Изменить</button>
                 <button @click="deleteVentilatedFacade" class="correct_one_facade_btn">Удалить</button>
             </div>
             <img class="card_image" :src="imgUrl" alt="">
@@ -16,23 +17,27 @@
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
+        <correctMainItemForm v-if="isCorrectWindowOpened" @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
 <script>
 import adminDetailedProductCardsSlider from "./adminDetailedProductCardsSlider.vue";
 import deleteWindow from "./deleteWindow.vue"
+import correctMainItemForm from "./correctMainItemForm.vue";
 
 export default {
     name: "CorrectVentilatedFacades",
     components: {
         // adminProductCard,
         adminDetailedProductCardsSlider,
-        deleteWindow
+        deleteWindow,
+        correctMainItemForm
     },
     data() {
         return {
             isDeleteWindowOpened: false,
+            isCorrectWindowOpened: false
         }
     },
     props: {
@@ -60,7 +65,12 @@ export default {
     methods: {
         deleteVentilatedFacade() {
             this.isDeleteWindowOpened = true
-            console.log(this.isDeleteWindowOpened)
+        },
+        correctVentilatedFacade() {
+            this.isCorrectWindowOpened = true
+        },
+        closeAddMainItemForm() {
+            this.isCorrectWindowOpened = false
         },
         deleteRecord() {
             this.isDeleteWindowOpened = false
