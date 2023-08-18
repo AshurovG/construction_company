@@ -6,15 +6,24 @@
             Заполните данные
         </h1>
         <form class="add_main_item_form_info" @submit.prevent="sendData">
-            <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="title">
-            <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text"
-                v-model="desc"></textarea>
+            <input type="text" placeholder="Название объекта*" class="add_main_item_form_item" v-model="state.title"
+                @blur="v$.title.$touch">
+            <span class="error_add_item" v-if="v$.title.$error">
+                Это обязательное поле
+            </span>
+            <textarea type="text" placeholder="Описание объекта*" class="add_main_item_form_item_text" v-model="state.desc"
+                @blur="v$.desc.$touch"></textarea>
+            <span class="error_add_item" v-if="v$.desc.$error">
+                Это обязательное поле
+            </span>
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
-            <button type="submit" class="add_main_item_form_btn">Сохранить</button>
+
+            <button type="submit" class="add_main_item_form_btn"
+                :disabled="(v$.title.$invalid || v$.desc.$invalid || v$.fileCounts.$invalid)">Сохранить</button>
             <img class="product-card_image" :src="uploadedFile">
         </form>
     </div>
@@ -22,7 +31,9 @@
   
 <script>
 import Dropzone from "dropzone"
-// import axios from "axios";
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { reactive, computed } from 'vue'
 import successOperatingWindow from './successOperatingWindow.vue';
 import { defineComponent } from 'vue';
 
@@ -32,11 +43,8 @@ export default defineComponent({
     },
     data() {
         return {
-            title: "",
-            desc: "",
-            imgUrl: "",
-            file: null,
             dropzone: null,
+            flle: null,
             formData: null,
             ventilatedFacadeData: null,
             isSuccessOperatingWindowOpened: false,
@@ -44,6 +52,27 @@ export default defineComponent({
             uploadedFile: null,
             products: [],
             errors: []
+        }
+    },
+    setup() {
+        const state = reactive({
+            title: "",
+            desc: "",
+            fileCounts: null,
+            minArrayLength: 1
+        })
+
+        const rules = computed(() => ({
+            title: { required },
+            desc: { required },
+            fileCounts: { validateFilesCounts: (value) => value === 1 }
+        }))
+
+        const v$ = useVuelidate(rules, state)
+
+        return {
+            state,
+            v$
         }
     },
     mounted() {
@@ -71,41 +100,44 @@ export default defineComponent({
                     } else {
                         document.querySelector(".type-error-message").style.display = "none";
                         document.querySelector(".size-error-message").style.display = "none";
+
                     }
                 });
                 this.on("drop", function (file) {
                     this.addFile(file);
                 });
+
             }
         })
+
+
     },
     methods: {
         closeAddMainItemForm() {
             this.$emit('closeAddMainItemForm')
         },
         async sendData() {
-            this.isSuccessOperatingWindowOpened = true
+            this.v$.$validate()
+            if (!this.v$.$error) {
+                try {
+                    this.isSuccessOperatingWindowOpened = true
+                    await this.postData()
+                } catch (error) {
+                    console.log({ error })
+                }
+            }
 
-            await this.postData()
-            // await this.getAllVentilatedFacades()
-            // this.$refs.dropzone.processQueue()
         },
         async postData() {
             try {
-                const file = this.dropzone.getAcceptedFiles()[0];
-                console.log(file)
+                this.file = this.dropzone.getAcceptedFiles()[0];
                 const formData = new FormData();
-                formData.append('title', this.title);
-                formData.append('file', file);
-                formData.append('desc', this.desc);
-                // const urlEncodedFormData = new URLSearchParams(formData).toString()
-                // console.log(urlEncodedFormData)
+                formData.append('title', this.state.title);
+                formData.append('file', this.file);
+                formData.append('desc', this.state.desc);
 
                 const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
                     method: 'POST',
-                    // headers: {
-                    //     "Content-Type": "application/x-www-form-urlencoded"
-                    // },
                     body: formData,
                     mode: 'cors'
                 })
@@ -232,9 +264,22 @@ export default defineComponent({
     transform: translateY(1px);
 }
 
+.add_main_item_form_btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
+}
+
 .success_window {
     position: fixed;
     z-index: 8000px;
+}
+
+.error_add_item {
+    color: red;
+    margin-top: -.7em;
+    margin-bottom: .2em;
+    font-size: 1em;
 }
 
 .ventilated_facade_dropzone {

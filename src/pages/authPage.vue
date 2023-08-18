@@ -77,13 +77,12 @@ export default {
                         this.isOpenModal = false
                     } else {
                         console.log("WRONG ! ! !")
-                        // console.log(this.state.pass)
                     }
                 } catch (error) {
                     console.log({ error })
                 }
-                // this.state.pass = ''
-                // this.state.login = ''
+                this.state.pass = ''
+                this.state.login = ''
             }
         },
 
