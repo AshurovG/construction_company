@@ -85,28 +85,22 @@ export default defineComponent({
             maxFilesize: 2000000,
             maxFiles: 1,
             acceptedFiles: ".jpg, .png",
-            thumbnailWidth: 150,
             capture: "image/*",
             init: function () {
                 this.on("addedfile", function (file) {
-
                     if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
                         this.removeFile(this.files[0]);
-                        // this.state.files = this.files
                     } else if (file.size > this.options.maxFilesize) {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
-                        // this.state.files = this.files
                         document.querySelector(".size-error-message").style.display = "block";
                     } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
-                        // this.state.files = this.files
                         document.querySelector(".type-error-message").style.display = "block";
                     } else {
                         document.querySelector(".type-error-message").style.display = "none";
                         document.querySelector(".size-error-message").style.display = "none";
-                        // this.state.files = this.files
                     }
                     console.log(this.files)
                     self.state.files = this.files.length
@@ -114,7 +108,9 @@ export default defineComponent({
                 this.on("drop", function (file) {
                     this.addFile(file);
                 });
+                // if (window.matchMedia('(max-height: 550x)').matches) {
 
+                // }
             }
         })
     },
@@ -149,7 +145,6 @@ export default defineComponent({
                 })
                 const data = await res.json()
                 console.log(data.file)
-                // this.uploadedFile = res.data.file
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
                 } else {
@@ -179,12 +174,6 @@ export default defineComponent({
             }
         },
 
-        // fileUpload(event) {
-        //     const files = event.target.files;
-        //     console.log(files)
-        //     return files
-        // },
-
         goBack() {
             this.$emit('goBack')
             this.isSuccessOperatingWindowOpened = false;
@@ -195,11 +184,12 @@ export default defineComponent({
   
 <style>
 .add_main_item_form {
-    width: 50%;
-    height: 60%;
+    font-size: 1rem;
+    width: 35%;
+    height: 50%;
     position: fixed;
     z-index: 6000;
-    top: 25%;
+    top: 10%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -303,9 +293,6 @@ export default defineComponent({
     font-size: 1em;
 }
 
-/* .dz-image {
-} */
-
 .dz-image-preview {
     width: 150px;
 }
@@ -316,5 +303,97 @@ export default defineComponent({
 
 .dz-error-mark {
     display: none;
+}
+
+@media(max-width: 1200px) {
+    .add_main_item_form {
+        width: 45%;
+    }
+}
+
+@media(max-width: 1000px) {
+    .add_main_item_form {
+        width: 55%;
+    }
+}
+
+@media(max-width: 800px) {
+    .add_main_item_form {
+        width: 65%;
+    }
+}
+
+@media(max-width: 650px) {
+    .add_main_item_form {
+        width: 70%;
+    }
+}
+
+@media(max-width: 600px) {
+    .add_main_item_form {
+        width: 75%;
+        font-size: .9rem;
+    }
+}
+
+@media(max-width: 450px) {
+    .add_main_item_form {
+        width: 90%;
+    }
+}
+
+@media(max-width: 390px) {
+    .add_main_item_form {
+        width: 92%;
+        font-size: .8rem;
+    }
+
+    .dz-image-preview {
+        width: 100px;
+        height: auto;
+    }
+}
+
+@media(max-height: 950px) {
+    .add_main_item_form {
+        height: 55%;
+    }
+}
+
+@media(max-height: 850px) {
+    .add_main_item_form {
+        height: 60%;
+    }
+}
+
+@media(max-height: 800px) {
+    .add_main_item_form {
+        height: 65%;
+    }
+}
+
+@media(max-height: 750px) {
+    .add_main_item_form {
+        height: 75%;
+    }
+}
+
+@media(max-height: 650px) {
+    .add_main_item_form {
+        height: 85%;
+    }
+}
+
+@media(max-height: 550px) {
+    .dz-image {
+        display: none;
+    }
+}
+
+@media(max-height: 400px) {
+    .add_main_item_form {
+        height: 95%;
+        top: 4%;
+    }
 }
 </style>

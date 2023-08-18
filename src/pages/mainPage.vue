@@ -3,18 +3,19 @@
     <transition name="showLockinScreen">
       <div class="locking_screen" v-if="isScreenLocked" @click="closeOrderForm"></div>
     </transition>
-    <header-page @openOrderForm="openOrderForm"  @openPortfolio="openPortfolio" @scrollToAnchor="scrollToAnchor"/>
+    <header-page @openOrderForm="openOrderForm" @openPortfolio="openPortfolio" @scrollToAnchor="scrollToAnchor" />
     <div class="content" ref="content">
       <about-company-page></about-company-page>
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <exterior-design-list :openInMain="flag" @openPortfolioDesigns="openPortfolioDesigns" id="services" style="scroll-margin-top: 150px;"/>
+      <exterior-design-list :openInMain="flag" @openPortfolioDesigns="openPortfolioDesigns" id="services"
+        style="scroll-margin-top: 150px;" />
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <ventilated-facades-list  :openInMain="flag"/>
+      <ventilated-facades-list :openInMain="flag" />
       <div style="border-bottom: solid 1px #130D0D;"></div>
-      <question-list id="faqs"/>
+      <question-list id="faqs" />
     </div>
     <div class="form_for_order" v-if="isFormOpened">
-        <order-form @closeForm="closeOrderForm"/>
+      <order-form @closeForm="closeOrderForm" />
     </div>
     <footer-page id="contacts"></footer-page>
   </div>
@@ -32,7 +33,7 @@ import ventilatedFacadesList from '../components/ventilatedFacadesList.vue';
 
 export default {
   name: 'App',
-  components:{
+  components: {
     HeaderPage,
     AboutCompanyPage,
     FooterPage,
@@ -42,12 +43,12 @@ export default {
     ventilatedFacadesList,
   },
   mounted() {
-    if(this.$route.query.anch) {
+    if (this.$route.query.anch) {
       const el = document.getElementById(this.$route.query.anch);
       setTimeout(() => {
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
       }, 100);
     }
   },//чтобы мы могли переходить к якорю из portfoliopage
@@ -68,15 +69,15 @@ export default {
     },
 
     scrollToAnchor(param) {
-      this.selectedAnchor=param
+      this.selectedAnchor = param
       if (this.selectedAnchor) {
-      const el = document.getElementById(this.selectedAnchor);
-      setTimeout(() => {
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth'});
+        const el = document.getElementById(this.selectedAnchor);
+        setTimeout(() => {
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
       }
-      }, 100);
-    }
     },
 
 
@@ -114,6 +115,7 @@ export default {
   border: 0;
   box-sizing: border-box;
 }
+
 .page-main {
   position: relative;
   width: 100%;
@@ -163,7 +165,7 @@ export default {
 }
 
 
-@media(max-width: 1080px){
+@media(max-width: 1080px) {
   .content {
     width: 100%;
     max-width: 812px;
