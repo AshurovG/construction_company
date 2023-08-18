@@ -242,7 +242,7 @@ export default defineComponent({
 
 .add_main_item_form_btn {
     width: 10em;
-    height: 3em;
+    min-height: 3em;
     text-align: center;
     background-color: #4caf50;
     color: #fff;

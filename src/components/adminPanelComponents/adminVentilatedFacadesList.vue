@@ -19,8 +19,8 @@
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
-    <correctVentilatedFacades ref="correctVentilatedFacades" v-if="showCorrect" :id="product.ventilated_facades_id"
-      @goBack="goBack" @deleteRecord="deleteRecord" />
+    <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id" @goBack="goBack"
+      @deleteRecord="deleteRecord" />
   </div>
 </template>
 
@@ -82,7 +82,6 @@ export default {
       this.$nextTick(() => {
         this.getAllVentilatedFacades()
       })
-      // this.$refs.correctVentilatedFacades.$forceUpdate
     },
     deleteRecord() {
       this.showCorrect = false
