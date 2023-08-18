@@ -18,9 +18,10 @@
             </span>
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
-                <img :src="imgUrl" alt="" class="url-image">
-                <div class="url-image-title">{{ oldFileName }}</div>
-                <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
+                <img v-if="!isFileChanged" :src="imgUrl" alt="" class="url-image">
+                <div v-if="!isFileChanged" class="url-image-title">{{ oldFileName }}</div>
+                <div class="type-error-message error-message" style="display: none;">Файл неверного
+                    типа</div>
                 <div class="size-error-message error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
 
@@ -53,6 +54,7 @@ export default defineComponent({
             isSuccessSending: false,
             uploadedFile: null,
             oldFileName: '',
+            isFileChanged: false,
             products: [],
             errors: [],
         }
@@ -123,6 +125,7 @@ export default defineComponent({
                         this.removeFile(file);
                         document.querySelector(".type-error-message").style.display = "block";
                     } else {
+                        self.isFileChanged = true
                         document.querySelector(".type-error-message").style.display = "none";
                         document.querySelector(".size-error-message").style.display = "none";
                     }
@@ -415,6 +418,10 @@ export default defineComponent({
 
 @media(max-height: 550px) {
     .dz-image {
+        display: none;
+    }
+
+    .url-image {
         display: none;
     }
 }
