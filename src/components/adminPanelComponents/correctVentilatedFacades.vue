@@ -12,13 +12,14 @@
                 <button @click="correctVentilatedFacade" class="correct_one_facade_btn">Изменить</button>
                 <button @click="deleteVentilatedFacade" class="correct_one_facade_btn">Удалить</button>
             </div>
-            <img class="card_image" :src="imgUrl" alt="">
+            <img class="card_image" :src="product.ventilated_facades_url" alt="">
         </div>
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
-        <adminDetailedProductCardsSlider :desc="desc" :items="items" />
+        <adminDetailedProductCardsSlider :desc="product.ventilated_facades_description" :items="product.items" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
-        <correctMainItemForm :id="id" :title="title" :desc="desc" :imgUrl="imgUrl" v-if="isCorrectWindowOpened"
-            @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
+        <correctMainItemForm :id="id" :title="product.ventilated_facades_title"
+            :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
+            v-if="isCorrectWindowOpened" @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
@@ -30,7 +31,6 @@ import correctMainItemForm from "./correctMainItemForm.vue";
 export default {
     name: "CorrectVentilatedFacades",
     components: {
-        // adminProductCard,
         adminDetailedProductCardsSlider,
         deleteWindow,
         correctMainItemForm
@@ -38,30 +38,24 @@ export default {
     data() {
         return {
             isDeleteWindowOpened: false,
-            isCorrectWindowOpened: false
+            isCorrectWindowOpened: false,
+            product: {
+                ventilated_facades_title: undefined,
+                ventilated_facades_url: undefined,
+                ventilated_facades_description: undefined,
+                items: []
+            },
         }
     },
     props: {
         id: {
             type: Number,
             required: true
-        },
-        title: {
-            type: String,
-            required: true
-        },
-        imgUrl: {
-            type: String,
-            required: true
-        },
-        desc: {
-            type: String,
-            required: true
-        },
-        items: {
-            type: Array,
-            required: true
         }
+    },
+    mounted() {
+        this.getVentilatedFacadeById(this.id)
+        // console.log(this.product)
     },
     methods: {
         deleteVentilatedFacade() {
@@ -84,8 +78,64 @@ export default {
         },
         goBack() {
             this.isCorrectWindowOpened = false
+            this.$nextTick(() => {
+                this.getVentilatedFacadeById(this.id)
+            })
             this.$emit('goBack')
         },
+
+        async getVentilatedFacadeById(id) {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            try {
+                await delay(200); // Делаем задержку для того чтобы успел обработаться DELETE запрос
+                const res = await fetch('http://localhost:8000/api/ventilatedfacades/' + id, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+
+                if (res.status == 200 || res.status == 201) {
+                    this.product.ventilated_facades_title = data.ventilated_facades_title;
+                    this.product.ventilated_facades_url = data.ventilated_facades_url;
+                    this.product.ventilated_facades_description = data.ventilated_facades_description;
+                    this.getVentilatedFacadeItemsById(this.id)
+                    // this.$forceUpdate();
+
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async getVentilatedFacadeItemsById(id) {
+            try {
+                const res = await fetch('http://localhost:8000/api/ventilatedfacadeitems/' + id, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    for (let item of data) {
+                        this.product.items.push(item.ventilated_facade_items_url)
+                    }
+
+                    // for (let item of data) {
+                    //     if (this.product.ventilated_facades_id === item.ventilated_facades_id) {
+                    //         this.product.items.push(item.ventilated_facade_items_url)
+                    //     }
+                    // }
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
         async deleteVentilatedFacadeItemsById(id) {
             try {
                 const res = await fetch('http://localhost:8000/api/ventilatedfacades/' + id, {

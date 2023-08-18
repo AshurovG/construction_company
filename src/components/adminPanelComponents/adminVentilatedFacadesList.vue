@@ -20,9 +20,7 @@
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
     <correctVentilatedFacades ref="correctVentilatedFacades" v-if="showCorrect" :id="product.ventilated_facades_id"
-      :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-      :desc="product.ventilated_facades_description" :items="product.items" @goBack="goBack"
-      @deleteRecord="deleteRecord" />
+      @goBack="goBack" @deleteRecord="deleteRecord" />
   </div>
 </template>
 
@@ -84,7 +82,7 @@ export default {
       this.$nextTick(() => {
         this.getAllVentilatedFacades()
       })
-      this.$refs.correctVentilatedFacades.$forceUpdate
+      // this.$refs.correctVentilatedFacades.$forceUpdate
     },
     deleteRecord() {
       this.showCorrect = false
@@ -95,7 +93,7 @@ export default {
     async getAllVentilatedFacades() {
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
       try {
-        await delay(200); // Делаем задержку для того чтобы успел обработаться DELETE запрос
+        await delay(250); // Делаем задержку для того чтобы успел обработаться DELETE запрос
         const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
           method: 'GET',
           mode: 'cors'
