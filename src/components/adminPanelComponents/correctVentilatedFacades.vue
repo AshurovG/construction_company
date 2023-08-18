@@ -17,8 +17,8 @@
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
-        <correctMainItemForm :title="title" :desc="desc" :imgUrl="imgUrl" v-if="isCorrectWindowOpened"
-            @closeAddMainItemForm="closeAddMainItemForm" />
+        <correctMainItemForm :id="id" :title="title" :desc="desc" :imgUrl="imgUrl" v-if="isCorrectWindowOpened"
+            @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
@@ -81,6 +81,10 @@ export default {
         },
         cancelDelete() {
             this.isDeleteWindowOpened = false
+        },
+        goBack() {
+            this.isCorrectWindowOpened = false
+            this.$emit('goBack')
         },
         async deleteVentilatedFacadeItemsById(id) {
             try {

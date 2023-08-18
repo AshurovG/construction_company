@@ -60,6 +60,10 @@ export default defineComponent({
         }
     },
     props: {
+        id: {
+            type: Number,
+            required: true
+        },
         title: {
             type: String,
             required: true
@@ -71,7 +75,7 @@ export default defineComponent({
         imgUrl: {
             type: String,
             required: true
-        }
+        },
     },
     setup() {
         const state = reactive({
@@ -100,7 +104,6 @@ export default defineComponent({
         const searchString = "static/";
         const startIndex = this.imgUrl.indexOf(searchString) + searchString.length;
         this.oldFileName = this.imgUrl.substring(startIndex);
-        console.log(this.oldFileName)
         this.state.title = this.title
         this.state.desc = this.desc
         const self = this;
@@ -161,17 +164,18 @@ export default defineComponent({
             try {
                 this.file = this.dropzone.getAcceptedFiles()[0];
                 const formData = new FormData();
+                formData.append('id', this.id);
                 formData.append('title', this.state.title);
                 formData.append('file', this.file);
                 formData.append('desc', this.state.desc);
 
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
-                    method: 'POST',
+                const res = await fetch(`http://localhost:8000/api/ventilatedfacades`, {
+                    method: 'PUT',
                     body: formData,
                     mode: 'cors'
                 })
                 const data = await res.json()
-                console.log(data.file)
+                console.log(data)
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
                 } else {
@@ -333,6 +337,7 @@ export default defineComponent({
 }
 
 .url-image {
+    display: block;
     width: 150px;
     max-height: 70%;
 }

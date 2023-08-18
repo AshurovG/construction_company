@@ -19,9 +19,10 @@
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
-    <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id"
+    <correctVentilatedFacades ref="correctVentilatedFacades" v-if="showCorrect" :id="product.ventilated_facades_id"
       :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-      :desc="product.ventilated_facades_description" :items="product.items" @deleteRecord="goBack" />
+      :desc="product.ventilated_facades_description" :items="product.items" @goBack="goBack"
+      @deleteRecord="deleteRecord" />
   </div>
 </template>
 
@@ -80,16 +81,17 @@ export default {
     },
     goBack() {
       this.isAddMainItemFormOpened = false
+      this.$nextTick(() => {
+        this.getAllVentilatedFacades()
+      })
+      this.$refs.correctVentilatedFacades.$forceUpdate
+    },
+    deleteRecord() {
       this.showCorrect = false
       this.$nextTick(() => {
         this.getAllVentilatedFacades()
       })
     },
-    // deleteRecord() {
-    //   this.$nextTick(() => {
-    //     this.getAllVentilatedFacades()
-    //   })
-    // },
     async getAllVentilatedFacades() {
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
       try {
