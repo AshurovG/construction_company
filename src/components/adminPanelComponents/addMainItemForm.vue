@@ -16,14 +16,14 @@
             <span class="error_add_item" v-if="v$.desc.$error">
                 Это обязательное поле
             </span>
-            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone">
+            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
-                <div class="type-error-message" style="display: none;">Файл неверного типа</div>
-                <div class="size-error-message" style="display: none;">Файл слишком большого размера</div>
+                <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
+                <div class="size-error-message error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
 
             <button type="submit" class="add_main_item_form_btn"
-                :disabled="(v$.title.$invalid || v$.desc.$invalid || v$.fileCounts.$invalid)">Сохранить</button>
+                :disabled="(v$.title.$invalid || v$.desc.$invalid || v$.files.$invalid)">Сохранить</button>
             <img class="product-card_image" :src="uploadedFile">
         </form>
     </div>
@@ -32,7 +32,7 @@
 <script>
 import Dropzone from "dropzone"
 import { useVuelidate } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, sameAs } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import successOperatingWindow from './successOperatingWindow.vue';
 import { defineComponent } from 'vue';
@@ -58,14 +58,16 @@ export default defineComponent({
         const state = reactive({
             title: "",
             desc: "",
-            fileCounts: null,
+            files: null,
             minArrayLength: 1
         })
 
         const rules = computed(() => ({
             title: { required },
             desc: { required },
-            fileCounts: { validateFilesCounts: (value) => value === 1 }
+            files: {
+                sameAs: sameAs(1)
+            }
         }))
 
         const v$ = useVuelidate(rules, state)
@@ -76,6 +78,7 @@ export default defineComponent({
         }
     },
     mounted() {
+        const self = this;
         this.dropzone = new Dropzone(this.$refs.dropzone, {
             url: "http://localhost:8000/api/ventilatedfacades",
             autoProcessQueue: false,
@@ -89,19 +92,24 @@ export default defineComponent({
 
                     if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
                         this.removeFile(this.files[0]);
+                        // this.state.files = this.files
                     } else if (file.size > this.options.maxFilesize) {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
+                        // this.state.files = this.files
                         document.querySelector(".size-error-message").style.display = "block";
                     } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
+                        // this.state.files = this.files
                         document.querySelector(".type-error-message").style.display = "block";
                     } else {
                         document.querySelector(".type-error-message").style.display = "none";
                         document.querySelector(".size-error-message").style.display = "none";
-
+                        // this.state.files = this.files
                     }
+                    console.log(this.files)
+                    self.state.files = this.files.length
                 });
                 this.on("drop", function (file) {
                     this.addFile(file);
@@ -109,8 +117,6 @@ export default defineComponent({
 
             }
         })
-
-
     },
     methods: {
         closeAddMainItemForm() {
@@ -279,6 +285,11 @@ export default defineComponent({
     color: red;
     margin-top: -.7em;
     margin-bottom: .2em;
+    font-size: 1em;
+}
+
+.error-message {
+    color: red;
     font-size: 1em;
 }
 

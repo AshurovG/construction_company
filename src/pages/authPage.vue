@@ -81,8 +81,6 @@ export default {
                 } catch (error) {
                     console.log({ error })
                 }
-                this.state.pass = ''
-                this.state.login = ''
             }
         },
 
