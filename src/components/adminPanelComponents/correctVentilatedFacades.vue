@@ -17,7 +17,8 @@
         <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="desc" :items="items" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
-        <correctMainItemForm v-if="isCorrectWindowOpened" @closeAddMainItemForm="closeAddMainItemForm" />
+        <correctMainItemForm :title="title" :desc="desc" v-if="isCorrectWindowOpened"
+            @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 

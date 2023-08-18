@@ -51,13 +51,24 @@ export default defineComponent({
             isSuccessSending: false,
             uploadedFile: null,
             products: [],
-            errors: []
+            errors: [],
+            a: 'fkld'
         }
+    },
+    props: {
+        title: {
+            type: String,
+            required: true
+        },
+        desc: {
+            type: String,
+            required: true
+        },
     },
     setup() {
         const state = reactive({
-            title: "",
-            desc: "",
+            title: '',
+            desc: '',
             files: null,
             minArrayLength: 1
         })
@@ -78,6 +89,8 @@ export default defineComponent({
         }
     },
     mounted() {
+        this.state.title = this.title
+        this.state.desc = this.desc
         const self = this;
         this.dropzone = new Dropzone(this.$refs.dropzone, {
             url: "http://localhost:8000/api/ventilatedfacades",
