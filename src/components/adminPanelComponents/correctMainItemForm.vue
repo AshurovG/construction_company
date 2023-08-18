@@ -18,6 +18,8 @@
             </span>
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
+                <img :src="imgUrl" alt="" class="url-image">
+                <div class="url-image-title">{{ oldFileName }}</div>
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
@@ -50,9 +52,9 @@ export default defineComponent({
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
             uploadedFile: null,
+            oldFileName: '',
             products: [],
             errors: [],
-            a: 'fkld'
         }
     },
     props: {
@@ -64,6 +66,10 @@ export default defineComponent({
             type: String,
             required: true
         },
+        imgUrl: {
+            type: String,
+            required: true
+        }
     },
     setup() {
         const state = reactive({
@@ -89,6 +95,10 @@ export default defineComponent({
         }
     },
     mounted() {
+        const searchString = "static/";
+        const startIndex = this.imgUrl.indexOf(searchString) + searchString.length;
+        this.oldFileName = this.imgUrl.substring(startIndex);
+        console.log(this.oldFileName)
         this.state.title = this.title
         this.state.desc = this.desc
         const self = this;
@@ -97,6 +107,7 @@ export default defineComponent({
             autoProcessQueue: false,
             maxFilesize: 2000000,
             maxFiles: 1,
+            thumbnailWidth: 150,
             acceptedFiles: ".jpg, .png",
             capture: "image/*",
             init: function () {
@@ -316,6 +327,11 @@ export default defineComponent({
 
 .dz-error-mark {
     display: none;
+}
+
+.url-image {
+    width: 150px;
+    max-height: 70%;
 }
 
 @media(max-width: 1200px) {

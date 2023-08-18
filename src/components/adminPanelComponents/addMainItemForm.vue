@@ -84,6 +84,7 @@ export default defineComponent({
             autoProcessQueue: false,
             maxFilesize: 2000000,
             maxFiles: 1,
+            thumbnailWidth: 150,
             acceptedFiles: ".jpg, .png",
             capture: "image/*",
             init: function () {
