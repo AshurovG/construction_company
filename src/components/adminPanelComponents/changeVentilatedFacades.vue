@@ -44,7 +44,7 @@ export default {
                 ventilated_facades_title: undefined,
                 ventilated_facades_url: undefined,
                 ventilated_facades_description: undefined,
-                items: []
+                items: [],
             },
         }
     },
@@ -128,9 +128,12 @@ export default {
                 const data = await res.json()
                 if (res.status == 200 || res.status == 201) {
                     for (let item of data) {
-                        this.product.items.push(item.ventilated_facade_items_url)
+                        this.product.items.push({
+                            url: item.ventilated_facade_items_url,
+                            id: item.ventilated_facade_items_id
+                        })
                     }
-
+                    console.log(this.product.test)
                 } else {
                     this.errors = data
                     console.log(data)

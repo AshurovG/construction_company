@@ -9,9 +9,10 @@
       <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacadeItem">Удалить</button>
     </div>
     <div class="admin_main">
-      <div class="admin_slide" v-for="(item, index) in items" :key="index" :class="{ active: index === currentSlide }">
+      <div ref="slides" class="admin_slide" v-for="(item, index) in items" :key="index"
+        :class="{ active: index === currentSlide }">
         <div class="admin_delaited-product-card_item">
-          <img class="admin_detailed-product-card_image" :src="item">
+          <img class="admin_detailed-product-card_image" :src="item.url">
           <!-- <div class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div> -->
         </div>
         <div class="admin_carousel-controls">
@@ -28,7 +29,7 @@
         <div v-if="items.length != 0" class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
         <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
-      <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
+      <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
       <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" @goBack="goBack" />
     </div>
 
@@ -69,10 +70,14 @@ export default {
       currentImage: 1,
       currentSlide: 0,
       isAddWindowOpened: false,
-      isDeleteWindowOpened: false
+      isDeleteWindowOpened: false,
+      nowManyId: null
     }
 
   },
+  // mounted() {
+
+  // },
   methods: {
     prevSlide() {
       this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;
@@ -95,7 +100,10 @@ export default {
     },
     deleteVentilatedFacadeItem() {
       this.isDeleteWindowOpened = true
-      console.log(this.isDeleteWindowOpened)
+    },
+    deleteRecord() {
+      this.deleteVentilatedFacadeItemById(this.id, this.items[this.currentSlide].id)
+      this.isDeleteWindowOpened = false
     },
     cancelDelete() {
       this.isDeleteWindowOpened = false
@@ -107,6 +115,24 @@ export default {
     goBack() {
       this.isAddWindowOpened = false
       this.$emit('goBack')
+    },
+    async deleteVentilatedFacadeItemById(idOne, idMany) {
+      try {
+        console.log(`one ${idOne}, many ${idMany}`)
+        const res = await fetch(`http://localhost:8000/api/ventilatedFacadeitems/${idMany}?id=${idOne}`, {
+          method: 'DELETE',
+          mode: 'cors'
+        })
+        const data = await res.json()
+        if (res.status == 200 || res.status == 201) {
+          console.log('success delete ventilated facade')
+        } else {
+          this.errors = data
+          console.log(data)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
