@@ -1,10 +1,11 @@
 <template>
   <div class="admin_carousel">
     <transition name="showLockinScreen">
-      <div class="locking_screen" v-if="isDeleteWindowOpened" @click="isDeleteWindowOpened = false"></div>
+      <div class="locking_screen" v-if="isDeleteWindowOpened || isAddWindowOpened">
+      </div>
     </transition>
     <div class="correct_one_facade_item_btns">
-      <button class="correct_one_facade_item_btn">Добавить</button>
+      <button class="correct_one_facade_item_btn" @click="isAddWindowOpened = true">Добавить</button>
       <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacadeItem">Удалить</button>
     </div>
     <div class="admin_main">
@@ -21,13 +22,14 @@
       </div>
       <div class="admin_carousel_description">
         <div class="admin_carousel_description_info">
-          <h2 class="admin_carousel_description_title">Наружное оформление фирмы “ооо ФиРмА”</h2>
+          <h2 class="admin_carousel_description_title">{{ title }}</h2>
           <div class="admin_carousel_description_text">{{ desc }}</div>
         </div>
         <div v-if="items.length != 0" class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
         <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
       <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
+      <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" />
     </div>
 
 
@@ -36,13 +38,19 @@
 
 <script>
 import deleteWindow from "./deleteWindow.vue"
+import addVentilatedFacadeItem from "./addVentilatedFacadeItem.vue";
 
 export default {
   name: 'QuestionCard',
   components: {
-    deleteWindow
+    deleteWindow,
+    addVentilatedFacadeItem
   },
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     items: {
       type: Array,
       required: true
@@ -50,12 +58,17 @@ export default {
     desc: {
       type: String,
       required: true
-    }
+    },
+    title: {
+      type: String,
+      required: true
+    },
   },
   data() {
     return {
       currentImage: 1,
       currentSlide: 0,
+      isAddWindowOpened: false,
       isDeleteWindowOpened: false
     }
 
@@ -86,6 +99,10 @@ export default {
     },
     cancelDelete() {
       this.isDeleteWindowOpened = false
+    },
+    closeAddItemForm() {
+      this.isAddWindowOpened = false
+      this.$emit('closeAddItemForm')
     }
   }
 }

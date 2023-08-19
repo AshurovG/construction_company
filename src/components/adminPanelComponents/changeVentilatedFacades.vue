@@ -14,7 +14,8 @@
             <img class="card_image" :src="product.ventilated_facades_url" alt="">
         </div>
         <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
-        <adminDetailedProductCardsSlider :desc="product.ventilated_facades_description" :items="product.items" />
+        <adminDetailedProductCardsSlider :id="id" :title="product.ventilated_facades_title"
+            :desc="product.ventilated_facades_description" :items="product.items" @closeAddItemForm="closeAddItemForm" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="product.ventilated_facades_title"
             :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
@@ -81,6 +82,12 @@ export default {
                 this.getVentilatedFacadeById(this.id)
             })
             this.$emit('goBack')
+        },
+
+        closeAddItemForm() {
+            this.$nextTick(() => {
+                this.getVentilatedFacadeById(this.id)
+            })
         },
 
         async getVentilatedFacadeById(id) {
