@@ -19,7 +19,9 @@
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
-                <div class="size-error-message error-message" style="display: none;">Файл слишком большого размера</div>
+                <div class="size-error-message error-message" style="display: none;">Размер файла не должен превышать 2
+                    мегабайта
+                </div>
             </div>
 
             <button type="submit" class="add_main_item_form_btn"
@@ -82,7 +84,7 @@ export default defineComponent({
         this.dropzone = new Dropzone(this.$refs.dropzone, {
             url: "http://localhost:8000/api/ventilatedfacades",
             autoProcessQueue: false,
-            maxFilesize: 2000000,
+            maxFilesize: 2097152,
             maxFiles: 1,
             thumbnailWidth: 150,
             acceptedFiles: ".jpg, .png",

@@ -35,4 +35,18 @@ export default {
 html {
   background-color: #f5f5f5;
 }
+
+.dz-success-mark {
+  display: none;
+}
+
+.dz-error-mark {
+  display: none;
+}
+
+@media(max-height: 550px) {
+  .dz-image {
+    display: none;
+  }
+}
 </style>
