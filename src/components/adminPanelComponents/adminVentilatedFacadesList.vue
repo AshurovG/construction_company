@@ -1,7 +1,7 @@
 <template>
   <div class="admin_ventilated-facades-list">
     <transition name="showLockinScreen">
-      <div class="locking_screen" v-if="isAddMainItemFormOpened" @click="isAddMainItemFormOpened = false"></div>
+      <div class="locking_screen" v-if="isAddMainItemFormOpened"></div>
     </transition>
     <div v-if="!showCorrect" class="admin_ventilated-facades-list_container">
       <h1 class="admin_ventilated-facades-list_title">Редактирование информации о вентилируемых фасадах

@@ -1,8 +1,7 @@
 <template>
     <div class="correct_ventilated_facades">
         <transition name="showLockinScreen">
-            <div class="locking_screen" v-if="isDeleteWindowOpened || isCorrectWindowOpened"
-                @click="isDeleteWindowOpened = false; isCorrectWindowOpened = false"></div>
+            <div class="locking_screen" v-if="isDeleteWindowOpened || isCorrectWindowOpened"></div>
         </transition>
         <h1 class="correct_ventilated_facades_title">Главное фото объекта</h1>
         <!-- <adminProductCard class="admin_product_card" :id="id" :title="title" :img-url="imgUrl" :desc="desc"

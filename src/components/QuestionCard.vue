@@ -1,21 +1,21 @@
 <template>
-<div class="question-card">
-    <div :class="open ? 'faq open' : 'faq'" @click="$emit('ansOpen', index)">
-        <div class="question">
-            <span><img class="arrow-icon" src="./assets/arrow-down-sign-to-navigate.png" alt=""></span>
-            {{ question }}
-        </div>
-        <div class="answer">
-            <div class="answer-self">{{ answer }}</div>
+    <div class="question-card">
+        <div :class="open ? 'faq open' : 'faq'" @click="$emit('ansOpen', index)">
+            <div class="question">
+                <span><img class="arrow-icon" src="./assets/arrow-down-sign-to-navigate.png" alt=""></span>
+                {{ question }}
+            </div>
+            <div class="answer">
+                <div class="answer-self">{{ answer }}</div>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
 export default {
-    name:'QuestionCard',
-    props: ['question','answer','open'],
+    name: 'QuestionCard',
+    props: ['question', 'answer', 'open'],
 }
 </script>
 
@@ -30,13 +30,13 @@ export default {
     cursor: pointer;
 }
 
-.answer{
+.answer {
     border-left: 3px solid #610a0a;
 
     padding-left: 30px;
     display: flex;
     align-items: center;
-    gap:5.5px
+    gap: 5.5px
 }
 
 .arrow-icon {
@@ -87,20 +87,21 @@ export default {
 }
 
 @media(max-width:1800px) {
-  .question-card {
-    font-size: 0.8rem;
-  }
+    .question-card {
+        font-size: 0.8rem;
+    }
 }
+
 @media(max-width:1550px) {
-  .question-card {
-    font-size: 0.7rem;
-  }
+    .question-card {
+        font-size: 0.7rem;
+    }
 }
 
 @media(max-width:1340px) {
-  .question-card {
-    font-size: 0.5rem;
-  }
+    .question-card {
+        font-size: 0.5rem;
+    }
 }
 </style>
 

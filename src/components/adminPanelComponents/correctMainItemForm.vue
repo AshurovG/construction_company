@@ -26,7 +26,7 @@
             </div>
 
             <button type="submit" class="add_main_item_form_btn"
-                :disabled="(v$.title.$invalid || v$.desc.$invalid || v$.files.$invalid)">Сохранить</button>
+                :disabled="(v$.title.$invalid || v$.desc.$invalid)">Сохранить</button>
             <img class="product-card_image" :src="uploadedFile">
         </form>
     </div>
@@ -35,7 +35,7 @@
 <script>
 import Dropzone from "dropzone"
 import { useVuelidate } from '@vuelidate/core'
-import { required, sameAs } from '@vuelidate/validators'
+import { required } from '@vuelidate/validators'
 import { reactive, computed } from 'vue'
 import successOperatingWindow from './successOperatingWindow.vue';
 import { defineComponent } from 'vue';
@@ -81,16 +81,16 @@ export default defineComponent({
         const state = reactive({
             title: '',
             desc: '',
-            files: null,
+            // files: null,
             minArrayLength: 1
         })
 
         const rules = computed(() => ({
             title: { required },
             desc: { required },
-            files: {
-                sameAs: sameAs(1)
-            }
+            // files: {
+            //     sameAs: sameAs(1)
+            // }
         }))
 
         const v$ = useVuelidate(rules, state)
@@ -122,11 +122,13 @@ export default defineComponent({
                     } else if (file.size > this.options.maxFilesize) {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
+                        self.isFileChanged = false
                         document.querySelector(".size-error-message").style.display = "block";
                     } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
                         this.removeFile(this.files[0]);
                         this.removeFile(file);
                         document.querySelector(".type-error-message").style.display = "block";
+                        self.isFileChanged = false
                     } else {
                         self.isFileChanged = true
                         document.querySelector(".type-error-message").style.display = "none";
@@ -166,8 +168,16 @@ export default defineComponent({
                 const formData = new FormData();
                 formData.append('id', this.id);
                 formData.append('title', this.state.title);
-                formData.append('file', this.file);
                 formData.append('desc', this.state.desc);
+                formData.append('imgUrl', this.imgUrl)
+                if (this.isFileChanged) { // Если файл изменился то, передаем флажок 1 и файл
+                    formData.append('isFileChanged', 1)
+                    formData.append('file', this.file);
+
+                } else { // Если файл не изменился, то передаем флажок 0 и null
+                    formData.append('isFileChanged', 0)
+                    formData.append('file', null);
+                }
 
                 const res = await fetch(`http://localhost:8000/api/ventilatedfacades`, {
                     method: 'PUT',
