@@ -1,18 +1,18 @@
 <template>
     <successOperatingWindow class="success_window" @goBack="goBack" v-if="isSuccessOperatingWindowOpened" />
-    <div class="add_main_item_form" v-if="!isSuccessOperatingWindowOpened">
+    <div class="add_item_form" v-if="!isSuccessOperatingWindowOpened">
         <img class="exit_form_buttton" src="../../images/exit.png" @click="closeAddItemForm">
-        <h1 class="add_main_item_form_title">
+        <h1 class="add_item_form_title">
             Заполните данные
         </h1>
-        <form class="add_main_item_form_info" @submit.prevent="sendData">
+        <form class="add_item_form_info" @submit.prevent="sendData">
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message error-message" style="display: none;">Файл слишком большого размера</div>
             </div>
 
-            <button type="submit" class="add_main_item_form_btn" :disabled="(v$.files.$invalid)">Сохранить</button>
+            <button type="submit" class="add_item_form_btn" :disabled="(v$.files.$invalid)">Сохранить</button>
             <img class="product-card_image" :src="uploadedFile">
         </form>
     </div>
@@ -169,10 +169,10 @@ export default defineComponent({
 </script>
   
 <style>
-.add_main_item_form {
+.add_item_form {
     font-size: 1rem;
     width: 35%;
-    height: 50%;
+    height: 40%;
     position: fixed;
     z-index: 6000;
     top: 10%;
@@ -187,7 +187,7 @@ export default defineComponent({
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.add_main_item_form_info {
+.add_item_form_info {
     width: 90%;
     height: 90%;
     display: flex;
@@ -197,12 +197,12 @@ export default defineComponent({
     margin-bottom: 20px;
 }
 
-.add_main_item_form_title {
+.add_item_form_title {
     font-size: 2em;
     margin-bottom: .5em;
 }
 
-.add_main_item_form_item {
+/* .add_item_form_item {
     width: 100%;
     height: 17%;
     border: 1px solid #ccc;
@@ -210,9 +210,9 @@ export default defineComponent({
     padding: .5em;
     margin-bottom: .8em;
     font-size: 1em;
-}
+} */
 
-.add_main_item_form_item_text {
+/* .add_item_form_item_text {
     resize: none;
     text-align: left;
     width: 100%;
@@ -223,9 +223,9 @@ export default defineComponent({
     padding: .5em;
     margin-bottom: .8em;
     font-size: 1em;
-}
+} */
 
-.add_main_item_form_btn {
+.add_item_form_btn {
     width: 10em;
     min-height: 3em;
     text-align: center;
@@ -237,16 +237,16 @@ export default defineComponent({
     cursor: pointer;
 }
 
-.add_main_item_form_btn:hover {
+.add_item_form_btn:hover {
     background-color: #45a049;
 }
 
-.add_main_item_form_btn:active {
+.add_item_form_btn:active {
     background-color: #3e8e41;
     transform: translateY(1px);
 }
 
-.add_main_item_form_btn:disabled {
+.add_item_form_btn:disabled {
     background-color: #cccccc;
     color: #666666;
     cursor: default;
@@ -271,7 +271,7 @@ export default defineComponent({
 
 .ventilated_facade_dropzone {
     width: 100%;
-    height: 50%;
+    min-height: 75%;
     border: 1px solid #ccc;
     border-radius: .2em;
     padding: .5em;
@@ -292,44 +292,44 @@ export default defineComponent({
 }
 
 @media(max-width: 1200px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 45%;
     }
 }
 
 @media(max-width: 1000px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 55%;
     }
 }
 
 @media(max-width: 800px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 65%;
     }
 }
 
 @media(max-width: 650px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 70%;
     }
 }
 
 @media(max-width: 600px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 75%;
         font-size: .9rem;
     }
 }
 
 @media(max-width: 450px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 90%;
     }
 }
 
 @media(max-width: 390px) {
-    .add_main_item_form {
+    .add_item_form {
         width: 92%;
         font-size: .8rem;
     }
@@ -340,44 +340,38 @@ export default defineComponent({
     }
 }
 
-@media(max-height: 950px) {
-    .add_main_item_form {
+/* @media(max-height: 950px) {
+    .add_item_form {
         height: 55%;
     }
-}
+} */
 
 @media(max-height: 850px) {
-    .add_main_item_form {
-        height: 60%;
-    }
-}
-
-@media(max-height: 800px) {
-    .add_main_item_form {
-        height: 65%;
+    .add_item_form {
+        height: 50%;
     }
 }
 
 @media(max-height: 750px) {
-    .add_main_item_form {
-        height: 75%;
+    .add_item_form {
+        height: 60%;
     }
 }
 
 @media(max-height: 650px) {
-    .add_main_item_form {
-        height: 85%;
+    .add_item_form {
+        height: 70%;
     }
 }
 
-@media(max-height: 550px) {
+@media(max-height: 480px) {
     .dz-image {
         display: none;
     }
 }
 
 @media(max-height: 400px) {
-    .add_main_item_form {
+    .add_item_form {
         height: 95%;
         top: 4%;
     }

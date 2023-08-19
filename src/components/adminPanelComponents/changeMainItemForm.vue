@@ -223,7 +223,7 @@ export default defineComponent({
 });
 </script>
   
-<style>
+<style scoped>
 .add_main_item_form {
     font-size: 1rem;
     width: 35%;
