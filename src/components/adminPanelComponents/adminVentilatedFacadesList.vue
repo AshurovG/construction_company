@@ -19,7 +19,7 @@
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
-    <correctVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id" @goBack="goBack"
+    <changeVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id" @goBack="goBack"
       @deleteRecord="deleteRecord" />
   </div>
 </template>
@@ -27,14 +27,14 @@
 <script>
 import adminProductCard from './adminProductCard.vue';
 import addMainItemForm from './addMainItemForm.vue';
-import correctVentilatedFacades from '@/components/adminPanelComponents/correctVentilatedFacades.vue';
+import changeVentilatedFacades from './changeVentilatedFacades.vue';
 
 export default {
   name: "ventilatedFacadesList",
   components: {
     adminProductCard,
     addMainItemForm,
-    correctVentilatedFacades
+    changeVentilatedFacades
   },
   mounted() {
     if (!this.isComponentCreated) {

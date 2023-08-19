@@ -1,43 +1,43 @@
 <template>
-    <div class="correct_ventilated_facades">
+    <div class="change_ventilated_facades">
         <transition name="showLockinScreen">
-            <div class="locking_screen" v-if="isDeleteWindowOpened || isCorrectWindowOpened"></div>
+            <div class="locking_screen" v-if="isDeleteWindowOpened || isChangeWindowOpened"></div>
         </transition>
-        <h1 class="correct_ventilated_facades_title">Главное фото объекта</h1>
+        <h1 class="change_ventilated_facades_title">Главное фото объекта</h1>
         <!-- <adminProductCard class="admin_product_card" :id="id" :title="title" :img-url="imgUrl" :desc="desc"
             :items="items" /> -->
         <div class="one_ventilated_facade_container">
-            <div class="correct_one_facade_btns">
-                <button @click="correctVentilatedFacade" class="correct_one_facade_btn">Изменить</button>
-                <button @click="deleteVentilatedFacade" class="correct_one_facade_btn">Удалить</button>
+            <div class="change_one_facade_btns">
+                <button @click="changeVentilatedFacade" class="change_one_facade_btn">Изменить</button>
+                <button @click="deleteVentilatedFacade" class="change_one_facade_btn">Удалить</button>
             </div>
             <img class="card_image" :src="product.ventilated_facades_url" alt="">
         </div>
-        <h1 class="correct_ventilated_facades_title">Дополнительные фото</h1>
+        <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :desc="product.ventilated_facades_description" :items="product.items" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
-        <correctMainItemForm :id="id" :title="product.ventilated_facades_title"
+        <changeMainItemForm :id="id" :title="product.ventilated_facades_title"
             :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
-            v-if="isCorrectWindowOpened" @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
+            v-if="isChangeWindowOpened" @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
 <script>
 import adminDetailedProductCardsSlider from "./adminDetailedProductCardsSlider.vue";
 import deleteWindow from "./deleteWindow.vue"
-import correctMainItemForm from "./correctMainItemForm.vue";
+import changeMainItemForm from "./changeMainItemForm.vue";
 
 export default {
-    name: "CorrectVentilatedFacades",
+    name: "ChangeVentilatedFacades",
     components: {
         adminDetailedProductCardsSlider,
         deleteWindow,
-        correctMainItemForm
+        changeMainItemForm
     },
     data() {
         return {
             isDeleteWindowOpened: false,
-            isCorrectWindowOpened: false,
+            isChangeWindowOpened: false,
             product: {
                 ventilated_facades_title: undefined,
                 ventilated_facades_url: undefined,
@@ -60,11 +60,11 @@ export default {
         deleteVentilatedFacade() {
             this.isDeleteWindowOpened = true
         },
-        correctVentilatedFacade() {
-            this.isCorrectWindowOpened = true
+        changeVentilatedFacade() {
+            this.isChangeWindowOpened = true
         },
         closeAddMainItemForm() {
-            this.isCorrectWindowOpened = false
+            this.isChangeWindowOpened = false
         },
         deleteRecord() {
             this.isDeleteWindowOpened = false
@@ -76,7 +76,7 @@ export default {
             this.isDeleteWindowOpened = false
         },
         goBack() {
-            this.isCorrectWindowOpened = false
+            this.isChangeWindowOpened = false
             this.$nextTick(() => {
                 this.getVentilatedFacadeById(this.id)
             })
@@ -157,11 +157,11 @@ export default {
 </script>
 
 <style>
-.correct_ventilated_facades {
+.change_ventilated_facades {
     font-size: 1rem;
 }
 
-.correct_ventilated_facades_title {
+.change_ventilated_facades_title {
     font-style: normal;
     font-weight: 700;
     font-size: 2em;
@@ -186,14 +186,14 @@ export default {
     background-repeat: no-repeat;
 }
 
-.correct_one_facade_btns {
+.change_one_facade_btns {
     display: flex;
     flex-direction: column;
     margin-right: 2em;
     font-size: 1rem;
 }
 
-.correct_one_facade_btn {
+.change_one_facade_btn {
     display: block;
     margin: 0 auto;
     margin-bottom: 2vw;
@@ -213,7 +213,7 @@ export default {
     cursor: pointer;
 }
 
-.correct_one_facade_btn:hover {
+.change_one_facade_btn:hover {
     background: rgba(69, 5, 5, 0.82);
 }
 
@@ -229,7 +229,7 @@ export default {
 }
 
 @media(max-width: 600px) {
-    .correct_ventilated_facades {
+    .change_ventilated_facades {
         font-size: .8rem;
     }
 
@@ -241,24 +241,24 @@ export default {
         width: 90%;
     }
 
-    .correct_one_facade_btns {
+    .change_one_facade_btns {
         font-size: .8rem;
         flex-direction: row;
     }
 
-    .correct_one_facade_btn {
+    .change_one_facade_btn {
         margin: 0 1em 1em 0;
     }
 }
 
 @media(max-width: 480px) {
-    .correct_one_facade_btns {
+    .change_one_facade_btns {
         font-size: .6rem;
     }
 }
 
 @media(max-width: 400px) {
-    .correct_ventilated_facades {
+    .change_ventilated_facades {
         font-size: .6rem;
     }
 }
