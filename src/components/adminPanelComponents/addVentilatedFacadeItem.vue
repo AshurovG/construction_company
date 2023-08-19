@@ -123,17 +123,14 @@ export default defineComponent({
             try {
                 this.file = this.dropzone.getAcceptedFiles()[0];
                 const formData = new FormData();
-                formData.append('title', this.state.title);
+                formData.append('ventilatedFacadeId', this.id)
                 formData.append('file', this.file);
-                formData.append('desc', this.state.desc);
-
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
+                const res = await fetch('http://localhost:8000/api/ventilatedfacadeitems', {
                     method: 'POST',
                     body: formData,
                     mode: 'cors'
                 })
                 const data = await res.json()
-                console.log(data.file)
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
                 } else {

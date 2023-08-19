@@ -29,7 +29,7 @@
         <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
       <deleteWindow v-if="isDeleteWindowOpened" @cancelDelete="cancelDelete" />
-      <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" />
+      <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" @goBack="goBack" />
     </div>
 
 
@@ -103,6 +103,10 @@ export default {
     closeAddItemForm() {
       this.isAddWindowOpened = false
       this.$emit('closeAddItemForm')
+    },
+    goBack() {
+      this.isAddWindowOpened = false
+      this.$emit('goBack')
     }
   }
 }

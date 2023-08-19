@@ -15,7 +15,8 @@
         </div>
         <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :id="id" :title="product.ventilated_facades_title"
-            :desc="product.ventilated_facades_description" :items="product.items" @closeAddItemForm="closeAddItemForm" />
+            :desc="product.ventilated_facades_description" :items="product.items" @closeAddItemForm="closeAddItemForm"
+            @goBack="closeAddItemForm" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="product.ventilated_facades_title"
             :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
@@ -88,6 +89,7 @@ export default {
             this.$nextTick(() => {
                 this.getVentilatedFacadeById(this.id)
             })
+            console.log(this.product.items)
         },
 
         async getVentilatedFacadeById(id) {
@@ -104,6 +106,7 @@ export default {
                     this.product.ventilated_facades_title = data.ventilated_facades_title;
                     this.product.ventilated_facades_url = data.ventilated_facades_url;
                     this.product.ventilated_facades_description = data.ventilated_facades_description;
+                    this.product.items = []
                     this.getVentilatedFacadeItemsById(this.id)
                     // this.$forceUpdate();
 
@@ -128,11 +131,6 @@ export default {
                         this.product.items.push(item.ventilated_facade_items_url)
                     }
 
-                    // for (let item of data) {
-                    //     if (this.product.ventilated_facades_id === item.ventilated_facades_id) {
-                    //         this.product.items.push(item.ventilated_facade_items_url)
-                    //     }
-                    // }
                 } else {
                     this.errors = data
                     console.log(data)
