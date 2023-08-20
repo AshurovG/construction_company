@@ -16,7 +16,7 @@
         <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider :id="id" :title="product.ventilated_facades_title"
             :desc="product.ventilated_facades_description" :items="product.items" @closeAddItemForm="closeAddItemForm"
-            @goBack="closeAddItemForm" />
+            @goBack="closeAddItemForm" @deleteItem="deleteItem" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="product.ventilated_facades_title"
             :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
@@ -70,9 +70,14 @@ export default {
         },
         deleteRecord() {
             this.isDeleteWindowOpened = false
-            console.log(this.id)
             this.deleteVentilatedFacadeItemsById(this.id)
             this.$emit('deleteRecord')
+        },
+        deleteItem() {
+            this.isDeleteWindowOpened = false
+            this.$nextTick(() => {
+                this.getVentilatedFacadeById(this.id)
+            })
         },
         cancelDelete() {
             this.isDeleteWindowOpened = false
@@ -89,7 +94,6 @@ export default {
             this.$nextTick(() => {
                 this.getVentilatedFacadeById(this.id)
             })
-            console.log(this.product.items)
         },
 
         async getVentilatedFacadeById(id) {
@@ -100,6 +104,7 @@ export default {
                     method: 'GET',
                     mode: 'cors'
                 })
+                console.log('getVentilatedFacadeById')
                 const data = await res.json()
 
                 if (res.status == 200 || res.status == 201) {
@@ -120,7 +125,9 @@ export default {
         },
 
         async getVentilatedFacadeItemsById(id) {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
             try {
+                await delay(100); // Делаем задержку для того чтобы успел обработаться POST запрос
                 const res = await fetch('http://localhost:8000/api/ventilatedfacadeitems/' + id, {
                     method: 'GET',
                     mode: 'cors'
@@ -133,7 +140,6 @@ export default {
                             id: item.ventilated_facade_items_id
                         })
                     }
-                    console.log(this.product.test)
                 } else {
                     this.errors = data
                     console.log(data)

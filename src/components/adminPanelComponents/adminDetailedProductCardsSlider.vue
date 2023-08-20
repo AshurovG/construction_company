@@ -29,7 +29,7 @@
         <div v-if="items.length != 0" class="admin_counter">Фото объекта {{ currentImage }} из {{ items.length }}</div>
         <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
-      <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
+      <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteItem" @cancelDelete="cancelDelete" />
       <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" @goBack="goBack" />
     </div>
 
@@ -101,9 +101,12 @@ export default {
     deleteVentilatedFacadeItem() {
       this.isDeleteWindowOpened = true
     },
-    deleteRecord() {
+    deleteItem() {
       this.deleteVentilatedFacadeItemById(this.id, this.items[this.currentSlide].id)
       this.isDeleteWindowOpened = false
+      this.$emit('deleteItem')
+      this.currentImage = 1
+      this.currentSlide = 0
     },
     cancelDelete() {
       this.isDeleteWindowOpened = false
@@ -123,12 +126,10 @@ export default {
           method: 'DELETE',
           mode: 'cors'
         })
-        const data = await res.json()
+        console.log('deleteVentilatedFacadeItemById')
+        // const data = await res.json()
         if (res.status == 200 || res.status == 201) {
           console.log('success delete ventilated facade')
-        } else {
-          this.errors = data
-          console.log(data)
         }
       } catch (error) {
         console.log(error)

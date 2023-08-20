@@ -9,7 +9,8 @@
             <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
-                <div class="size-error-message error-message" style="display: none;">Размер файлаы не должен превышать 2 мегабайта
+                <div class="size-error-message error-message" style="display: none;">Размер файлаы не должен превышать 2
+                    мегабайта
                 </div>
             </div>
 
@@ -134,24 +135,6 @@ export default defineComponent({
                 const data = await res.json()
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
-                } else {
-                    this.errors = data
-                    console.log(data)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        },
-
-        async getAllVentilatedFacades() {
-            try {
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
-                    method: 'GET',
-                    mode: 'cors'
-                })
-                const data = await res.json()
-                if (res.status == 200 || res.status == 201) {
-                    this.products = data;
                 } else {
                     this.errors = data
                     console.log(data)
