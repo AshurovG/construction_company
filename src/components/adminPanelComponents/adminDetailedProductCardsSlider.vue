@@ -6,7 +6,8 @@
     </transition>
     <div class="correct_one_facade_item_btns">
       <button class="correct_one_facade_item_btn" @click="isAddWindowOpened = true">Добавить</button>
-      <button class="correct_one_facade_item_btn" @click="deleteVentilatedFacadeItem">Удалить</button>
+      <button class="correct_one_facade_item_btn" :disabled="(items.length === 0)"
+        @click="deleteVentilatedFacadeItem">Удалить</button>
     </div>
     <div class="admin_main">
       <div ref="slides" class="admin_slide" v-for="(item, index) in items" :key="index"
@@ -347,6 +348,12 @@ export default {
   color: #FFFFFF;
   text-align: center;
   cursor: pointer;
+}
+
+.correct_one_facade_item_btn:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: default;
 }
 
 @media(max-width:1800px) {
