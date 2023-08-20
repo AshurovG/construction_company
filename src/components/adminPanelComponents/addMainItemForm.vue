@@ -16,7 +16,7 @@
             <span class="error_add_item" v-if="v$.desc.$error">
                 Это обязательное поле
             </span>
-            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
+            <div id="my-awesome-dropzone" ref="facadeDropzone" class="ventilated_facade_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message error-message" style="display: none;">Размер файла не должен превышать 2
@@ -45,15 +45,21 @@ export default defineComponent({
     },
     data() {
         return {
-            dropzone: null,
+            facadeDropzone: null,
+            exteriorDropzone: null,
             flle: null,
             formData: null,
-            ventilatedFacadeData: null,
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
             uploadedFile: null,
             products: [],
             errors: []
+        }
+    },
+    props: {
+        isFacade: {
+            type: Boolean,
+            required: true
         }
     },
     setup() {
@@ -81,41 +87,75 @@ export default defineComponent({
     },
     mounted() {
         const self = this;
-        this.dropzone = new Dropzone(this.$refs.dropzone, {
-            url: "http://localhost:8000/api/ventilatedfacades",
-            autoProcessQueue: false,
-            maxFilesize: 2097152,
-            maxFiles: 1,
-            thumbnailWidth: 150,
-            acceptedFiles: ".jpg, .png",
-            capture: "image/*",
-            init: function () {
-                this.on("addedfile", function (file) {
-                    if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
-                        this.removeFile(this.files[0]);
-                    } else if (file.size > this.options.maxFilesize) {
-                        this.removeFile(this.files[0]);
-                        this.removeFile(file);
-                        document.querySelector(".size-error-message").style.display = "block";
-                    } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
-                        this.removeFile(this.files[0]);
-                        this.removeFile(file);
-                        document.querySelector(".type-error-message").style.display = "block";
-                    } else {
-                        document.querySelector(".type-error-message").style.display = "none";
-                        document.querySelector(".size-error-message").style.display = "none";
-                    }
-                    console.log(this.files)
-                    self.state.files = this.files.length
-                });
-                this.on("drop", function (file) {
-                    this.addFile(file);
-                });
-                // if (window.matchMedia('(max-height: 550x)').matches) {
+        console.log(this.isFacade)
+        if (this.isFacade) {
+            this.facadeDropzone = new Dropzone(this.$refs.facadeDropzone, {
+                url: "http://localhost:8000/api/ventilatedfacades",
+                autoProcessQueue: false,
+                maxFilesize: 2097152,
+                maxFiles: 1,
+                thumbnailWidth: 150,
+                acceptedFiles: ".jpg, .png",
+                capture: "image/*",
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
+                            this.removeFile(this.files[0]);
+                        } else if (file.size > this.options.maxFilesize) {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".size-error-message").style.display = "block";
+                        } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".type-error-message").style.display = "block";
+                        } else {
+                            document.querySelector(".type-error-message").style.display = "none";
+                            document.querySelector(".size-error-message").style.display = "none";
+                        }
+                        console.log(this.files)
+                        self.state.files = this.files.length
+                    });
+                    this.on("drop", function (file) {
+                        this.addFile(file);
+                    });
+                }
+            })
+        } else {
+            this.facadeDropzone = new Dropzone(this.$refs.facadeDropzone, {
+                url: "http://localhost:8000/api/exteriordesign",
+                autoProcessQueue: false,
+                maxFilesize: 2097152,
+                maxFiles: 1,
+                thumbnailWidth: 150,
+                acceptedFiles: ".jpg, .png",
+                capture: "image/*",
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
+                            this.removeFile(this.files[0]);
+                        } else if (file.size > this.options.maxFilesize) {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".size-error-message").style.display = "block";
+                        } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".type-error-message").style.display = "block";
+                        } else {
+                            document.querySelector(".type-error-message").style.display = "none";
+                            document.querySelector(".size-error-message").style.display = "none";
+                        }
+                        console.log(this.files)
+                        self.state.files = this.files.length
+                    });
+                    this.on("drop", function (file) {
+                        this.addFile(file);
+                    });
+                }
+            })
+        }
 
-                // }
-            }
-        })
     },
     methods: {
         closeAddMainItemForm() {
@@ -135,39 +175,30 @@ export default defineComponent({
         },
         async postData() {
             try {
-                this.file = this.dropzone.getAcceptedFiles()[0];
+                this.file = this.facadeDropzone.getAcceptedFiles()[0];
                 const formData = new FormData();
                 formData.append('title', this.state.title);
                 formData.append('file', this.file);
                 formData.append('desc', this.state.desc);
+                let res = null
+                if (this.isFacade) {
+                    res = await fetch('http://localhost:8000/api/ventilatedfacades', {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'cors'
+                    })
+                } else {
+                    res = await fetch('http://localhost:8000/api/exteriordesign', {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'cors'
+                    })
+                }
 
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'cors'
-                })
                 const data = await res.json()
                 console.log(data.file)
                 if (res.status == 200 || res.status == 201) {
                     console.log('yes')
-                } else {
-                    this.errors = data
-                    console.log(data)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        },
-
-        async getAllVentilatedFacades() {
-            try {
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
-                    method: 'GET',
-                    mode: 'cors'
-                })
-                const data = await res.json()
-                if (res.status == 200 || res.status == 201) {
-                    this.products = data;
                 } else {
                     this.errors = data
                     console.log(data)

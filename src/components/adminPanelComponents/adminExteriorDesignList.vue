@@ -19,7 +19,7 @@
             </ul>
         </div>
         <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
-            @goBack="goBack" />
+            :isFacade="isFacade" @goBack="goBack" />
         <changeVentilatedFacades v-if="showCorrect" :id="exterior.exterior_design_id" @goBack="goBack"
             @deleteRecord="deleteRecord" />
     </div>
@@ -60,7 +60,8 @@ export default {
             },
             exteriors: [],
             errors: [],
-            isAddMainItemFormOpened: false
+            isAddMainItemFormOpened: false,
+            isFacade: false
         }
     },
     props: {
