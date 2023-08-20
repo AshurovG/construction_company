@@ -19,7 +19,7 @@
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       :isFacade="isFacade" @goBack="goBack" />
-    <changeVentilatedFacades v-if="showCorrect" :id="facade.ventilated_facades_id" @goBack="goBack"
+    <changeVentilatedFacades v-if="showCorrect" :id="facade.ventilated_facades_id" :isFacade="isFacade" @goBack="goBack"
       @deleteRecord="deleteRecord" />
   </div>
 </template>

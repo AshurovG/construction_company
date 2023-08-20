@@ -20,7 +20,7 @@
         </div>
         <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
             :isFacade="isFacade" @goBack="goBack" />
-        <changeVentilatedFacades v-if="showCorrect" :id="exterior.exterior_design_id" @goBack="goBack"
+        <changeVentilatedFacades v-if="showCorrect" :id="exterior.exterior_design_id" :isFacade="isFacade" @goBack="goBack"
             @deleteRecord="deleteRecord" />
     </div>
 </template>
@@ -79,7 +79,7 @@ export default {
         },
         onProductCardClick(id, title, imgUrl, desc, items) {
             this.exterior.exterior_design_id = id
-            this.exterior.exterior_design_id = title
+            this.exterior.exterior_design_title = title
             this.exterior.exterior_design_url = imgUrl
             this.exterior.exterior_design_description = desc
             this.exterior.items = items

@@ -4,23 +4,25 @@
             <div class="locking_screen" v-if="isDeleteWindowOpened || isChangeWindowOpened"></div>
         </transition>
         <h1 class="change_ventilated_facades_title">Главное фото объекта</h1>
-        <!-- <adminProductCard class="admin_product_card" :id="id" :title="title" :img-url="imgUrl" :desc="desc"
-            :items="items" /> -->
         <div class="one_ventilated_facade_container">
             <div class="change_one_facade_btns">
                 <button @click="changeVentilatedFacade" class="change_one_facade_btn">Изменить</button>
                 <button @click="deleteVentilatedFacade" class="change_one_facade_btn">Удалить</button>
             </div>
-            <img class="card_image" :src="product.ventilated_facades_url" alt="">
+            <img v-show="isFacade" class="card_image" :src="facade.ventilated_facades_url" alt="">
+            <img v-show="!isFacade" class="card_image" :src="exterior.exterior_design_url" alt="">
         </div>
         <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
-        <adminDetailedProductCardsSlider :id="id" :title="product.ventilated_facades_title"
-            :desc="product.ventilated_facades_description" :items="product.items" @closeAddItemForm="closeAddItemForm"
+        <adminDetailedProductCardsSlider v-show="isFacade" :id="id" :title="facade.ventilated_facades_title"
+            :desc="facade.ventilated_facades_description" :items="facade.items" @closeAddItemForm="closeAddItemForm"
+            @goBack="closeAddItemForm" @deleteItem="deleteItem" />
+        <adminDetailedProductCardsSlider v-show="!isFacade" :id="id" :title="exterior.ventilated_facades_title"
+            :desc="exterior.ventilated_facades_description" :items="exterior.items" @closeAddItemForm="closeAddItemForm"
             @goBack="closeAddItemForm" @deleteItem="deleteItem" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
-        <changeMainItemForm :id="id" :title="product.ventilated_facades_title"
-            :desc="product.ventilated_facades_description" :imgUrl="product.ventilated_facades_url"
-            v-if="isChangeWindowOpened" @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
+        <changeMainItemForm :id="id" :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description"
+            :imgUrl="facade.ventilated_facades_url" v-if="isChangeWindowOpened" @goBack="goBack"
+            @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
@@ -40,23 +42,37 @@ export default {
         return {
             isDeleteWindowOpened: false,
             isChangeWindowOpened: false,
-            product: {
+            facade: {
                 ventilated_facades_title: undefined,
                 ventilated_facades_url: undefined,
                 ventilated_facades_description: undefined,
                 items: [],
             },
+            exterior: {
+                exterior_design_title: undefined,
+                exterior_design_url: undefined,
+                exterior_design_description: undefined,
+                items: []
+            }
         }
     },
     props: {
         id: {
             type: Number,
             required: true
+        },
+        isFacade: {
+            type: Boolean,
+            required: true
         }
     },
     mounted() {
-        this.getVentilatedFacadeById(this.id)
-        // console.log(this.product)
+        if (this.isFacade) {
+            this.getVentilatedFacadeById(this.id)
+        } else {
+            this.getExteriorDesignById(this.id)
+        }
+        console.log(`id is ${this.id}`)
     },
     methods: {
         deleteVentilatedFacade() {
@@ -70,7 +86,7 @@ export default {
         },
         deleteRecord() {
             this.isDeleteWindowOpened = false
-            this.deleteVentilatedFacadeItemsById(this.id)
+            this.deleteVentilatedFacadeById(this.id)
             this.$emit('deleteRecord')
         },
         deleteItem() {
@@ -96,6 +112,7 @@ export default {
             })
         },
 
+        // Запросы для фасадов
         async getVentilatedFacadeById(id) {
             const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
             try {
@@ -108,12 +125,11 @@ export default {
                 const data = await res.json()
 
                 if (res.status == 200 || res.status == 201) {
-                    this.product.ventilated_facades_title = data.ventilated_facades_title;
-                    this.product.ventilated_facades_url = data.ventilated_facades_url;
-                    this.product.ventilated_facades_description = data.ventilated_facades_description;
-                    this.product.items = []
+                    this.facade.ventilated_facades_title = data.ventilated_facades_title;
+                    this.facade.ventilated_facades_url = data.ventilated_facades_url;
+                    this.facade.ventilated_facades_description = data.ventilated_facades_description;
+                    this.facade.items = []
                     this.getVentilatedFacadeItemsById(this.id)
-                    // this.$forceUpdate();
 
                 } else {
                     this.errors = data
@@ -135,7 +151,7 @@ export default {
                 const data = await res.json()
                 if (res.status == 200 || res.status == 201) {
                     for (let item of data) {
-                        this.product.items.push({
+                        this.facade.items.push({
                             url: item.ventilated_facade_items_url,
                             id: item.ventilated_facade_items_id
                         })
@@ -149,7 +165,7 @@ export default {
             }
         },
 
-        async deleteVentilatedFacadeItemsById(id) {
+        async deleteVentilatedFacadeById(id) {
             try {
                 const res = await fetch('http://localhost:8000/api/ventilatedfacades/' + id, {
                     method: 'DELETE',
@@ -165,7 +181,79 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+
+        // Запросы для наружного оформления
+
+        async getExteriorDesignById(id) {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            try {
+                await delay(200); // Делаем задержку для того чтобы успел обработаться DELETE запрос
+                const res = await fetch('http://localhost:8000/api/exteriordesign/' + id, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    this.exterior.exterior_design_title = data.exterior_design_title;
+                    this.exterior.exterior_design_url = data.exterior_design_url;
+                    this.exterior.exterior_design_description = data.exterior_design_description;
+                    this.exterior.items = []
+                    this.getExteriorDesignItemsById(this.id)
+                    console.log(`url exterior ${this.exterior.exterior_design_url}`)
+
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async getExteriorDesignItemsById(id) {
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            try {
+                await delay(100); // Делаем задержку для того чтобы успел обработаться POST запрос
+                const res = await fetch('http://localhost:8000/api/exteriordesignitems/' + id, {
+                    method: 'GET',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    for (let item of data) {
+                        this.facade.items.push({
+                            url: item.exterior_design_items_url,
+                            id: item.exterior_design_items_id
+                        })
+                    }
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+
+        async deleteExteriorDesignItemsById(id) {
+            try {
+                const res = await fetch('http://localhost:8000/api/exteriordesign/' + id, {
+                    method: 'DELETE',
+                    mode: 'cors'
+                })
+                const data = await res.json()
+                if (res.status == 200 || res.status == 201) {
+                    console.log('success delete ventilated facade')
+                } else {
+                    this.errors = data
+                    console.log(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
+
     }
 }
 </script>
