@@ -9,7 +9,7 @@
       <div class="admin_change_buttons">
         <button @click="isAddMainItemFormOpened = true" class="admin_btn">Добавить</button>
       </div>
-      <ul class="admin_ventilated-facades-list_items">
+      <ul v-if="showFacades" class="admin_ventilated-facades-list_items"> <!--Список карточек для фасадов-->
         <li class="admin_ventilated-facades-list_item" v-for="(facade, index) in facades" :key="index">
           <adminProductCard @onProductCardClick="onProductCardClick" :id="facade.ventilated_facades_id"
             :title="facade.ventilated_facades_title" :img-url="facade.ventilated_facades_url"
@@ -42,7 +42,7 @@ export default {
       this.isComponentCreated = true;
     }
 
-    this.getAllVentilatedFacades(0)
+    this.getAllVentilatedFacades()
   },
   data() {
     return {
@@ -66,7 +66,7 @@ export default {
     showFacades: {
       type: Boolean,
       required: true
-    }
+    },
   },
   methods: {
     openSlider(id) {
@@ -82,6 +82,7 @@ export default {
       this.facade.ventilated_facades_description = desc
       this.facade.items = items
       this.showCorrect = true
+      console.log(this.showFacades)
     },
     goBack() {
       this.isAddMainItemFormOpened = false
@@ -95,6 +96,8 @@ export default {
         this.getAllVentilatedFacades()
       })
     },
+
+    // Запросы для вентилированных фасадов
     async getAllVentilatedFacades() {
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
       try {
@@ -103,10 +106,8 @@ export default {
           method: 'GET',
           mode: 'cors'
         })
-        console.log("ререндер")
 
         const data = await res.json()
-        console.log(data)
 
         if (res.status == 200 || res.status == 201) {
           this.facades = data;
@@ -148,6 +149,7 @@ export default {
         console.log(error)
       }
     },
+
     openAddMainItemForm() {
       this.isAddMainItemFormOpened = true
     },

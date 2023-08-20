@@ -6,10 +6,11 @@
                 <adminFilterBlock class="portfolio-page_filter" :options="blockTypes" :selected="selectedOption"
                     @selectOption="selectOption" />
             </div>
-            <exterior-design-list :flag="!flag" @blockTitle="createListOfBlocks" v-show="showDesign" />
-            <div style="border-bottom: solid 1px #130D0D;" v-show="showDesign && showFacades"></div>
+            <adminExteriorDesignList ref="exteriorDesignRef" :flag="!flag" :showDesign="showDesign"
+                @blockTitle="createListOfBlocks" v-show="showDesign" @optionForFilter="optionForFilter" />
             <adminVentilatedFacadesListVue ref="ventilatedFacadesRef" :flag="!flag" :showFacades="showFacades"
                 @blockTitle="createListOfBlocks" v-show="showFacades" @optionForFilter="optionForFilter" />
+
             <QuestionList :flag="!flag" @blockTitle="createListOfBlocks" v-show="showQuestions"
                 @optionForFilter="optionForFilter" />
 
@@ -21,7 +22,7 @@
 <script>
 import headerForAdmin from '@/components/headerForAdmin.vue';
 import FooterPage from '../components/footer.vue'
-import exteriorDesignList from '../components/exteriorDesignList.vue';
+import adminExteriorDesignList from "@/components/adminPanelComponents/adminExteriorDesignList.vue"
 import adminVentilatedFacadesListVue from '@/components/adminPanelComponents/adminVentilatedFacadesList.vue';
 import QuestionList from '@/components/QuestionList.vue';
 import adminFilterBlock from "../components/adminPanelComponents/adminFilterBlock.vue"
@@ -32,7 +33,7 @@ export default {
     components: {
         headerForAdmin,
         FooterPage,
-        exteriorDesignList,
+        adminExteriorDesignList,
         adminVentilatedFacadesListVue,
         adminFilterBlock,
         QuestionList,
@@ -52,6 +53,8 @@ export default {
     props: {
         selectedInMain: String
     },
+    mounted() {
+    },
     methods: {
         createListOfBlocks(value) {
             this.blockTypes.push(value);
@@ -69,7 +72,7 @@ export default {
                 this.showFacades = false
                 this.showQuestions = false
             } else {
-                this.selectedOption = 'Часто задаваемые вопросы'
+                this.selectedOption = option
                 this.showQuestions = true
                 this.showDesign = false
                 this.showFacades = false
