@@ -10,16 +10,16 @@
         <button @click="isAddMainItemFormOpened = true" class="admin_btn">Добавить</button>
       </div>
       <ul class="admin_ventilated-facades-list_items">
-        <li class="admin_ventilated-facades-list_item" v-for="(product, index) in products" :key="index">
-          <adminProductCard @onProductCardClick="onProductCardClick" :id="product.ventilated_facades_id"
-            :title="product.ventilated_facades_title" :img-url="product.ventilated_facades_url"
-            :desc="product.ventilated_facades_description" :items="product.items" />
+        <li class="admin_ventilated-facades-list_item" v-for="(facade, index) in facades" :key="index">
+          <adminProductCard @onProductCardClick="onProductCardClick" :id="facade.ventilated_facades_id"
+            :title="facade.ventilated_facades_title" :img-url="facade.ventilated_facades_url"
+            :desc="facade.ventilated_facades_description" :items="facade.items" />
         </li>
       </ul>
     </div>
     <addMainItemForm v-if="isAddMainItemFormOpened" @closeAddMainItemForm="isAddMainItemFormOpened = false"
       @goBack="goBack" />
-    <changeVentilatedFacades v-if="showCorrect" :id="product.ventilated_facades_id" @goBack="goBack"
+    <changeVentilatedFacades v-if="showCorrect" :id="facade.ventilated_facades_id" @goBack="goBack"
       @deleteRecord="deleteRecord" />
   </div>
 </template>
@@ -50,14 +50,14 @@ export default {
       ventilatedFacadesListName: "adminVentilatedFacadesList",
       ventilatedFacadesListTitle: "Вентилируемые фасады",
       showCorrect: false,
-      product: {
+      facade: {
         ventilated_facades_id: undefined,
         ventilated_facades_title: undefined,
         ventilated_facades_url: undefined,
         ventilated_facades_description: undefined,
         items: undefined
       },
-      products: [],
+      facades: [],
       errors: [],
       isAddMainItemFormOpened: false
     }
@@ -76,11 +76,11 @@ export default {
       this.$emit('optionForFilter', this.ventilatedFacadesListName)
     },
     onProductCardClick(id, title, imgUrl, desc, items) {
-      this.product.ventilated_facades_id = id
-      this.product.ventilated_facades_title = title
-      this.product.ventilated_facades_url = imgUrl
-      this.product.ventilated_facades_description = desc
-      this.product.items = items
+      this.facade.ventilated_facades_id = id
+      this.facade.ventilated_facades_title = title
+      this.facade.ventilated_facades_url = imgUrl
+      this.facade.ventilated_facades_description = desc
+      this.facade.items = items
       this.showCorrect = true
     },
     goBack() {
@@ -109,17 +109,11 @@ export default {
         console.log(data)
 
         if (res.status == 200 || res.status == 201) {
-          this.products = data;
-          // if (!isNewElement) {
-          for (let i = 0; i < this.products.length; i++) {
-            this.products[i].items = []
-            this.getVentilatedFacadeItemsById(this.products[i].ventilated_facades_id)
+          this.facades = data;
+          for (let i = 0; i < this.facades.length; i++) {
+            this.facades[i].items = []
+            this.getVentilatedFacadeItemsById(this.facades[i].ventilated_facades_id)
           }
-          // } else {
-          //   for (let i = 0; i < this.products.length; i++) {
-          //     this.products[i].items = []
-          //   }
-          // }
           this.$forceUpdate();
 
         } else {
@@ -139,10 +133,10 @@ export default {
         })
         const data = await res.json()
         if (res.status == 200 || res.status == 201) {
-          for (let product of this.products) {
+          for (let facade of this.facades) {
             for (let item of data) {
-              if (product.ventilated_facades_id === item.ventilated_facades_id) {
-                product.items.push(item.ventilated_facade_items_url)
+              if (facade.ventilated_facades_id === item.ventilated_facades_id) {
+                facade.items.push(item.ventilated_facade_items_url)
               }
             }
           }
