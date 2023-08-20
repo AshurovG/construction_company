@@ -62,6 +62,12 @@ export default {
       isAddMainItemFormOpened: false
     }
   },
+  props: {
+    showFacades: {
+      type: Boolean,
+      required: true
+    }
+  },
   methods: {
     openSlider(id) {
       console.log(`Айди такой: ${id}`)
