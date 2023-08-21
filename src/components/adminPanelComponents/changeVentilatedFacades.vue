@@ -126,8 +126,13 @@ export default {
         },
 
         closeAddItemForm() {
+
             this.$nextTick(() => {
-                this.getVentilatedFacadeById(this.id)
+                if (this.isFacade) {
+                    this.getVentilatedFacadeById(this.id)
+                } else {
+                    this.getExteriorDesignById(this.id)
+                }
             })
         },
 
