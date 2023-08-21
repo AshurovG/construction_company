@@ -6,8 +6,8 @@
         <h1 class="change_products_title">Главное фото объекта</h1>
         <div class="one_product_container">
             <div class="change_one_product_btns">
-                <button @click="changeVentilatedFacade" class="change_one_product_btn">Изменить</button>
-                <button @click="deleteVentilatedFacade" class="change_one_product_btn">Удалить</button>
+                <button @click="changeProduct" class="change_one_product_btn">Изменить</button>
+                <button @click="deleteProduct" class="change_one_product_btn">Удалить</button>
             </div>
             <img v-show="isFacade" class="card_image" :src="facade.ventilated_facades_url" alt="">
             <img v-show="!isFacade" class="card_image" :src="exterior.exterior_design_url" alt="">
@@ -78,10 +78,10 @@ export default {
         console.log(`id is ${this.id}`)
     },
     methods: {
-        deleteVentilatedFacade() {
+        deleteProduct() {
             this.isDeleteWindowOpened = true
         },
-        changeVentilatedFacade() {
+        changeProduct() {
             console.log(this.isFacade)
             this.isChangeWindowOpened = true
         },
