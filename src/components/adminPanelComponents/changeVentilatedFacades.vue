@@ -16,8 +16,8 @@
         <adminDetailedProductCardsSlider v-show="isFacade" :id="id" :title="facade.ventilated_facades_title"
             :desc="facade.ventilated_facades_description" :items="facade.items" @closeAddItemForm="closeAddItemForm"
             @goBack="closeAddItemForm" @deleteItem="deleteItem" />
-        <adminDetailedProductCardsSlider v-show="!isFacade" :id="id" :title="exterior.ventilated_facades_title"
-            :desc="exterior.ventilated_facades_description" :items="exterior.items" @closeAddItemForm="closeAddItemForm"
+        <adminDetailedProductCardsSlider v-show="!isFacade" :id="id" :title="exterior.exterior_design_title"
+            :desc="exterior.exterior_design_description" :items="exterior.items" @closeAddItemForm="closeAddItemForm"
             @goBack="closeAddItemForm" @deleteItem="deleteItem" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description"
@@ -107,9 +107,16 @@ export default {
         },
         goBack() {
             this.isChangeWindowOpened = false
-            this.$nextTick(() => {
-                this.getVentilatedFacadeById(this.id)
-            })
+            if (this.isFacade) {
+                this.$nextTick(() => {
+                    this.getVentilatedFacadeById(this.id)
+                })
+            } else {
+                this.$nextTick(() => {
+                    this.getExteriorDesignById(this.id)
+                })
+            }
+
             this.$emit('goBack')
         },
 
