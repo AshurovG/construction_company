@@ -71,6 +71,7 @@ export default {
                 this.showDesign = true
                 this.showFacades = false
                 this.showQuestions = false
+                this.$refs.exteriorDesignRef.showCorrect = false;
             } else {
                 this.selectedOption = option
                 this.showQuestions = true
