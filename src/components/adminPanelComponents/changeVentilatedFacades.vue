@@ -358,7 +358,7 @@ export default {
         font-size: .8rem;
     }
 
-    .one_products_container {
+    .one_product_container {
         display: block;
     }
 

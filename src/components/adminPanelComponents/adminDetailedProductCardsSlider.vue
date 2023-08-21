@@ -4,10 +4,10 @@
       <div class="locking_screen" v-if="isDeleteWindowOpened || isAddWindowOpened">
       </div>
     </transition>
-    <div class="correct_one_facade_item_btns">
-      <button class="correct_one_facade_item_btn" @click="isAddWindowOpened = true">Добавить</button>
-      <button class="correct_one_facade_item_btn" :disabled="(items.length === 0)"
-        @click="deleteVentilatedFacadeItem">Удалить</button>
+    <div class="correct_one_product_item_btns">
+      <button class="correct_one_product_item_btn" @click="isAddWindowOpened = true">Добавить</button>
+      <button class="correct_one_product_item_btn" :disabled="(items.length === 0)"
+        @click="deleteProductItem">Удалить</button>
     </div>
     <div class="admin_main">
       <div ref="slides" class="admin_slide" v-for="(item, index) in items" :key="index"
@@ -104,7 +104,7 @@ export default {
     closeSlider() {
       this.$emit('closeSlider')
     },
-    deleteVentilatedFacadeItem() {
+    deleteProductItem() {
       this.isDeleteWindowOpened = true
     },
     deleteItem() {
@@ -346,14 +346,14 @@ export default {
   cursor: pointer;
 }
 
-.correct_one_facade_item_btns {
+.correct_one_product_item_btns {
   margin-right: 2em;
   display: flex;
   flex-direction: column;
   font-size: 1rem;
 }
 
-.correct_one_facade_item_btn {
+.correct_one_product_item_btn {
   display: block;
   margin-bottom: 2vw;
 
@@ -372,7 +372,7 @@ export default {
   cursor: pointer;
 }
 
-.correct_one_facade_item_btn:disabled {
+.correct_one_product_item_btn:disabled {
   background-color: #cccccc;
   color: #666666;
   cursor: default;
@@ -435,15 +435,15 @@ export default {
     width: 90%;
   }
 
-  .correct_one_facade_item_btns {
+  .correct_one_product_item_btns {
     flex-direction: row;
   }
 
-  .correct_one_facade_item_btns {
+  .correct_one_product_item_btns {
     font-size: .8rem;
   }
 
-  .correct_one_facade_item_btn {
+  .correct_one_product_item_btn {
     margin-right: 1em;
   }
 }
@@ -464,7 +464,7 @@ export default {
     bottom: -3px;
   }
 
-  .correct_one_facade_item_btns {
+  .correct_one_product_item_btns {
     font-size: .6rem;
   }
 
