@@ -112,6 +112,7 @@ export default defineComponent({
         this.state.title = this.title
         this.state.desc = this.desc
         const self = this;
+        console.log(`isfacade is ${this.isFacade}`)
         if (this.isFacade) {
             this.dropzone = new Dropzone(this.$refs.dropzone, {
                 url: "http://localhost:8000/api/ventilatedfacades",
