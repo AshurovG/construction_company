@@ -51,7 +51,6 @@ export default defineComponent({
             dropzone: null,
             flle: null,
             formData: null,
-            ventilatedFacadeData: null,
             isSuccessOperatingWindowOpened: false,
             isSuccessSending: false,
             uploadedFile: null,
@@ -78,6 +77,10 @@ export default defineComponent({
             type: String,
             required: true
         },
+        isFacade: {
+            type: Boolean,
+            required: true
+        }
     },
     setup() {
         const state = reactive({
@@ -109,44 +112,47 @@ export default defineComponent({
         this.state.title = this.title
         this.state.desc = this.desc
         const self = this;
-        this.dropzone = new Dropzone(this.$refs.dropzone, {
-            url: "http://localhost:8000/api/ventilatedfacades",
-            autoProcessQueue: false,
-            maxFilesize: 2097152,
-            maxFiles: 1,
-            thumbnailWidth: 150,
-            acceptedFiles: ".jpg, .png",
-            capture: "image/*",
-            init: function () {
-                this.on("addedfile", function (file) {
-                    if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
-                        this.removeFile(this.files[0]);
-                    } else if (file.size > this.options.maxFilesize) {
-                        this.removeFile(this.files[0]);
-                        this.removeFile(file);
-                        self.isFileChanged = false
-                        document.querySelector(".size-error-message").style.display = "block";
-                    } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
-                        this.removeFile(this.files[0]);
-                        this.removeFile(file);
-                        document.querySelector(".type-error-message").style.display = "block";
-                        self.isFileChanged = false
-                    } else {
-                        self.isFileChanged = true
-                        document.querySelector(".type-error-message").style.display = "none";
-                        document.querySelector(".size-error-message").style.display = "none";
-                    }
-                    console.log(this.files)
-                    self.state.files = this.files.length
-                });
-                this.on("drop", function (file) {
-                    this.addFile(file);
-                });
-                // if (window.matchMedia('(max-height: 550x)').matches) {
+        if (this.isFacade) {
+            this.dropzone = new Dropzone(this.$refs.dropzone, {
+                url: "http://localhost:8000/api/ventilatedfacades",
+                autoProcessQueue: false,
+                maxFilesize: 2097152,
+                maxFiles: 1,
+                thumbnailWidth: 150,
+                acceptedFiles: ".jpg, .png",
+                capture: "image/*",
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
+                            this.removeFile(this.files[0]);
+                        } else if (file.size > this.options.maxFilesize) {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            self.isFileChanged = false
+                            document.querySelector(".size-error-message").style.display = "block";
+                        } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".type-error-message").style.display = "block";
+                            self.isFileChanged = false
+                        } else {
+                            self.isFileChanged = true
+                            document.querySelector(".type-error-message").style.display = "none";
+                            document.querySelector(".size-error-message").style.display = "none";
+                        }
+                        console.log(this.files)
+                        self.state.files = this.files.length
+                    });
+                    this.on("drop", function (file) {
+                        this.addFile(file);
+                    });
+                    // if (window.matchMedia('(max-height: 550x)').matches) {
 
-                // }
-            }
-        })
+                    // }
+                }
+            })
+        }
+
     },
     methods: {
         closeAddMainItemForm() {

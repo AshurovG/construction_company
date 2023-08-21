@@ -21,8 +21,11 @@
             @goBack="closeAddItemForm" @deleteItem="deleteItem" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description"
-            :imgUrl="facade.ventilated_facades_url" v-if="isChangeWindowOpened" @goBack="goBack"
+            :imgUrl="facade.ventilated_facades_url" v-if="isChangeWindowOpened && isFacade" @goBack="goBack"
             @closeAddMainItemForm="closeAddMainItemForm" />
+        <changeMainItemForm :id="id" :title="exterior.exterior_design_title" :desc="exterior.exterior_design_description"
+            :imgUrl="exterior.exterior_design_description" :isFacade="isFacade" v-if="isChangeWindowOpened && !isFacade"
+            @goBack="goBack" @closeAddMainItemForm="closeAddMainItemForm" />
     </div>
 </template>
 
