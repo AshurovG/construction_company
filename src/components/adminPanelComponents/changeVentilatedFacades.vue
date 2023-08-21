@@ -86,7 +86,11 @@ export default {
         },
         deleteRecord() {
             this.isDeleteWindowOpened = false
-            this.deleteVentilatedFacadeById(this.id)
+            if (this.isFacade) {
+                this.deleteVentilatedFacadeById(this.id)
+            } else {
+                this.deleteExteriorDesignItemsById(this.id)
+            }
             this.$emit('deleteRecord')
         },
         deleteItem() {
