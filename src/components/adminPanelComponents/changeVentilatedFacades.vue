@@ -209,6 +209,8 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+            // console.log(`items is ${this.exterior.items}`)
+            console.log(`exteior items is ${this.exterior}`)
         },
 
         async getExteriorDesignItemsById(id) {
@@ -222,7 +224,7 @@ export default {
                 const data = await res.json()
                 if (res.status == 200 || res.status == 201) {
                     for (let item of data) {
-                        this.facade.items.push({
+                        this.exterior.items.push({
                             url: item.exterior_design_items_url,
                             id: item.exterior_design_items_id
                         })
