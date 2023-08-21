@@ -247,24 +247,6 @@ export default defineComponent({
             }
         },
 
-        async getAllVentilatedFacades() {
-            try {
-                const res = await fetch('http://localhost:8000/api/ventilatedfacades', {
-                    method: 'GET',
-                    mode: 'cors'
-                })
-                const data = await res.json()
-                if (res.status == 200 || res.status == 201) {
-                    this.products = data;
-                } else {
-                    this.errors = data
-                    console.log(data)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        },
-
         goBack() {
             this.$emit('goBack')
             this.isSuccessOperatingWindowOpened = false;
