@@ -31,7 +31,8 @@
         <div v-else class="admin_counter">Фото объекта 0 из {{ items.length }}</div>
       </div>
       <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteItem" @cancelDelete="cancelDelete" />
-      <addVentilatedFacadeItem :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm" @goBack="goBack" />
+      <addVentilatedFacadeItem :isFacade="isFacade" :id="id" v-if="isAddWindowOpened" @closeAddItemForm="closeAddItemForm"
+        @goBack="goBack" />
     </div>
 
 
