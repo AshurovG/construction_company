@@ -65,6 +65,10 @@ export default {
       type: String,
       required: true
     },
+    isFacade: {
+      type: Boolean,
+      required: true
+    }
   },
   data() {
     return {
@@ -103,10 +107,14 @@ export default {
       this.isDeleteWindowOpened = true
     },
     deleteItem() {
-      this.deleteVentilatedFacadeItemById(this.id, this.items[this.currentSlide].id)
+      if (this.isFacade) {
+        this.deleteVentilatedFacadeItemById(this.id, this.items[this.currentSlide].id)
+      } else {
+        this.deleteExteriorDesignItemById(this.id, this.items[this.currentSlide].id)
+      }
       this.isDeleteWindowOpened = false
       this.$emit('deleteItem')
-      this.currentImage = 1
+      this.currentImage = 1 // Для открытия самого первого слайда
       this.currentSlide = 0
     },
     cancelDelete() {
@@ -127,10 +135,23 @@ export default {
           method: 'DELETE',
           mode: 'cors'
         })
-        console.log('deleteVentilatedFacadeItemById')
-        // const data = await res.json()
         if (res.status == 200 || res.status == 201) {
-          console.log('success delete ventilated facade')
+          console.log('success delete ventilated facade item')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    async deleteExteriorDesignItemById(idOne, idMany) {
+      try {
+        console.log(`one ${idOne}, many ${idMany}`)
+        const res = await fetch(`http://localhost:8000/api/exteriordesignitems/${idMany}?id=${idOne}`, {
+          method: 'DELETE',
+          mode: 'cors'
+        })
+        if (res.status == 200 || res.status == 201) {
+          console.log('success delete exterior design item')
         }
       } catch (error) {
         console.log(error)

@@ -13,12 +13,12 @@
             <img v-show="!isFacade" class="card_image" :src="exterior.exterior_design_url" alt="">
         </div>
         <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
-        <adminDetailedProductCardsSlider v-show="isFacade" :id="id" :title="facade.ventilated_facades_title"
-            :desc="facade.ventilated_facades_description" :items="facade.items" @closeAddItemForm="closeAddItemForm"
-            @goBack="closeAddItemForm" @deleteItem="deleteItem" />
-        <adminDetailedProductCardsSlider v-show="!isFacade" :id="id" :title="exterior.exterior_design_title"
-            :desc="exterior.exterior_design_description" :items="exterior.items" @closeAddItemForm="closeAddItemForm"
-            @goBack="closeAddItemForm" @deleteItem="deleteItem" />
+        <adminDetailedProductCardsSlider v-show="isFacade" :isFacade="isFacade" :id="id"
+            :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description" :items="facade.items"
+            @closeAddItemForm="closeAddItemForm" @goBack="closeAddItemForm" @deleteItem="deleteItem" />
+        <adminDetailedProductCardsSlider v-show="!isFacade" :isFacade="isFacade" :id="id"
+            :title="exterior.exterior_design_title" :desc="exterior.exterior_design_description" :items="exterior.items"
+            @closeAddItemForm="closeAddItemForm" @goBack="closeAddItemForm" @deleteItem="deleteItem" />
         <deleteWindow v-if="isDeleteWindowOpened" @deleteRecord="deleteRecord" @cancelDelete="cancelDelete" />
         <changeMainItemForm :id="id" :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description"
             :imgUrl="facade.ventilated_facades_url" :isFacade="isFacade" v-if="isChangeWindowOpened && isFacade"
@@ -100,7 +100,11 @@ export default {
         deleteItem() {
             this.isDeleteWindowOpened = false
             this.$nextTick(() => {
-                this.getVentilatedFacadeById(this.id)
+                if (this.isFacade) {
+                    this.getVentilatedFacadeById(this.id)
+                } else {
+                    this.getExteriorDesignById(this.id)
+                }
             })
         },
         cancelDelete() {
