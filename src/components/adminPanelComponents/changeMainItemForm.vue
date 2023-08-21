@@ -16,7 +16,7 @@
             <span class="error_add_item" v-if="v$.desc.$error">
                 Это обязательное поле
             </span>
-            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
+            <div id="my-awesome-dropzone" ref="dropzone" class="product_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <img v-if="!isFileChanged" :src="imgUrl" alt="" class="url-image">
                 <div v-if="!isFileChanged" class="url-image-title">{{ oldFileName }}</div>
@@ -117,7 +117,6 @@ export default defineComponent({
         this.state.title = this.title
         this.state.desc = this.desc
         const self = this;
-        console.log(`isfacade is ${this.isFacade}`)
         if (this.isFacade) {
             this.dropzone = new Dropzone(this.$refs.dropzone, {
                 url: "http://localhost:8000/api/ventilatedfacades",
@@ -362,7 +361,7 @@ export default defineComponent({
     font-size: 1em;
 }
 
-.ventilated_facade_dropzone {
+.product_dropzone {
     width: 100%;
     height: 50%;
     border: 1px solid #ccc;
