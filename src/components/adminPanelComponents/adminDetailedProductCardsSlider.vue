@@ -81,9 +81,7 @@ export default {
     }
 
   },
-  // mounted() {
 
-  // },
   methods: {
     prevSlide() {
       this.currentSlide = (this.currentSlide - 1 + this.items.length) % this.items.length;

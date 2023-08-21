@@ -6,7 +6,7 @@
             Заполните данные
         </h1>
         <form class="add_item_form_info" @submit.prevent="sendData">
-            <div id="my-awesome-dropzone" ref="dropzone" class="ventilated_facade_dropzone" v-on="state.files">
+            <div id="my-awesome-dropzone" ref="dropzone" class="product_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message error-message" style="display: none;">Размер файлаы не должен превышать 2
@@ -304,7 +304,7 @@ export default defineComponent({
     font-size: 1em;
 }
 
-.ventilated_facade_dropzone {
+.product_dropzone {
     width: 100%;
     min-height: 75%;
     border: 1px solid #ccc;
