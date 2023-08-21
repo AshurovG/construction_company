@@ -146,9 +146,42 @@ export default defineComponent({
                     this.on("drop", function (file) {
                         this.addFile(file);
                     });
-                    // if (window.matchMedia('(max-height: 550x)').matches) {
-
-                    // }
+                }
+            })
+        } else {
+            this.dropzone = new Dropzone(this.$refs.dropzone, {
+                url: "http://localhost:8000/api/exteriordesign",
+                autoProcessQueue: false,
+                maxFilesize: 2097152,
+                maxFiles: 1,
+                thumbnailWidth: 150,
+                acceptedFiles: ".jpg, .png",
+                capture: "image/*",
+                init: function () {
+                    this.on("addedfile", function (file) {
+                        if (this.files.length > this.options.maxFiles && (file.type === "image/jpeg" || file.type === "image/jpg" || file.type === "image/png")) {
+                            this.removeFile(this.files[0]);
+                        } else if (file.size > this.options.maxFilesize) {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            self.isFileChanged = false
+                            document.querySelector(".size-error-message").style.display = "block";
+                        } else if (file.type !== "image/jpeg" && file.type !== "image/jpg" && file.type !== "image/png") {
+                            this.removeFile(this.files[0]);
+                            this.removeFile(file);
+                            document.querySelector(".type-error-message").style.display = "block";
+                            self.isFileChanged = false
+                        } else {
+                            self.isFileChanged = true
+                            document.querySelector(".type-error-message").style.display = "none";
+                            document.querySelector(".size-error-message").style.display = "none";
+                        }
+                        console.log(this.files)
+                        self.state.files = this.files.length
+                    });
+                    this.on("drop", function (file) {
+                        this.addFile(file);
+                    });
                 }
             })
         }
@@ -186,12 +219,21 @@ export default defineComponent({
                     formData.append('isFileChanged', 0)
                     formData.append('file', null);
                 }
+                let res = null
+                if (this.isFacade) {
+                    res = await fetch(`http://localhost:8000/api/ventilatedfacades`, {
+                        method: 'PUT',
+                        body: formData,
+                        mode: 'cors'
+                    })
+                } else {
+                    res = await fetch(`http://localhost:8000/api/exteriordesign`, {
+                        method: 'PUT',
+                        body: formData,
+                        mode: 'cors'
+                    })
+                }
 
-                const res = await fetch(`http://localhost:8000/api/ventilatedfacades`, {
-                    method: 'PUT',
-                    body: formData,
-                    mode: 'cors'
-                })
                 const data = await res.json()
                 console.log(data)
                 if (res.status == 200 || res.status == 201) {
