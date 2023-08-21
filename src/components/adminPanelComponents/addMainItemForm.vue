@@ -16,7 +16,7 @@
             <span class="error_add_item" v-if="v$.desc.$error">
                 Это обязательное поле
             </span>
-            <div id="my-awesome-dropzone" ref="facadeDropzone" class="ventilated_facade_dropzone" v-on="state.files">
+            <div id="my-awesome-dropzone" ref="productDropzone" class="product_dropzone" v-on="state.files">
                 Фотография jpg/jpeg, png:
                 <div class="type-error-message error-message" style="display: none;">Файл неверного типа</div>
                 <div class="size-error-message error-message" style="display: none;">Размер файла не должен превышать 2
@@ -45,7 +45,7 @@ export default defineComponent({
     },
     data() {
         return {
-            facadeDropzone: null,
+            productDropzone: null,
             exteriorDropzone: null,
             flle: null,
             formData: null,
@@ -89,7 +89,7 @@ export default defineComponent({
         const self = this;
         console.log(this.isFacade)
         if (this.isFacade) {
-            this.facadeDropzone = new Dropzone(this.$refs.facadeDropzone, {
+            this.productDropzone = new Dropzone(this.$refs.productDropzone, {
                 url: "http://localhost:8000/api/ventilatedfacades",
                 autoProcessQueue: false,
                 maxFilesize: 2097152,
@@ -122,7 +122,7 @@ export default defineComponent({
                 }
             })
         } else {
-            this.facadeDropzone = new Dropzone(this.$refs.facadeDropzone, {
+            this.productDropzone = new Dropzone(this.$refs.productDropzone, {
                 url: "http://localhost:8000/api/exteriordesign",
                 autoProcessQueue: false,
                 maxFilesize: 2097152,
@@ -175,7 +175,7 @@ export default defineComponent({
         },
         async postData() {
             try {
-                this.file = this.facadeDropzone.getAcceptedFiles()[0];
+                this.file = this.productDropzone.getAcceptedFiles()[0];
                 const formData = new FormData();
                 formData.append('title', this.state.title);
                 formData.append('file', this.file);
@@ -317,7 +317,7 @@ export default defineComponent({
     font-size: 1em;
 }
 
-.ventilated_facade_dropzone {
+.product_dropzone {
     width: 100%;
     height: 50%;
     border: 1px solid #ccc;
