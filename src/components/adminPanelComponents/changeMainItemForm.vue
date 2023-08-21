@@ -106,7 +106,12 @@ export default defineComponent({
         }
     },
     mounted() {
-        const searchString = "static/";
+        let searchString = ""
+        if (this.isFacade) {
+            searchString = "static/facades/";
+        } else {
+            searchString = "static/exteriors/";
+        }
         const startIndex = this.imgUrl.indexOf(searchString) + searchString.length;
         this.oldFileName = this.imgUrl.substring(startIndex);
         this.state.title = this.title
