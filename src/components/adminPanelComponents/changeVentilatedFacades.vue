@@ -1,18 +1,18 @@
 <template>
-    <div class="change_ventilated_facades">
+    <div class="change_products">
         <transition name="showLockinScreen">
             <div class="locking_screen" v-if="isDeleteWindowOpened || isChangeWindowOpened"></div>
         </transition>
-        <h1 class="change_ventilated_facades_title">Главное фото объекта</h1>
-        <div class="one_ventilated_facade_container">
-            <div class="change_one_facade_btns">
-                <button @click="changeVentilatedFacade" class="change_one_facade_btn">Изменить</button>
-                <button @click="deleteVentilatedFacade" class="change_one_facade_btn">Удалить</button>
+        <h1 class="change_products_title">Главное фото объекта</h1>
+        <div class="one_product_container">
+            <div class="change_one_product_btns">
+                <button @click="changeVentilatedFacade" class="change_one_product_btn">Изменить</button>
+                <button @click="deleteVentilatedFacade" class="change_one_product_btn">Удалить</button>
             </div>
             <img v-show="isFacade" class="card_image" :src="facade.ventilated_facades_url" alt="">
             <img v-show="!isFacade" class="card_image" :src="exterior.exterior_design_url" alt="">
         </div>
-        <h1 class="change_ventilated_facades_title">Дополнительные фото</h1>
+        <h1 class="change_products_title">Дополнительные фото</h1>
         <adminDetailedProductCardsSlider v-show="isFacade" :isFacade="isFacade" :id="id"
             :title="facade.ventilated_facades_title" :desc="facade.ventilated_facades_description" :items="facade.items"
             @closeAddItemForm="closeAddItemForm" @goBack="closeAddItemForm" @deleteItem="deleteItem" />
@@ -35,7 +35,7 @@ import deleteWindow from "./deleteWindow.vue"
 import changeMainItemForm from "./changeMainItemForm.vue";
 
 export default {
-    name: "ChangeVentilatedFacades",
+    name: "ChangeProducts",
     components: {
         adminDetailedProductCardsSlider,
         deleteWindow,
@@ -285,11 +285,11 @@ export default {
 </script>
 
 <style>
-.change_ventilated_facades {
+.change_products {
     font-size: 1rem;
 }
 
-.change_ventilated_facades_title {
+.change_products_title {
     font-style: normal;
     font-weight: 700;
     font-size: 2em;
@@ -298,15 +298,12 @@ export default {
     margin-bottom: 1em;
 }
 
-.one_ventilated_facade_container {
+.one_product_container {
     display: flex;
     margin-bottom: 2em;
 }
 
 .card_image {
-    /* display: block;
-    width: 70%;
-    margin: 0 auto; */
     width: 70%;
     height: auto;
     background-size: cover;
@@ -314,14 +311,14 @@ export default {
     background-repeat: no-repeat;
 }
 
-.change_one_facade_btns {
+.change_one_product_btns {
     display: flex;
     flex-direction: column;
     margin-right: 2em;
     font-size: 1rem;
 }
 
-.change_one_facade_btn {
+.change_one_product_btn {
     display: block;
     margin: 0 auto;
     margin-bottom: 2vw;
@@ -341,7 +338,7 @@ export default {
     cursor: pointer;
 }
 
-.change_one_facade_btn:hover {
+.change_one_product_btn:hover {
     background: rgba(69, 5, 5, 0.82);
 }
 
@@ -357,11 +354,11 @@ export default {
 }
 
 @media(max-width: 600px) {
-    .change_ventilated_facades {
+    .change_products {
         font-size: .8rem;
     }
 
-    .one_ventilated_facade_container {
+    .one_products_container {
         display: block;
     }
 
@@ -369,24 +366,24 @@ export default {
         width: 90%;
     }
 
-    .change_one_facade_btns {
+    .change_one_product_btns {
         font-size: .8rem;
         flex-direction: row;
     }
 
-    .change_one_facade_btn {
+    .change_one_product_btn {
         margin: 0 1em 1em 0;
     }
 }
 
 @media(max-width: 480px) {
-    .change_one_facade_btns {
+    .change_one_product_btns {
         font-size: .6rem;
     }
 }
 
 @media(max-width: 400px) {
-    .change_ventilated_facades {
+    .change_products {
         font-size: .6rem;
     }
 }
